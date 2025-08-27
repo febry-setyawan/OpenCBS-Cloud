@@ -1,8 +1,8 @@
 # OpenCBS Cloud Docker Deployment Guide
 
-This guide provides complete Docker deployment instructions for OpenCBS Cloud with all fixed library dependencies and Java 17 compatibility.
+This guide provides complete Docker deployment instructions for OpenCBS Cloud with **Spring Boot 2.7.18** and native Java 17 support.
 
-## Quick Start
+## 🚀 Quick Start
 
 1. **Clone and setup**:
    ```bash
@@ -21,13 +21,21 @@ This guide provides complete Docker deployment instructions for OpenCBS Cloud wi
    - RabbitMQ Management: http://localhost:15672 (opencbs/opencbs_rabbit)
    - PgAdmin: http://localhost:8081 (admin@opencbs.com/admin123)
 
+## ✅ Spring Boot 2.7.18 Upgrade Completed
+
+### Major Improvements
+- **Spring Boot 1.5.4 → 2.7.18** - Modern, actively supported version
+- **Native Java 17 support** - No compatibility flags required
+- **Spring Cloud Dalston.SR1 → 2021.0.8** - Updated cloud-native features  
+- **Enhanced security and performance** - Latest 2.7.x improvements
+
 ## Build Issues Fixed
 
 ### ✅ Maven Dependencies Resolved
 - **Fixed parent POM references** - Corrected relative paths
 - **Updated Java 8 → Java 17** - All modules now compile with modern Java
 - **Resolved library conflicts** - Fixed deprecated LATEST/RELEASE versions
-- **Fixed iText dependency** - Replaced problematic JasperSoft version with standard iTextPDF
+- **Updated Flyway** - 4.0.3 → 8.5.13 with new API configuration
 - **Updated dependency versions** - QueryDSL, pdf2dom, JAXB for stability
 
 ### ✅ Node.js Compatibility Fixed
