@@ -74,7 +74,7 @@ public class BondRollBackWorker {
                 .map(BondEvent::getGroupKey)
                 .collect(Collectors.toList());
 
-        Bond bond = this.bondService.findById(bondId);
+        Bond bond = this.bondService.findById(bondId).orElse(null);
 
         for (BondEvent event : rollbackList) {
             if (event.getEventType().equals(EventType.SELL)) {

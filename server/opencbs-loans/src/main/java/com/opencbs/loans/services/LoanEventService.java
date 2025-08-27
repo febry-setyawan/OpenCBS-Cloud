@@ -242,7 +242,7 @@ public class LoanEventService implements ContractAccountingEntryService {
     }
 
     public Optional<LoanEvent> findById(Long id) {
-        return Optional.ofNullable(this.loanEventRepository.findOne(id));
+        return this.loanEventRepository.findById(id);
     }
 
     private void saveAnalytic(LoanEvent loanEvent, LocalDateTime dateTime) {

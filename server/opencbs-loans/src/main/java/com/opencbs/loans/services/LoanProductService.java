@@ -34,7 +34,7 @@ public class LoanProductService extends BaseHistoryService<LoanProductRepository
     }
 
     public Optional<LoanProduct> getOne(Long id) {
-        return Optional.ofNullable(this.loanProductRepository.findOne(id));
+        return this.loanProductRepository.findById(id);
     }
 
     public Optional<LoanProduct> findByName(String name) {

@@ -38,7 +38,7 @@ public class SavingProductService extends BaseHistoryService<SavingProductReposi
     }
 
     public Optional<SavingProduct> getOne(Long id) {
-        return Optional.ofNullable(this.savingProductRepository.findOne(id));
+        return this.savingProductRepository.findById(id);
     }
 
     public Optional<SavingProduct> findByName(String name) {

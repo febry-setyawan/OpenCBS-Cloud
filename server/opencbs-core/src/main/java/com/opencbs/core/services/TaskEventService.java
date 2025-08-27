@@ -62,7 +62,7 @@ public class TaskEventService {
     }
 
     public Optional<TaskEvent> findById(long id) {
-        return Optional.ofNullable(this.taskEventRepository.findOne(id));
+        return this.taskEventRepository.findById(id);
     }
 
     private List<TaskEvent> findByUserId(Long userId) {

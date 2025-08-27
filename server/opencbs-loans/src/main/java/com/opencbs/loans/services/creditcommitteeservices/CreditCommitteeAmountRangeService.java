@@ -26,7 +26,7 @@ public class CreditCommitteeAmountRangeService {
     }
 
     public Optional<CreditCommitteeAmountRange> findOne(long id) {
-        return Optional.ofNullable(this.creditCommitteeAmountRangeRepository.findOne(id));
+        return this.creditCommitteeAmountRangeRepository.findById(id);
     }
 
     @Transactional

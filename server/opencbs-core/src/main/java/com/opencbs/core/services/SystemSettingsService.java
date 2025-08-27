@@ -23,7 +23,7 @@ public class SystemSettingsService {
     }
 
     public Optional<SystemSettings> findById(Long id) {
-        return Optional.ofNullable(this.systemSettingsRepository.findOne(id));
+        return this.systemSettingsRepository.findById(id);
     }
 
     public Optional<SystemSettings> findByName(SystemSettingsName name) {

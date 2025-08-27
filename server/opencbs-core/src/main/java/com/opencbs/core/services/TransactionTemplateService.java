@@ -22,7 +22,7 @@ public class TransactionTemplateService {
     }
 
     public Optional<TransactionTemplate> findById(Long id) {
-        return Optional.of(this.transactionTemplateRepository.findOne(id));
+        return Optional.of(this.transactionTemplateRepository.findById(id));
     }
 
     @Transactional

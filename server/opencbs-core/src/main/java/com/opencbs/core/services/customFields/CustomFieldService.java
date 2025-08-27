@@ -42,7 +42,7 @@ public abstract class CustomFieldService<Tcf extends CustomField, Tcvf extends C
     }
 
     public Optional<Tcf> findOne(long id) {
-        Tcf customField = this.repository.findOne(id);
+        Tcf customField = this.repository.findById(id).orElse(null);
         return customField == null ? Optional.empty() : Optional.of(customField);
     }
 

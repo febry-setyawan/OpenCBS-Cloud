@@ -74,7 +74,7 @@ public class SavingService {
     }
 
     public Optional<Saving> findOne(Long id) {
-        Saving saving = this.savingRepository.findOne(id);
+        Saving saving = this.savingRepository.findById(id).orElse(null);
         if (saving == null || !saving.getStatus().equals(SavingStatus.OPEN)) {
             return Optional.ofNullable(saving);
         }

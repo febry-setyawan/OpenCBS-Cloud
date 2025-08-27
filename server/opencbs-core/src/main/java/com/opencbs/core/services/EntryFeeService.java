@@ -25,7 +25,7 @@ public class EntryFeeService {
     }
 
     public List<EntryFee> findAll() {
-        return this.entryFeeRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
+        return this.entryFeeRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public List<EntryFee> findAllByCurrency(Long currencyId){
@@ -35,11 +35,11 @@ public class EntryFeeService {
     }
 
     public List<EntryFee> findAllByIds(Iterable<Long> ids) {
-        return this.entryFeeRepository.findAll(ids);
+        return this.entryFeeRepository.findAllById(ids);
     }
 
     public Optional<EntryFee> findOne(long id) {
-        return Optional.ofNullable(this.entryFeeRepository.findOne(id));
+        return this.entryFeeRepository.findById(id);
     }
 
     @Transactional

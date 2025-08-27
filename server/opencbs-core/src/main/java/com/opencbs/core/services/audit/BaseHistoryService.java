@@ -36,7 +36,9 @@ public abstract class BaseHistoryService<T extends RevisionRepository> {
         BaseEntity prevObject = null;
         for (Object obj : revisions.getContent()) {
             Revision revision = ((Revision<Integer, T>)obj);
-            LocalDateTime dateTimeRevision = DateHelper.dateToLocalDateTime(revision.getRevisionDate());
+            // In Spring Boot 2.x, revision date is accessed through metadata
+            AuditRevisionEntity metadata = (AuditRevisionEntity) revision.getMetadata().getDelegate();
+            LocalDateTime dateTimeRevision = DateHelper.dateToLocalDateTime(metadata.getRevisionDate());
             if( DateHelper.equal(dateTimeRevision.toLocalDate(),dateTime.toLocalDate())) {
                 return convertToHistoryDto(prevObject, revision);
             }
@@ -59,11 +61,12 @@ public abstract class BaseHistoryService<T extends RevisionRepository> {
 
     private HistoryDto convertToHistoryDto(BaseEntity prevObject, Revision revision) throws IllegalAccessException {
         Class clazz = revision.getEntity().getClass();
+        AuditRevisionEntity metadata = (AuditRevisionEntity) revision.getMetadata().getDelegate();
         return HistoryDto.builder()
-                .number(revision.getRevisionNumber().longValue())
-                .date(DateHelper.toLocalDate(revision.getRevisionDate()))
+                .number(revision.getRevisionNumber().orElse(0).longValue())
+                .date(DateHelper.toLocalDate(metadata.getRevisionDate()))
                 .changed(buildListOfChange((BaseEntity) revision.getEntity(), prevObject, clazz))
-                .username(((AuditRevisionEntity) revision.getMetadata().getDelegate()).getUsername())
+                .username(metadata.getUsername())
                 .build();
     }
 
@@ -119,6 +122,11 @@ public abstract class BaseHistoryService<T extends RevisionRepository> {
     }
 
     public LocalDateTime getDateTimeLastRevision(Long entityId) throws Exception {
-        return DateHelper.dateToLocalDateTime(this.revisionRepository.findLastChangeRevision(entityId).getRevisionDate());
+        Revision lastRevision = this.revisionRepository.findLastChangeRevision(entityId).orElse(null);
+        if (lastRevision != null) {
+            AuditRevisionEntity metadata = (AuditRevisionEntity) lastRevision.getMetadata().getDelegate();
+            return DateHelper.dateToLocalDateTime(metadata.getRevisionDate());
+        }
+        return null;
     }
 }

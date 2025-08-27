@@ -53,13 +53,13 @@ public class LoanApplicationsPayeesService {
     }
 
     public Optional<LoanApplicationPayees> getById(long id) {
-        return Optional.ofNullable(this.loanApplicationPayeeRepository.findOne(id));
+        return this.loanApplicationPayeeRepository.findById(id);
     }
 
     @Transactional
     public void createLoanApplicationPayee(Long loanApplicationId, LoanApplicationPayeesDto loanApplicationPayeesDto, Long payeeId) throws Exception {
         Payee payee = this.payeeService.findOne(payeeId).orElseThrow(() -> new Exception("Payee not found"));
-        LoanApplication loanApplication = this.loanApplicationRepository.findOne(loanApplicationId);
+        LoanApplication loanApplication = this.loanApplicationRepository.findById(loanApplicationId).orElse(null);
 
         LoanApplicationPayees loanApplicationPayee = this.loanApplicationPayeeMapper.mapToEntity(loanApplicationPayeesDto);
         loanApplicationPayee.setLoanApplication(loanApplication);

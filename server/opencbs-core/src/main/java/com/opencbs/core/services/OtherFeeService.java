@@ -39,7 +39,7 @@ public class OtherFeeService {
     }
 
     public Optional<OtherFee> getById(Long id) {
-        return Optional.ofNullable(this.otherFeeRepository.findOne(id));
+        return this.otherFeeRepository.findById(id);
     }
 
     public Optional<OtherFee> getByName(String name){
@@ -47,7 +47,7 @@ public class OtherFeeService {
     }
 
     public List<OtherFee> getAllOtherFees(){
-        return this.otherFeeRepository.findAll(new Sort(Sort.Direction.ASC, "id"));
+        return this.otherFeeRepository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
 

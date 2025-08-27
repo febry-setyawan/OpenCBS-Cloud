@@ -78,7 +78,7 @@ public class SavingController {
     @PermissionRequired(name = "SAVINGS_UPDATE", moduleType = ModuleType.SAVINGS, description = "")
     @PutMapping(value = "/{id}")
     public SavingDetailsDto update(@PathVariable Long id, @RequestBody SavingDto dto) throws ScriptException, ResourceNotFoundException {
-        Saving saving = this.savingService.findById(id);
+        Saving saving = this.savingService.findById(id).orElse(null);
         this.savingValidator.validate(dto);
         return this.savingMapper.mapToDto(this.savingService.update(this.savingMapper.zip(saving, dto)));
     }
@@ -87,7 +87,7 @@ public class SavingController {
     @PostMapping(value = "/{id}/open")
     public SavingDetailsDto open(@PathVariable Long id,
                                  @RequestParam(value = "initialAmount") BigDecimal amount) throws ResourceNotFoundException {
-        Saving saving = this.savingService.findById(id);
+        Saving saving = this.savingService.findById(id).orElse(null);
         this.savingValidator.validateOnOpen(amount, saving.getProduct());
         return this.savingMapper.mapToDto(this.savingService.open(amount, saving, UserHelper.getCurrentUser()));
     }
@@ -97,7 +97,7 @@ public class SavingController {
     public SavingDetailsDto close(@PathVariable Long id,
                                   @NonNull @RequestParam(value = "closeDate") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate closeDate) {
         ActualizeHelper.isActualized(id, ModuleType.SAVINGS, closeDate);
-        Saving saving = this.savingService.findById(id);
+        Saving saving = this.savingService.findById(id).orElse(null);
         this.savingValidator.validateOnDate(saving.getOpenDate(), closeDate.atTime(LocalTime.MIN));
         return this.savingMapper.mapToDto(this.savingCloseInterface.close(saving, closeDate));
     }
@@ -107,7 +107,7 @@ public class SavingController {
     public SavingDetailsDto deposit(@PathVariable Long id,
                                     @RequestParam(value = "amount") BigDecimal amount,
                                     @RequestParam(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime date) {
-        Saving saving = this.savingService.findById(id);
+        Saving saving = this.savingService.findById(id).orElse(null);
         this.savingValidator.validateDepositAmount(amount, saving);
         this.savingValidator.validateOnDate(saving.getOpenDate(), date);
         return this.savingMapper.mapToDto(this.savingService.deposit(saving, amount, date, UserHelper.getCurrentUser()));
@@ -118,7 +118,7 @@ public class SavingController {
     public SavingDetailsDto withdraw(@PathVariable Long id,
                                      @RequestParam(value = "amount") BigDecimal amount,
                                      @RequestParam(value = "date") @DateTimeFormat(pattern = "yyyy-MM-dd'T'HH:mm:ss") LocalDateTime date) {
-        Saving saving = this.savingService.findById(id);
+        Saving saving = this.savingService.findById(id).orElse(null);
         this.savingValidator.validateWithdrawAmount(amount, saving);
         this.savingValidator.validateOnDate(saving.getOpenDate(), date);
         return this.savingMapper.mapToDto(this.savingService.withdraw(saving, amount, date, UserHelper.getCurrentUser()));
@@ -128,7 +128,7 @@ public class SavingController {
     @PostMapping(value = "/{id}/lock")
     public SavingDetailsDto locking(@PathVariable Long id) {
         ActualizeHelper.isActualized(id, ModuleType.SAVINGS, LocalDate.now());
-        Saving saving = this.savingService.findById(id);
+        Saving saving = this.savingService.findById(id).orElse(null);
         return this.savingMapper.mapToDto(this.savingWorker.lock(saving));
     }
 

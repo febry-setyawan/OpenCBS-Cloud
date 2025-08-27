@@ -44,7 +44,7 @@ public class SavingInterestAccrualDayClosureProcessor implements SavingDayClosur
 
     @Override
     public void processContract(@NonNull Long savingId, @NonNull LocalDate closureDate, @NonNull User user) {
-        SavingInterestAccrual saving = savingRepository.findOne(savingId);
+        SavingInterestAccrual saving = savingRepository.findById(savingId).orElse(null);
         if (saving.getInterestRate().equals(BigDecimal.ZERO)) {
             return;
         }

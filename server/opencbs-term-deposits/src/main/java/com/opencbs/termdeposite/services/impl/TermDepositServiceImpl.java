@@ -40,7 +40,7 @@ public class TermDepositServiceImpl implements TermDepositService {
     @Override
     @Transactional
     public Optional<TermDeposit> getOne(@NonNull Long id) {
-        return Optional.of(termDepositRepository.findOne(id));
+        return Optional.of(termDepositRepository.findById(id));
     }
 
     @Override

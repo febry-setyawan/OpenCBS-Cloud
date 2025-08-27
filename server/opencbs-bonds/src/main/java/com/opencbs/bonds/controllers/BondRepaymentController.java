@@ -50,7 +50,7 @@ public class BondRepaymentController {
     public BondDetailsDto repay(
             @PathVariable Long bondId,
             @RequestBody RepaymentSplit repaymentSplit) throws Exception {
-        Bond bond = this.bondService.findById(bondId);
+        Bond bond = this.bondService.findById(bondId).orElse(null);
         BondRepaymentService bondRepaymentService = this.bondRepaymentServiceFactory.getBondRepaymentService(repaymentSplit.getRepaymentType());
         this.bondValidator.repayValidateBond(bond, repaymentSplit);
         bondRepaymentService.repay(bond, repaymentSplit, UserHelper.getCurrentUser());
@@ -61,7 +61,7 @@ public class BondRepaymentController {
     public ScheduleDto preview(
             @PathVariable Long bondId,
             @RequestBody RepaymentSplit repaymentSplit) throws Exception {
-        Bond bond = this.bondService.findById(bondId);
+        Bond bond = this.bondService.findById(bondId).orElse(null);
         BondRepaymentService bondRepaymentService = this.bondRepaymentServiceFactory.getBondRepaymentService(repaymentSplit.getRepaymentType());
         List<BondInstallment> previewList = bondRepaymentService.preview(bond, repaymentSplit, UserHelper.getCurrentUser());
         return this.bondScheduleMapper.mapToScheduleDto(previewList);
@@ -73,7 +73,7 @@ public class BondRepaymentController {
             @RequestBody RepaymentSplit repaymentSplit){
         BondRepaymentService bondRepaymentService = this.bondRepaymentServiceFactory
                 .getBondRepaymentService(repaymentSplit.getRepaymentType());
-        Bond bond = this.bondService.findById(bondId);
+        Bond bond = this.bondService.findById(bondId).orElse(null);
         return bondRepaymentService.split(bond, repaymentSplit, UserHelper.getCurrentUser());
     }
 }

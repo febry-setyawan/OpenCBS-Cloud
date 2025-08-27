@@ -89,10 +89,11 @@ public class AccountService extends BaseHistoryService<AccountRepository> implem
     }
 
     public BigDecimal getAccountBalance(long accountId, LocalDateTime dateTime) {
-        AccountEntityType account = accountEntityTypeRepository.findOne(accountId);
-        if (account == null || account.getType() != AccountType.BALANCE) {
+        Optional<AccountEntityType> accountOpt = accountEntityTypeRepository.findById(accountId);
+        if (!accountOpt.isPresent() || accountOpt.get().getType() != AccountType.BALANCE) {
             throw new RuntimeException("Account doesn't exist or Account type is not balance");
         }
+        AccountEntityType account = accountOpt.get();
 
         return accountRepository.getAccountBalance(accountId, dateTime);
     }
@@ -110,7 +111,7 @@ public class AccountService extends BaseHistoryService<AccountRepository> implem
 
     @Transactional
     public List<Account> create(List<Account> accounts) {
-        return this.accountRepository.save(accounts);
+        return this.accountRepository.saveAll(accounts);
     }
 
     public Optional<Account> findByNumber(String number) {

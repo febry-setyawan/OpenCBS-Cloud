@@ -39,11 +39,11 @@ public class RoleService extends BaseHistoryService<RoleRepository> implements C
         pattern.setIsSystem(false);
         pattern.setStatusType(null);
 
-        return this.roleRepository.findAll(Example.of(pattern), new Sort(Sort.Direction.ASC, "id"));
+        return this.roleRepository.findAll(Example.of(pattern), Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public Optional<Role> getOne(Long id) {
-        return Optional.ofNullable(this.roleRepository.findOne(id));
+        return this.roleRepository.findById(id);
     }
 
     @Transactional
@@ -59,7 +59,7 @@ public class RoleService extends BaseHistoryService<RoleRepository> implements C
                 ExampleMatcher.matching()
                         .withMatcher("status", ExampleMatcher.GenericPropertyMatchers.exact());
         Example<Role> searchExample = Example.of(pattern, matcher);
-        return this.roleRepository.findAll(searchExample, new Sort(Sort.Direction.ASC, "id"));
+        return this.roleRepository.findAll(searchExample, Sort.by(Sort.Direction.ASC, "id"));
     }
 
     @Override

@@ -41,7 +41,7 @@ public class BorrowingInterestAccrualProcessor implements BorrowingDayClosurePro
 
     @Override
     public void processContract(@NonNull Long borrowingId, @NonNull LocalDate closureDate, @NonNull User user) {
-        BorrowingInterestAccrual borrowing = borrowingRepository.findOne(borrowingId);
+        BorrowingInterestAccrual borrowing = borrowingRepository.findById(borrowingId).orElse(null);
         processInterestAccrual(borrowing, closureDate.atTime(getProcessType().getOperationTime()), user);
     }
 
