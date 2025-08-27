@@ -1,0 +1,86 @@
+# Minimal configuration for testing application startup
+# Uses in-memory database and disables external dependencies
+
+# OpenCBS Core Module Configuration
+opencbs:
+  core:
+    enableInterestAccrual: false
+    enablePenaltyAccrual: false
+    enableAutoRepayment: false
+
+# File Storage Configuration - use temporary directories
+attachment:
+  location: /tmp/opencbs-test/attachments
+
+template:
+  location: /tmp/opencbs-test/templates
+
+# Message Queue Configuration - disable for startup test
+spring:
+  rabbitmq:
+    # Disable RabbitMQ auto-configuration for startup test
+    auto-startup: false
+  
+  # In-memory H2 database for startup testing
+  datasource:
+    url: jdbc:h2:mem:testdb;DB_CLOSE_DELAY=-1;DB_CLOSE_ON_EXIT=FALSE
+    username: sa
+    password: 
+    driver-class-name: org.h2.Driver
+  
+  # JPA Configuration for H2
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    show-sql: false
+    database-platform: org.hibernate.dialect.H2Dialect
+  
+  # Disable mail configuration for startup test
+  mail:
+    host: localhost
+    port: 25
+    test-connection: false
+
+# Account Balance Calculation Configuration
+account-balance-calculation:
+  exchange: balance.exchange
+  queue: balance.calculation.queue
+  routingKey: balance.calculation
+
+# Day Closure Configuration - disabled for testing
+day-closure:
+  autoStart: false
+  autoStartTime: "23:00"
+  errorToEmails:
+    - test@opencbs.com
+
+# Task Executor Configuration
+task-executor:
+  minPoolSize: 1
+  maxPoolSize: 2
+
+# Email Sender Configuration
+email:
+  sender: OpenCBS System Test
+
+# Server Configuration
+server:
+  port: 8080
+
+# Logging Configuration
+logging:
+  level:
+    root: INFO
+    com.opencbs: INFO
+    org.springframework: WARN
+    org.hibernate: WARN
+
+# Management/Actuator Configuration
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health
+  endpoint:
+    health:
+      show-details: never
