@@ -2,7 +2,6 @@ package com.opencbs.core.domain.customfields;
 
 import com.opencbs.core.domain.BaseEntity;
 import com.opencbs.core.domain.enums.CustomFieldType;
-import lombok.Builder;
 import lombok.Data;
 import org.hibernate.annotations.Where;
 
@@ -51,7 +50,6 @@ public abstract class CustomField<Tcfs extends CustomFieldSection> extends BaseE
     @Column(name = "extra")
     private CustomFieldExtra extra;
 
-    @Builder.Default
     @Column(name = "deleted")
     private Boolean deleted = false;
 }

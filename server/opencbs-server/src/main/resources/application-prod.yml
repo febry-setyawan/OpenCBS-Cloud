@@ -1,0 +1,44 @@
+# Production Profile Configuration  
+# Use with: --spring.profiles.active=prod
+
+spring:
+  datasource:
+    url: jdbc:postgresql://db-cluster.internal:5432/opencbs_prod
+    username: opencbs_user
+    password: very_strong_password
+  
+  jpa:
+    hibernate:
+      ddl-auto: validate
+
+opencbs:
+  core:
+    enableInterestAccrual: true
+    enablePenaltyAccrual: true
+    enableAutoRepayment: true
+
+attachment:
+  location: /opt/opencbs/data/attachments
+
+template:
+  location: /opt/opencbs/data/templates
+
+day-closure:
+  autoStart: true
+  autoStartTime: "23:30"
+  errorToEmails:
+    - operations@bank.com
+    - it-support@bank.com
+    - manager@bank.com
+
+task-executor:
+  minPoolSize: 5
+  maxPoolSize: 20
+
+server:
+  port: 8443
+
+logging:
+  level:
+    com.opencbs: INFO
+    org.hibernate.SQL: ERROR

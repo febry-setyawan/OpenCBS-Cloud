@@ -1,0 +1,78 @@
+# Backend-only Docker Compose - Runs Java backend without Angular frontend build
+# Use this if you want to avoid frontend build issues and run frontend separately
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:13-alpine
+    container_name: opencbs-postgres
+    environment:
+      POSTGRES_DB: opencbs
+      POSTGRES_USER: opencbs_user
+      POSTGRES_PASSWORD: opencbs_pass
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    networks:
+      - opencbs-network
+
+  # RabbitMQ Message Broker  
+  rabbitmq:
+    image: rabbitmq:3.11-management-alpine
+    container_name: opencbs-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: opencbs
+      RABBITMQ_DEFAULT_PASS: opencbs_rabbit
+      RABBITMQ_DEFAULT_VHOST: opencbs_vhost
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    networks:
+      - opencbs-network
+
+  # OpenCBS Backend (Java only)
+  opencbs-backend:
+    build:
+      context: ./server
+      dockerfile: Dockerfile-backend-only
+    container_name: opencbs-backend
+    depends_on:
+      - postgres
+      - rabbitmq
+    environment:
+      # Database Configuration
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/opencbs
+      SPRING_DATASOURCE_USERNAME: opencbs_user
+      SPRING_DATASOURCE_PASSWORD: opencbs_pass
+      
+      # RabbitMQ Configuration
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_USERNAME: opencbs
+      SPRING_RABBITMQ_PASSWORD: opencbs_rabbit
+      SPRING_RABBITMQ_VIRTUAL_HOST: opencbs_vhost
+      
+      # OpenCBS Configuration
+      OPENCBS_CORE_ENABLEINTERESTACCRUAL: true
+      OPENCBS_CORE_ENABLEPENALTYACCRUAL: true
+      ATTACHMENT_DIRECTORY: /app/data/attachments
+      TEMPLATE_DIRECTORY: /app/data/templates
+      
+    volumes:
+      - opencbs_attachments:/app/data/attachments
+      - opencbs_templates:/app/data/templates
+    ports:
+      - "8080:8080"
+    networks:
+      - opencbs-network
+
+volumes:
+  postgres_data:
+  rabbitmq_data:
+  opencbs_attachments:
+  opencbs_templates:
+
+networks:
+  opencbs-network:

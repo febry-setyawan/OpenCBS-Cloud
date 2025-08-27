@@ -1,0 +1,67 @@
+# Production Docker Compose configuration
+# Use with: docker-compose -f docker-compose.yml -f docker-compose.prod.yml up
+
+services:
+  opencbs-server:
+    environment:
+      # Production environment settings
+      SPRING_PROFILES_ACTIVE: prod
+      SPRING_JPA_SHOW_SQL: false
+      LOGGING_LEVEL_COM_OPENCBS: WARN
+      MANAGEMENT_SECURITY_ENABLED: true
+      
+      # Production database settings
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/opencbs_prod
+      SPRING_DATASOURCE_USERNAME: ${POSTGRES_USER}
+      SPRING_DATASOURCE_PASSWORD: ${POSTGRES_PASSWORD}
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      
+      # Production RabbitMQ settings
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: ${RABBITMQ_DEFAULT_USER}
+      SPRING_RABBITMQ_PASSWORD: ${RABBITMQ_DEFAULT_PASS}
+      
+      # Enable production features
+      OPENCBS_CORE_ENABLEINTERESTACCRUAL: true
+      OPENCBS_CORE_ENABLEPENALTYACCRUAL: true
+      OPENCBS_CORE_ENABLEAUTOREPAYMENT: true
+      DAY_CLOSURE_ENABLE: true
+      
+      # Production email settings
+      EMAIL_ENABLED: true
+      SPRING_MAIL_HOST: ${MAIL_HOST:-smtp.gmail.com}
+      SPRING_MAIL_PORT: ${MAIL_PORT:-587}
+      EMAIL_SENDER_ADDRESS: ${MAIL_FROM:-noreply@opencbs.com}
+      SPRING_MAIL_USERNAME: ${MAIL_USERNAME}
+      SPRING_MAIL_PASSWORD: ${MAIL_PASSWORD}
+      
+      # JVM settings for production with Spring Boot 2.7.18 (native Java 17 support)
+      JAVA_OPTS: -Xmx4g -Xms2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200
+      
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/actuator/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 180s
+
+  postgres:
+    environment:
+      POSTGRES_DB: opencbs_prod
+    restart: unless-stopped
+    volumes:
+      - postgres_prod_data:/var/lib/postgresql/data
+      # Add backup location
+      - ./backups:/backups
+      
+  rabbitmq:
+    restart: unless-stopped
+    
+  # Remove pgAdmin in production for security
+  # pgadmin service is excluded in production
+
+volumes:
+  postgres_prod_data:
+    driver: local
