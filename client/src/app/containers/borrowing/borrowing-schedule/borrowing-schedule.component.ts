@@ -18,7 +18,7 @@ import {CCRulesFormComponent} from '../../configuration/containers/credit-commit
   templateUrl: 'borrowing-schedule.component.html'
 })
 export class BorrowingScheduleComponent implements OnInit, OnDestroy {
-  @ViewChild(LoanInstallmentsTableComponent, {static: false}) installmentsTableComponent: LoanInstallmentsTableComponent;
+  @ViewChild(LoanInstallmentsTableComponent) installmentsTableComponent: LoanInstallmentsTableComponent;
   public borrowingFormState: IBorrowingFormState;
   public installments: {};
   public breadcrumb = [];

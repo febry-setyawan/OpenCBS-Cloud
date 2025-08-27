@@ -37,9 +37,9 @@ export class PicklistComponent implements OnInit, OnChanges {
   @Output() onClear = new EventEmitter();
   @Output() onPicklistOpen = new EventEmitter();
   @Output() onPicklistClose = new EventEmitter();
-  @ViewChild('searchInput', {static: false}) searchInput: ElementRef;
-  @ViewChild('scrollBlock', {static: false}) scrollBlock: ElementRef;
-  @ViewChild('trigger', {static: false}) trigger: ElementRef;
+  @ViewChild('searchInput') searchInput: ElementRef;
+  @ViewChild('scrollBlock') scrollBlock: ElementRef;
+  @ViewChild('trigger') trigger: ElementRef;
 
   public noData = false;
   public isOpened = false;

@@ -25,7 +25,7 @@ const SVG_DATA = {collection: 'custom', class: 'custom41', name: 'custom41'};
   styleUrls: ['penalties.component.scss']
 })
 export class PenaltiesComponent implements OnInit, OnDestroy {
-  @ViewChild(PenaltiesFormModalComponent, {static: false}) private formModal: PenaltiesFormModalComponent;
+  @ViewChild(PenaltiesFormModalComponent) private formModal: PenaltiesFormModalComponent;
   public svgData = SVG_DATA;
   public penalties: Observable<PenaltiesState>;
   public isNew = false;

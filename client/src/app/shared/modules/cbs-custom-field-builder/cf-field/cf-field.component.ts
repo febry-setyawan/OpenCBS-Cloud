@@ -27,8 +27,8 @@ export class CFFieldComponent implements OnInit, AfterViewInit {
   @Output() onFieldAddSuccess = new EventEmitter();
   @Output() onFieldAddError = new EventEmitter();
   @Output() onFieldAddCancel = new EventEmitter();
-  @ViewChild('fieldForm', {static: false}) fieldForm;
-  @ViewChild('caption', {static: false,  read: ElementRef}) captionInput: ElementRef;
+  @ViewChild('fieldForm') fieldForm;
+  @ViewChild('caption', { read: ElementRef }) captionInput: ElementRef;
 
   public formCollapsed = true;
   public formChanged = false;

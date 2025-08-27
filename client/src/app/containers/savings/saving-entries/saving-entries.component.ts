@@ -3,7 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { ActivatedRoute, NavigationExtras, Router } from '@angular/router';
 import * as fromStore from '../../../core/store';
 import * as fromRoot from '../../../core/core.reducer';
-import { DataTable } from 'primeng/primeng';
+import { Table } from 'primeng/table';
 import { Observable } from 'rxjs/Observable';
 import { ISavingEntries, ISavingState, SavingEntriesActions } from '../../../core/store';
 import { Subscription } from 'rxjs/Rx';
@@ -18,7 +18,7 @@ export class SavingEntriesComponent implements OnInit, OnDestroy {
   public queryObject = {
     page: 1
   };
-  @ViewChild('dt', {static: false}) dataTable: DataTable;
+  @ViewChild('dt') dataTable: Table;
   public breadcrumb = [];
   public entriesState: Observable<ISavingEntries>;
 

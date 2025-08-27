@@ -23,8 +23,8 @@ const SVG_DATA = {collection: 'standard', class: 'calibration', name: 'calibrati
   styleUrls: ['credit-line-edit.component.scss']
 })
 export class CreditLineEditComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(CreditLineFormComponent, {static: false}) creditLineForm: CreditLineFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(CreditLineFormComponent) creditLineForm: CreditLineFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public isOpen = false;
   public formChanged = false;

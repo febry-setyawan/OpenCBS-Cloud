@@ -22,7 +22,7 @@ export const FORM_PICKLIST_CONTROL_VALUE_ACCESSOR: any = {
   ]
 })
 export class FormLookupControlComponent implements ControlValueAccessor, OnInit {
-  @ViewChild(PicklistComponent, {static: false}) picklistComponent: PicklistComponent;
+  @ViewChild(PicklistComponent) picklistComponent: PicklistComponent;
   @Input() requiredField = false;
   @Input() fieldLabel = '';
   @Input() hasError = false;

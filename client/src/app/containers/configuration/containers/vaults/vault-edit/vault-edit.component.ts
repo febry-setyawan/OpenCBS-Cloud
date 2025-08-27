@@ -22,7 +22,7 @@ const SVG_DATA = {collection: 'custom', class: 'custom17', name: 'custom17'};
 })
 
 export class VaultEditComponent implements OnInit, OnDestroy {
-  @ViewChild(VaultFormComponent, {static: false}) vaultForm: VaultFormComponent;
+  @ViewChild(VaultFormComponent) vaultForm: VaultFormComponent;
   public svgData = SVG_DATA;
   public breadcrumbLinks = [
     {

@@ -26,8 +26,8 @@ const SVG_DATA = {collection: 'standard', class: 'calibration', name: 'calibrati
 })
 
 export class BorrowingProductUpdateComponent implements OnInit, AfterViewInit {
-  @ViewChild(EditBorrowingProductFormComponent, {static: false}) editLoanProductForm: EditBorrowingProductFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(EditBorrowingProductFormComponent) editLoanProductForm: EditBorrowingProductFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public isOpen = false;
   private borrowingProductSub: any;

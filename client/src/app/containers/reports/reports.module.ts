@@ -10,7 +10,7 @@ import { ReportsRoutingModule } from './reports-routing.module';
 import { ReportListComponent } from './report-list-component/report-list.component';
 import { ReportService } from './shared/reports.service';
 import { ReportComponent } from './report-component/report.component';
-import { DropdownModule } from 'primeng/primeng';
+import { DropdownModule } from 'primeng/dropdown';
 import { ShareService } from './shared/share.service';
 
 

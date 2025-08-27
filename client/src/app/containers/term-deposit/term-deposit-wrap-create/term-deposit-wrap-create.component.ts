@@ -24,7 +24,7 @@ const SVG_DATA = {
 })
 
 export class TermDepositWrapCreateComponent implements OnInit, OnDestroy {
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   @ViewChild(TermDepositNewComponent, {static: true}) formComponent: TermDepositNewComponent;
 
 

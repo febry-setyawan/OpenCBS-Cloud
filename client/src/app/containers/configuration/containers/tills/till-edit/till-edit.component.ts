@@ -19,7 +19,7 @@ import { environment } from '../../../../../../environments/environment';
 })
 
 export class TillEditComponent implements OnInit, OnDestroy {
-  @ViewChild(TillFormComponent, {static: false}) tillForm: TillFormComponent;
+  @ViewChild(TillFormComponent) tillForm: TillFormComponent;
   public breadcrumbLinks = [
     {
       name: 'CONFIGURATION',

@@ -21,7 +21,7 @@ import { CustomFormModalComponent } from '../../../../../shared/components/cbs-c
   styleUrls: ['collateral-type-list.component.scss']
 })
 export class CollateralTypeListComponent implements OnInit, OnDestroy {
-  @ViewChild(CustomFormModalComponent, {static: false}) private collateralTypeFormModal: CustomFormModalComponent;
+  @ViewChild(CustomFormModalComponent) private collateralTypeFormModal: CustomFormModalComponent;
 
   public newCollateralTypeFields = [
     {

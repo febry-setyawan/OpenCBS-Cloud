@@ -22,7 +22,7 @@ import {CCRulesFormComponent} from '../../configuration/containers/credit-commit
 })
 
 export class BorrowingWrapEditComponent implements OnInit, OnDestroy {
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = {
     collection: 'custom',
     class: 'custom42',

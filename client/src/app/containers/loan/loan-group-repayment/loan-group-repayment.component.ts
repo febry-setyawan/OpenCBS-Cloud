@@ -38,10 +38,10 @@ interface TableInputData {
 })
 
 export class LoanGroupRepaymentComponent implements OnInit, OnDestroy {
-  @ViewChild(LoanInstallmentsTableComponent, {static: false}) installmentsTableComponent: LoanInstallmentsTableComponent;
-  @ViewChild(RepaymentFormComponent, {static: false}) formComponent: RepaymentFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
-  @ViewChild('previewButton', {static: false}) previewButton: ElementRef;
+  @ViewChild(LoanInstallmentsTableComponent) installmentsTableComponent: LoanInstallmentsTableComponent;
+  @ViewChild(RepaymentFormComponent) formComponent: RepaymentFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
+  @ViewChild('previewButton') previewButton: ElementRef;
   public installments: any;
   public svgData = SVG_DATA;
   public loan: Observable<ILoanInfo>;

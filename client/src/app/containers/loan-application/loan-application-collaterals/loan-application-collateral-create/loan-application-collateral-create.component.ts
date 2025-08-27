@@ -24,7 +24,7 @@ const SVG_DATA = {collection: 'custom', class: 'custom41', name: 'custom41'};
 })
 
 export class LoanAppCreateCollateralComponent implements OnInit, OnDestroy {
-  @ViewChild(LoanAppCollateralFormComponent, {static: false}) public formComponent: LoanAppCollateralFormComponent;
+  @ViewChild(LoanAppCollateralFormComponent) public formComponent: LoanAppCollateralFormComponent;
   public loanAppId: number;
   public breadcrumbLinks = [];
   public svgData = SVG_DATA;

@@ -18,7 +18,7 @@ export class TermDepositEntriesComponent implements OnInit, OnDestroy {
   public queryObject = {
     page: 1
   };
-  @ViewChild('dt', {static: false}) dataTable: Table;
+  @ViewChild('dt') dataTable: Table;
   public breadcrumb = [];
   public entriesState: Observable<ITermDepositEntries>;
 

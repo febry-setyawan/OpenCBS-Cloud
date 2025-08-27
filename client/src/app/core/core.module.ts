@@ -35,7 +35,7 @@ import { StompRService } from '@stomp/ng2-stompjs';
   providers: [StompRService]
 })
 export class CoreModule {
-  static forRoot(): ModuleWithProviders {
+  static forRoot(): ModuleWithProviders<CoreModule> {
     return {
       ngModule: CoreModule,
       providers: CORE_SERVICES

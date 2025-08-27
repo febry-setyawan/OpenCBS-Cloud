@@ -27,8 +27,8 @@ import { Subscription } from 'rxjs';
 })
 export class CollateralTypeDetailsComponent implements OnInit, OnDestroy {
   @ViewChildren(CFFieldComponent) fields: QueryList<CFFieldComponent>;
-  @ViewChild(CFAddComponent, {static: false}) addBtn: CFAddComponent;
-  @ViewChild('caption', {read: ElementRef, static: false}) captionInput: ElementRef;
+  @ViewChild(CFAddComponent) addBtn: CFAddComponent;
+  @ViewChild('caption', { read: ElementRef }) captionInput: ElementRef;
   public cachedCaption: string;
   public isEditView = false;
   public isLoading = false;

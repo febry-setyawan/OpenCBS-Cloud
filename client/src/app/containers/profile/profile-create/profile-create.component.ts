@@ -24,7 +24,7 @@ const SVG_DATA = {collection: 'standard', class: 'user', name: 'user'};
   styleUrls: ['profile-create.component.scss']
 })
 export class NewProfileComponent implements OnInit, OnDestroy {
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public profileBreadcrumbLabel = '';
   public profileForm: FormGroup;
   public createProfileState: CreateProfileState;

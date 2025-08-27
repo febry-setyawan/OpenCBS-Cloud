@@ -31,7 +31,7 @@ import { BankAccountListService } from '../../../shared/bank-account-list.servic
 })
 
 export class CurrentAccountTransactionsComponent implements OnInit, OnDestroy {
-  @ViewChild('dropdown', {static: false}) dropdown: ElementRef;
+  @ViewChild('dropdown') dropdown: ElementRef;
   public navElements = [];
   public profileId: any;
   public profileType: any;

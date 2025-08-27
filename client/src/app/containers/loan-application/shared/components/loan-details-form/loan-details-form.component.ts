@@ -38,9 +38,9 @@ export class LoanDetailsFormComponent implements OnInit {
   @Output() onPayeeAdd = new EventEmitter();
   @Output() onEntryFeesClick = new EventEmitter();
 
-  @ViewChild('preferredRepaymentDate', {static: false}) preferredRepaymentDate: ElementRef;
-  @ViewChild('disbursementDate', {static: false}) disbursementDate: ElementRef;
-  @ViewChild('maturityDate', {static: false}) maturityDate: ElementRef;
+  @ViewChild('preferredRepaymentDate') preferredRepaymentDate: ElementRef;
+  @ViewChild('disbursementDate') disbursementDate: ElementRef;
+  @ViewChild('maturityDate') maturityDate: ElementRef;
 
   public profileName: string;
   public profileType: string;

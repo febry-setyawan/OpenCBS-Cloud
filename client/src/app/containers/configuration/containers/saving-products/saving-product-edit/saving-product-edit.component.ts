@@ -23,8 +23,8 @@ const SVG_DATA = {
   styleUrls: ['./saving-product-edit.component.scss']
 })
 export class SavingProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(SavingProductFormComponent, {static: false}) savingProductForm: SavingProductFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(SavingProductFormComponent) savingProductForm: SavingProductFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public savingProductState: any;
   public savingProductId: number;

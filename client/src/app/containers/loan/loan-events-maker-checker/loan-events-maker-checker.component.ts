@@ -20,7 +20,7 @@ import { CCRulesFormComponent } from '../../configuration/containers/credit-comm
 })
 
 export class LoanEventsMakerCheckerComponent implements OnInit, OnDestroy {
-  @ViewChild('dt', {static: false}) dataTable: Table;
+  @ViewChild('dt') dataTable: Table;
   public events: any;
   public breadcrumb = [];
   public showDeleted = false;

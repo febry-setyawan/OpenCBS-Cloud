@@ -22,7 +22,7 @@ import { CustomFormModalComponent } from '../../../../../shared/components/cbs-c
   templateUrl: 'business-sectors.component.html'
 })
 export class BusinessSectorsListComponent implements OnInit, OnDestroy {
-  @ViewChild(CustomFormModalComponent, {static: false}) private businessSectorFormModal: CustomFormModalComponent;
+  @ViewChild(CustomFormModalComponent) private businessSectorFormModal: CustomFormModalComponent;
 
   public newBusinessSectorFields = [
     {

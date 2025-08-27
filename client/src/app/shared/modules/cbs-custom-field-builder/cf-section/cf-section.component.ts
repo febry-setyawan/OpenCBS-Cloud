@@ -15,7 +15,7 @@ export class CFSectionComponent implements OnInit {
   @Output() onAddSuccess = new EventEmitter();
   @Output() onAddError = new EventEmitter();
   @Output() onAddCancel = new EventEmitter();
-  @ViewChild('caption', {static: false, read: ElementRef}) captionInput: ElementRef;
+  @ViewChild('caption', { read: ElementRef }) captionInput: ElementRef;
   public isEditView = false;
   public newSectionMode = false;
   public formChanged = false;

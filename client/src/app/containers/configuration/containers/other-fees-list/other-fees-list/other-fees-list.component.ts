@@ -24,7 +24,7 @@ const SVG_DATA = {  collection: 'custom',  class: 'custom41',  name: 'custom41'}
   styleUrls: ['other-fees-list.component.scss']
 })
 export class OtherFeesListComponent implements OnInit, OnDestroy {
-  @ViewChild(OtherFeesListFormModalComponent, {static: false}) private formModal: OtherFeesListFormModalComponent;
+  @ViewChild(OtherFeesListFormModalComponent) private formModal: OtherFeesListFormModalComponent;
   public svgData = SVG_DATA;
   public otherFeesList: Observable<OtherFeeListState>;
   public isNew = false;

@@ -26,8 +26,8 @@ const SVG_DATA = {
 })
 
 export class TermDepositWrapEditComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(TermDepositNewComponent, {static: false}) formComponent: TermDepositNewComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(TermDepositNewComponent) formComponent: TermDepositNewComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public termDepositNavConfig = [];
   public breadcrumbLinks = [];

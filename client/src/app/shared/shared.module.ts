@@ -5,7 +5,6 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { NglModule } from 'ngx-lightning';
 import { TranslateModule } from '@ngx-translate/core';
-import { DataTableModule, SharedModule } from 'primeng/primeng';
 import { TableModule } from 'primeng/table';
 import { MultiSelectModule } from 'primeng/multiselect';
 
@@ -27,8 +26,6 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     CommonModule,
     RouterModule,
     TranslateModule,
-    DataTableModule,
-    SharedModule,
     CbsTreeTableModule,
     FileUploadModule,
     CbsCustomFieldBuilderModule,
@@ -48,9 +45,7 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     CbsCustomFieldBuilderModule,
     ChipsModule,
     CbsFormModule,
-    DataTableModule,
     ScheduleModule,
-    SharedModule,
     MatDatepickerModule
   ],
   declarations: COMPONENTS

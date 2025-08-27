@@ -26,8 +26,8 @@ const SVG_DATA = {
 })
 
 export class SavingWrapEditComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(SavingNewComponent, {static: false}) formComponent: SavingNewComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(SavingNewComponent) formComponent: SavingNewComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public savingNavConfig = [];
   public breadcrumbLinks = [];

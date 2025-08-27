@@ -24,7 +24,7 @@ const SVG_DATA = {
 })
 
 export class LoanAppWrapCreateComponent implements OnInit, OnDestroy {
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public loanNavConfig = [];
   public isLoading = false;

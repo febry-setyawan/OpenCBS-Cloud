@@ -19,7 +19,7 @@ import {CCRulesFormComponent} from '../../../configuration/containers/credit-com
   styleUrls: ['./profile-events.component.scss']
 })
 export class ProfileEventsComponent implements OnInit, OnDestroy {
-  @ViewChild(ManageEventModalComponent, {static: false}) manageEventModal: ManageEventModalComponent;
+  @ViewChild(ManageEventModalComponent) manageEventModal: ManageEventModalComponent;
   public profile: any;
   public navElements = [];
   public profileId: number;

@@ -6,7 +6,7 @@ import { BondEventsService, BondState } from '../../../core/store';
 import { ToastrService } from 'ngx-toastr';
 import { TranslateService } from '@ngx-translate/core';
 import * as fromRoot from '../../../core/core.reducer';
-import { DataTable } from 'primeng/primeng';
+import { Table } from 'primeng/table';
 import { BondFormExtraService } from '../shared/services/bond-extra.service';
 import { BondEventsState } from '../../../core/store/bond/bond-events';
 import * as BondEventsActions from '../../../core/store/bond/bond-events/bond-events.actions';
@@ -20,7 +20,7 @@ import { environment } from '../../../../environments/environment';
 })
 
 export class BondEventsComponent implements OnInit, OnDestroy {
-  @ViewChild('dt', {static: false}) dataTable: DataTable;
+  @ViewChild('dt') dataTable: Table;
   public events: any;
   public breadcrumb = [];
   public isLoading = false;

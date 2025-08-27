@@ -45,7 +45,7 @@ import { PicklistComponent } from '../picklist/picklist.component';
   `]
 })
 export class FormLookupComponent implements OnInit, Field {
-  @ViewChild(PicklistComponent, {static: false}) picklist: PicklistComponent;
+  @ViewChild(PicklistComponent) picklist: PicklistComponent;
   @Input() config: FieldConfig;
   @Input() group: FormGroup;
   @Input() style: string;

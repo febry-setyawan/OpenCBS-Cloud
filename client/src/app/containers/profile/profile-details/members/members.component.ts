@@ -21,7 +21,7 @@ import { FormLookupControlComponent } from '../../../../shared/modules/cbs-form/
   styleUrls: ['./members.component.scss']
 })
 export class MembersComponent implements OnInit, OnDestroy {
-  @ViewChild('lookup', {static: false}) lookup: FormLookupControlComponent;
+  @ViewChild('lookup') lookup: FormLookupControlComponent;
   public profile: any;
   public navElements = [];
   public profileId: number;

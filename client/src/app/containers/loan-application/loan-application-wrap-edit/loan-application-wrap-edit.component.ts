@@ -26,7 +26,7 @@ const SVG_DATA = {collection: 'custom', class: 'custom41', name: 'custom41'};
 })
 
 export class LoanAppWrapEditComponent implements OnInit, OnDestroy {
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public loanNavConfig = [];
   public loanAppFormState: ILoanAppFormState;

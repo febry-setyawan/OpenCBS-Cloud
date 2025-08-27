@@ -24,7 +24,7 @@ import { BondSideNavService } from '../shared/services/bond-side-nav.service';
   templateUrl: 'bond-wrap-create.component.html'
 })
 export class BondWrapCreateComponent implements OnInit, OnDestroy {
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = {
     collection: 'custom',
     class: 'custom41',

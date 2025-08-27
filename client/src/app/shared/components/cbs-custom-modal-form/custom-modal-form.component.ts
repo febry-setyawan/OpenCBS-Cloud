@@ -25,8 +25,8 @@ export interface Field {
 export class CustomFormModalComponent implements OnInit {
   @Input() headerTitle = '';
   @Output() submitForm = new EventEmitter();
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
-  @ViewChild('formFocus', {static: false}) formFocus: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
+  @ViewChild('formFocus') formFocus: ElementRef;
   public opened = false;
   public customForm: FormGroup;
   public customFields: any[];
