@@ -25,8 +25,7 @@ public class CustomFieldSectionService<Tcfs extends CustomFieldSection, Trepo ex
     }
 
     public Optional<Tcfs> findOne(long id) {
-        Tcfs section = this.repository.findOne(id);
-        return section == null ? Optional.empty() : Optional.of(section);
+        return this.repository.findById(id);
     }
 
     @Transactional
