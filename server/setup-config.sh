@@ -24,9 +24,9 @@ create_directory() {
 
 # Function to copy configuration template
 setup_configuration() {
-    local config_dir="/home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/server/opencbs-server/src/main/resources"
+    local config_dir="${CONFIG_DIR:-./opencbs-server/src/main/resources}"
     
-    echo -n "Setting up configuration file ... "
+    echo -n "Setting up configuration file in $config_dir ... "
     
     if [ -f "$config_dir/application.properties" ]; then
         echo "✓ Configuration file already exists"
