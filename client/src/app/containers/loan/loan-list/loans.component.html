@@ -20,71 +20,45 @@
 
 
 <main class="cbs-main cbs-main--pt-sm">
-    <p-dataTable
-        emptyMessage="{{ 'NO_RECORDS_FOUND' | translate}}"
+    <p-table
         [value]="loans"
-        [tableStyleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'"
-        [selectionMode]="'single'"
+        [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'"
+        selectionMode="single"
         (onRowSelect)="goToLoan($event)"
     >
-        <p-column field="profileName" header="{{ 'PROFILE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['profileName'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="profileName" header="{{ 'CREDIT_LINE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['creditLine'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="profileName" header="{{ 'LOAN_PRODUCT_NAME' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['productName'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="amount" header="{{ 'AMOUNT' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['amount'] | cbsNumberFormat }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="amount" header="{{ 'CREDIT_LINE_OUTSTANDING_AMOUNT' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['creditLineOutstandingAmount'] | cbsNumberFormat }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="interestRate" header="{{ 'INTEREST_RATE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['interestRate'] + '%'}}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="disbursementDate" header="{{ 'DISBURSEMENT_DATE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['disbursementDate'] | cbsDateFormat }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="createdAt" header="{{ 'MATURITY_DATE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['maturityDate'] | cbsDateFormat }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="currency" header="{{ 'CURRENCY' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['currency'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="createdBy" header="{{ 'LOAN_OFFICER' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['loanOfficer']['firstName'] + ' ' + row['loanOfficer']['lastName'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="status" header="{{ 'STATUS' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <ngl-badge [type]="(row['status'] | statusBadge)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ 'PROFILE' | translate }}</th>
+                <th>{{ 'CREDIT_LINE' | translate }}</th>
+                <th>{{ 'LOAN_PRODUCT_NAME' | translate }}</th>
+                <th>{{ 'AMOUNT' | translate }}</th>
+                <th>{{ 'CREDIT_LINE_OUTSTANDING_AMOUNT' | translate }}</th>
+                <th>{{ 'INTEREST_RATE' | translate }}</th>
+                <th>{{ 'DISBURSEMENT_DATE' | translate }}</th>
+                <th>{{ 'MATURITY_DATE' | translate }}</th>
+                <th>{{ 'CURRENCY' | translate }}</th>
+                <th>{{ 'LOAN_OFFICER' | translate }}</th>
+                <th>{{ 'STATUS' | translate }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr [pSelectableRow]="row">
+                <td>{{ row['profileName'] }}</td>
+                <td>{{ row['creditLine'] }}</td>
+                <td>{{ row['productName'] }}</td>
+                <td>{{ row['amount'] | cbsNumberFormat }}</td>
+                <td>{{ row['creditLineOutstandingAmount'] | cbsNumberFormat }}</td>
+                <td>{{ row['interestRate'] + '%'}}</td>
+                <td>{{ row['disbursementDate'] | cbsDateFormat }}</td>
+                <td>{{ row['maturityDate'] | cbsDateFormat }}</td>
+                <td>{{ row['currency'] }}</td>
+                <td>{{ row['loanOfficer']['firstName'] + ' ' + row['loanOfficer']['lastName'] }}</td>
+                <td><ngl-badge [type]="(row['status'] | statusBadge)">
                     {{ row['status'] | translate }}
-                </ngl-badge>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
+                </ngl-badge></td>
+            </tr>
+        </ng-template>
+    </p-table>
 
     <cbs-loading-indicator [isFixed]="true" [showLoader]="loanState?.loading"></cbs-loading-indicator>
 

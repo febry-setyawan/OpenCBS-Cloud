@@ -1,0 +1,283 @@
+
+> opencbs-client@0.1.0 build
+> node --max_old_space_size=8192 --openssl-legacy-provider node_modules/@angular/cli/bin/ng build
+
+Warning: Using differential loading with targets ES5 and ES2016 or higher may
+cause problems. Browsers with support for ES2015 will load the ES2016+ scripts
+referenced with script[type="module"] but they may not support ES2016+ syntax.
+- Generating browser application bundles...
+✔ Browser application bundle generation complete.
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/src/app/shared/modules/cbs-form/components/form-lookup-control/form-lookup-control.component.ts depends on 'lodash'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/src/app/containers/transfers/transfer-between-members/transfer-between-members.component.ts depends on 'file-saver'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/src/app/containers/transfers/transfers.service.ts depends on 'rxjs/internal/observable/of'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/src/app/core/store/users/current-user/currentUser.service.ts depends on 'rxjs/internal/ReplaySubject'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/node_modules/ngx-lightning/__ivy_ngcc__/fesm2015/ngx-lightning.js depends on 'tether'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/node_modules/@stomp/ng2-stompjs/__ivy_ngcc__/esm2015/stomp-ng2-stompjs.js depends on '@stomp/stompjs'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/src/app/core/store/saving/saving-entries/saving-entries.effect.ts depends on 'rxjs/Observable'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/src/app/core/store/saving/saving-entries/saving-entries.effect.ts depends on 'rxjs/add/operator/switchMap'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/src/app/core/store/saving/saving-entries/saving-entries.effect.ts depends on 'rxjs/add/operator/map'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/src/app/core/services/print-out.service.ts depends on 'rxjs/internal/observable/fromEvent'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: /home/runner/work/OpenCBS-Cloud/OpenCBS-Cloud/client/src/app/containers/settings/containers/audit-trail/audit-trail-transactions/audit-trail-transactions.component.ts depends on 'pdfmake/build/pdfmake'. CommonJS or AMD dependencies can cause optimization bailouts.
+For more info see: https://angular.io/guide/build#configuring-commonjs-dependencies
+
+Warning: ./src/styles.scss (./node_modules/css-loader/dist/cjs.js??ref--14-1!./node_modules/postcss-loader/dist/cjs.js??ref--14-2!./node_modules/resolve-url-loader??ref--14-3!./node_modules/sass-loader/dist/cjs.js??ref--14-4!./src/styles.scss)
+Module Warning (from ./node_modules/postcss-loader/dist/cjs.js):
+Warning
+
+(2:1) postcss-import: @charset must precede all other statements
+
+
+
+Error: src/app/containers/bonds/bond-events/bond-events.component.html:37:83 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+37             <ng-template #onlyType><span>{{ row['eventType'] | translate }}</span></td>
+                                                                                     ~~~~~
+
+  src/app/containers/bonds/bond-events/bond-events.component.ts:18:16
+    18   templateUrl: 'bond-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component BondEventsComponent.
+
+
+Error: src/app/containers/bonds/bond-events/bond-events.component.html:43:29 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+43                 <div>-</div></td>
+                               ~~~~~
+
+  src/app/containers/bonds/bond-events/bond-events.component.ts:18:16
+    18   templateUrl: 'bond-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component BondEventsComponent.
+
+
+Error: src/app/containers/bonds/bond-events/bond-events.component.html:50:61 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+50                 <div class="slds-text-align--center">-</div></td>
+   m                                                            ~~~~~
+
+  src/app/containers/bonds/bond-events/bond-events.component.ts:18:16
+    18   templateUrl: 'bond-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component BondEventsComponent.
+
+
+Error: src/app/containers/bonds/bond-events/bond-events.component.html:52:13 - error NG5002: Unexpected closing tag "tr". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+52             </tr>
+               ~~~~~
+
+  src/app/containers/bonds/bond-events/bond-events.component.ts:18:16
+    18   templateUrl: 'bond-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component BondEventsComponent.
+
+
+Error: src/app/containers/bonds/bond-events/bond-events.component.html:54:5 - error NG5002: Unexpected closing tag "p-table". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+54     </p-table>
+       ~~~~~~~~~~
+
+  src/app/containers/bonds/bond-events/bond-events.component.ts:18:16
+    18   templateUrl: 'bond-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component BondEventsComponent.
+
+
+Error: src/app/containers/borrowing/borrowing-events/borrowing-events.component.html:37:83 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+37             <ng-template #onlyType><span>{{ row['eventType'] | translate }}</span></td>
+                                                                                     ~~~~~
+
+  src/app/containers/borrowing/borrowing-events/borrowing-events.component.ts:21:16
+    21   templateUrl: 'borrowing-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component BorrowingEventsComponent.
+
+
+Error: src/app/containers/borrowing/borrowing-events/borrowing-events.component.html:43:29 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+43                 <div>-</div></td>
+                               ~~~~~
+
+  src/app/containers/borrowing/borrowing-events/borrowing-events.component.ts:21:16
+    21   templateUrl: 'borrowing-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component BorrowingEventsComponent.
+
+
+Error: src/app/containers/borrowing/borrowing-events/borrowing-events.component.html:50:61 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+50                 <div class="slds-text-align--center">-</div></td>
+                                                               ~~~~~
+
+  src/app/containers/borrowing/borrowing-events/borrowing-events.component.ts:21:16
+    21   templateUrl: 'borrowing-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component BorrowingEventsComponent.
+
+
+Error: src/app/containers/borrowing/borrowing-events/borrowing-events.component.html:52:13 - error NG5002: Unexpected closing tag "tr". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+52             </tr>
+               ~~~~~
+
+  src/app/containers/borrowing/borrowing-events/borrowing-events.component.ts:21:16
+    21   templateUrl: 'borrowing-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component BorrowingEventsComponent.
+
+
+Error: src/app/containers/borrowing/borrowing-events/borrowing-events.component.html:54:5 - error NG5002: Unexpected closing tag "p-table". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+54     </p-table>
+       ~~~~~~~~~~
+
+  src/app/containers/borrowing/borrowing-events/borrowing-events.component.ts:21:16
+    21   templateUrl: 'borrowing-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component BorrowingEventsComponent.
+
+
+Error: src/app/containers/loan-payee/loan-payee-events/loan-payees-events.component.html:36:83 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+36             <ng-template #onlyType><span>{{ row['eventType'] | translate }}</span></td>
+                                                                                     ~~~~~
+
+  src/app/containers/loan-payee/loan-payee-events/loan-payees-events.component.ts:15:16
+    15   templateUrl: 'loan-payees-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanPayeesEventsComponent.
+
+
+Error: src/app/containers/loan-payee/loan-payee-events/loan-payees-events.component.html:42:29 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+42                 <div>-</div></td>
+                               ~~~~~
+
+  src/app/containers/loan-payee/loan-payee-events/loan-payees-events.component.ts:15:16
+    15   templateUrl: 'loan-payees-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanPayeesEventsComponent.
+
+
+Error: src/app/containers/loan-payee/loan-payee-events/loan-payees-events.component.html:49:29 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+49                 <div>-</div></td>
+                               ~~~~~
+
+  src/app/containers/loan-payee/loan-payee-events/loan-payees-events.component.ts:15:16
+    15   templateUrl: 'loan-payees-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanPayeesEventsComponent.
+
+
+Error: src/app/containers/loan-payee/loan-payee-events/loan-payees-events.component.html:51:13 - error NG5002: Unexpected closing tag "tr". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+51             </tr>
+               ~~~~~
+
+  src/app/containers/loan-payee/loan-payee-events/loan-payees-events.component.ts:15:16
+    15   templateUrl: 'loan-payees-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanPayeesEventsComponent.
+
+
+Error: src/app/containers/loan-payee/loan-payee-events/loan-payees-events.component.html:53:5 - error NG5002: Unexpected closing tag "p-table". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+53     </p-table>
+       ~~~~~~~~~~
+
+  src/app/containers/loan-payee/loan-payee-events/loan-payees-events.component.ts:15:16
+    15   templateUrl: 'loan-payees-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanPayeesEventsComponent.
+
+
+Error: src/app/containers/loan/loan-events-maker-checker/loan-events-maker-checker.component.html:37:83 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+37             <ng-template #onlyType><span>{{ row['eventType'] | translate }}</span></td>
+                                                                                     ~~~~~
+
+  src/app/containers/loan/loan-events-maker-checker/loan-events-maker-checker.component.ts:18:16
+    18   templateUrl: 'loan-events-maker-checker.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanEventsMakerCheckerComponent.
+
+
+Error: src/app/containers/loan/loan-events-maker-checker/loan-events-maker-checker.component.html:43:29 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+43                 <div>-</div></td>
+                               ~~~~~
+
+  src/app/containers/loan/loan-events-maker-checker/loan-events-maker-checker.component.ts:18:16
+    18   templateUrl: 'loan-events-maker-checker.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanEventsMakerCheckerComponent.
+
+
+Error: src/app/containers/loan/loan-events-maker-checker/loan-events-maker-checker.component.html:50:61 - error NG5002: Unexpected closing tag "td". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+50                 <div class="slds-text-align--center">-</div></td>
+                                                               ~~~~~
+
+  src/app/containers/loan/loan-events-maker-checker/loan-events-maker-checker.component.ts:18:16
+    18   templateUrl: 'loan-events-maker-checker.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanEventsMakerCheckerComponent.
+
+
+Error: src/app/containers/loan/loan-events-maker-checker/loan-events-maker-checker.component.html:52:13 - error NG5002: Unexpected closing tag "tr". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+52             </tr>
+               ~~~~~
+
+  src/app/containers/loan/loan-events-maker-checker/loan-events-maker-checker.component.ts:18:16
+    18   templateUrl: 'loan-events-maker-checker.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanEventsMakerCheckerComponent.
+
+
+Error: src/app/containers/loan/loan-events-maker-checker/loan-events-maker-checker.component.html:54:5 - error NG5002: Unexpected closing tag "p-table". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+54     </p-table>
+       ~~~~~~~~~~
+
+  src/app/containers/loan/loan-events-maker-checker/loan-events-maker-checker.component.ts:18:16
+    18   templateUrl: 'loan-events-maker-checker.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanEventsMakerCheckerComponent.
+
+
+Error: src/app/containers/loan/loan-events/loan-events.component.html:69:5 - error NG5002: Unexpected closing tag "p-table". It may happen when the tag has already been closed by another tag. For more info see https://www.w3.org/TR/html5/syntax.html#closing-elements-that-have-implied-end-tags
+
+69     </p-table>
+       ~~~~~~~~~~
+
+  src/app/containers/loan/loan-events/loan-events.component.ts:25:16
+    25   templateUrl: 'loan-events.component.html',
+                      ~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    Error occurs in the template of component LoanEventsComponent.
+
+
+

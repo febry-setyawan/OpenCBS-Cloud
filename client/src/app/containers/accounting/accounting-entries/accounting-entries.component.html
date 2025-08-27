@@ -102,72 +102,69 @@
             </table>
         </div>
         <div class="cbs-scrollable-table">
-            <p-dataTable [value]="entries?.entries"
-                         emptyMessage="{{ 'NO_RECORDS_FOUND' | translate}}"
-                         [tableStyleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
-                <p-column field="createdAt">
-                    <ng-template let-row="rowData" pTemplate="body">
-                        <span>{{ row['effectiveAt'] | cbsDateFormat }} {{ row['effectiveAt'] | cbsTimeFormat }}</span>
-                    </ng-template>
-                </p-column>
-                <p-column field="amount" class="float-right">
-                    <ng-template let-row="rowData" pTemplate="body">
-                        <span><b>{{ row['amount'] | cbsNumberFormat }}</b></span>
-                    </ng-template>
-                </p-column>
-                <p-column field="debitAccount">
-                    <ng-template let-row="rowData" pTemplate="body">
-                        <span class="slds-truncate"
-                              [title]="(row['debitAccountName'])">
-                            {{ row['debitAccountNumber'] }}
-                        </span>
-                    </ng-template>
-                </p-column>
-                <p-column field="creditAccount">
-                    <ng-template let-row="rowData" pTemplate="body">
-                        <span class="slds-truncate"
-                              [title]="(row['creditAccountName'])">
-                            {{ row['creditAccountNumber'] }}
-                        </span>
-                    </ng-template>
-                </p-column>
-
-                <p-column field="branch">
-                    <ng-template let-row="rowData" pTemplate="body">
-                        <span class="slds-truncate" [title]="row['branchName']">
-                            {{ row['branchName'] }}
-                        </span>
-                    </ng-template>
-                </p-column>
-                <p-column field="description">
-                    <ng-template let-row="rowData" pTemplate="body">
-                        <div class="slds-truncate" [title]="row['description']">
-                            {{ row['description'] }}
-                        </div>
-                    </ng-template>
-                </p-column>
-                <p-column field="createdBy">
-                    <ng-template let-row="rowData" pTemplate="body">
-                        <span class="slds-truncate"
-                              [title]="row['createdByFullName']">
-                            {{ row['createdByFullName'] }}
-                        </span>
-                    </ng-template>
-                </p-column>
-                <p-column field="download">
-                    <ng-template let-row="rowData" pTemplate="body">
-                        <button (click)="download(row['id'])"
-                                class="slds-button slds-button--icon slds-button--icon-more slds-m-left--small"
-                                aria-haspopup="true" title="Configuration">
-                            <svg class="slds-button__icon" aria-hidden="true">
-                                <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#download"></use>
-                            </svg>
-                            <span class="slds-assistive-text">Configuration</span>
-                        </button>
-                    </ng-template>
-                </p-column>
-
-            </p-dataTable>
+            <p-table
+        [value]="entries?.entries"[styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>CREATEDAT</th>
+                <th>AMOUNT</th>
+                <th>DEBITACCOUNT</th>
+                <th>CREDITACCOUNT</th>
+                <th>BRANCH</th>
+                <th>DESCRIPTION</th>
+                <th>CREATEDBY</th>
+                <th>DOWNLOAD</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td>
+                    <span>{{ row['effectiveAt'] | cbsDateFormat }} {{ row['effectiveAt'] | cbsTimeFormat }}</span>
+                </td>
+                <td class="float-right">
+                    <span><b>{{ row['amount'] | cbsNumberFormat }}</b></span>
+                </td>
+                <td>
+                    <span class="slds-truncate"
+                                                  [title]="(row['debitAccountName'])">
+                                                {{ row['debitAccountNumber'] }}
+                                            </span>
+                </td>
+                <td>
+                    <span class="slds-truncate"
+                                                  [title]="(row['creditAccountName'])">
+                                                {{ row['creditAccountNumber'] }}
+                                            </span>
+                </td>
+                <td>
+                    <span class="slds-truncate" [title]="row['branchName']">
+                                                {{ row['branchName'] }}
+                                            </span>
+                </td>
+                <td>
+                    <div class="slds-truncate" [title]="row['description']">
+                                                {{ row['description'] }}
+                                            </div>
+                </td>
+                <td>
+                    <span class="slds-truncate"
+                                                  [title]="row['createdByFullName']">
+                                                {{ row['createdByFullName'] }}
+                                            </span>
+                </td>
+                <td>
+                    <button (click)="download(row['id'])"
+                                                    class="slds-button slds-button--icon slds-button--icon-more slds-m-left--small"
+                                                    aria-haspopup="true" title="Configuration">
+                                                <svg class="slds-button__icon" aria-hidden="true">
+                                                    <use xlink:href="assets/icons/utility-sprite/svg/symbols.svg#download"></use>
+                                                </svg>
+                                                <span class="slds-assistive-text">Configuration</span>
+                                            </button>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
         </div>
     </div>
 

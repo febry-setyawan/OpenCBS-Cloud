@@ -22,45 +22,36 @@
 
 <main class="cbs-main cbs-main--pt-sm">
 
-    <p-dataTable
-        emptyMessage="{{ 'NO_RECORDS_FOUND' | translate}}"
+    <p-table
         [value]="(termDepositData | async)?.termDeposit"
-        [tableStyleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'"
-        [selectionMode]="'single'"
+        [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'"
+        selectionMode="single"
         (onRowSelect)="goToTermDeposit($event)">
-        <p-column field="profile" header="{{ 'PROFILE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['profileName'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="code" header="{{ 'CODE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['code'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="createdAt" header="{{ 'CREATED_AT' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['createdAt'] | cbsDateFormat }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="openDate" header="{{ 'OPEN_DATE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['openDate'] | cbsDateFormat }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="status" header="{{ 'TERM_DEPOSIT_OFFICER' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['serviceOfficerFirstName'] + ' ' + row['serviceOfficerLastName'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="status" header="{{ 'STATUS' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <ngl-badge [type]="(row['status'] | statusBadge)">
-                    {{ row['status'] === 'IN_PROGRESS' ? 'IN PROGRESS' : row['status'] }}
-                </ngl-badge>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ 'PROFILE' | translate }}</th>
+                <th>{{ 'CODE' | translate }}</th>
+                <th>{{ 'CREATED_AT' | translate }}</th>
+                <th>{{ 'OPEN_DATE' | translate }}</th>
+                <th>{{ 'TERM_DEPOSIT_OFFICER' | translate }}</th>
+                <th>{{ 'STATUS' | translate }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr [pSelectableRow]="row">
+                <td>{{ row['profileName'] }}</td>
+                <td>{{ row['code'] }}</td>
+                <td>{{ row['createdAt'] | cbsDateFormat }}</td>
+                <td>{{ row['openDate'] | cbsDateFormat }}</td>
+                <td>{{ row['serviceOfficerFirstName'] + ' ' + row['serviceOfficerLastName'] }}</td>
+                <td>
+                    <ngl-badge [type]="(row['status'] | statusBadge)">
+                        {{ row['status'] === 'IN_PROGRESS' ? 'IN PROGRESS' : row['status'] }}
+                    </ngl-badge>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 
     <cbs-loading-indicator [isFixed]="true" [showLoader]="(termDepositData | async)?.loading"></cbs-loading-indicator>
 

@@ -13,61 +13,58 @@
     </table>
 </div>
 <div class="cbs-scrollable-table">
-    <p-dataTable [value]="(entriesState | async)?.data?.content"
-                 emptyMessage="{{ 'NO_RECORDS_FOUND' | translate}}"
-                 [tableStyleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
-
-        <p-column field="createdAt">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span class="slds-truncate"
-                      [title]="row['effectiveAt']">
-                    {{ row['effectiveAt'] | cbsDateFormat }} {{ row['effectiveAt'] | cbsTimeFormat }}
-                </span>
-            </ng-template>
-        </p-column>
-
-        <p-column field="amount" class="float-right">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span><b>{{ row['amount'] | cbsNumberFormat }}</b></span>
-            </ng-template>
-        </p-column>
-
-        <p-column field="debitAccount">
-            <ng-template let-row="rowData" pTemplate="body">
-                        <span class="slds-truncate"
-                              [title]="row['debitAccountNumber'] + (row['debitAccountName'])">
-                            {{ row['debitAccountNumber'] }}
-                        </span>
-            </ng-template>
-        </p-column>
-
-        <p-column field="creditAccount">
-            <ng-template let-row="rowData" pTemplate="body">
-                        <span class="slds-truncate"
-                              [title]="row['creditAccountNumber'] + (row['creditAccountName'])">
-                            {{ row['creditAccountNumber'] }}
-                        </span>
-            </ng-template>
-        </p-column>
-
-        <p-column field="description">
-            <ng-template let-row="rowData" pTemplate="body">
-                <div class="slds-truncate" [title]="row['description']">
-                    {{ row['description'] }}
-                </div>
-            </ng-template>
-        </p-column>
-
-        <p-column field="createdBy">
-            <ng-template let-row="rowData" pTemplate="body">
-                        <span class="slds-truncate"
-                              [title]="row['createdByFullName']">
-                            {{ row['createdByFullName'] }}
-                        </span>
-            </ng-template>
-        </p-column>
-
-    </p-dataTable>
+    <p-table
+        [value]="(entriesState | async)?.data?.content"
+        [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
+        
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ 'CREATED_AT' | translate }}</th>
+                <th>{{ 'AMOUNT' | translate }}</th>
+                <th>{{ 'DEBIT_ACCOUNT' | translate }}</th>
+                <th>{{ 'CREDIT_ACCOUNT' | translate }}</th>
+                <th>{{ 'DESCRIPTION' | translate }}</th>
+                <th>{{ 'CREATED_BY' | translate }}</th>
+            </tr>
+        </ng-template>
+        
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td>
+                    <span class="slds-truncate"
+                          [title]="row['effectiveAt']">
+                        {{ row['effectiveAt'] | cbsDateFormat }} {{ row['effectiveAt'] | cbsTimeFormat }}
+                    </span>
+                </td>
+                <td class="float-right">
+                    <span><b>{{ row['amount'] | cbsNumberFormat }}</b></span>
+                </td>
+                <td>
+                    <span class="slds-truncate"
+                          [title]="row['debitAccountNumber'] + (row['debitAccountName'])">
+                        {{ row['debitAccountNumber'] }}
+                    </span>
+                </td>
+                <td>
+                    <span class="slds-truncate"
+                          [title]="row['creditAccountNumber'] + (row['creditAccountName'])">
+                        {{ row['creditAccountNumber'] }}
+                    </span>
+                </td>
+                <td>
+                    <div class="slds-truncate" [title]="row['description']">
+                        {{ row['description'] }}
+                    </div>
+                </td>
+                <td>
+                    <span class="slds-truncate"
+                          [title]="row['createdByFullName']">
+                        {{ row['createdByFullName'] }}
+                    </span>
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
 </div>
 
 <div class="slds-grid slds-grid--align-center"

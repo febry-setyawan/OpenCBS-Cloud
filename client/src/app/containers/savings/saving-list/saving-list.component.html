@@ -22,40 +22,32 @@
 
 <main class="cbs-main cbs-main--pt-sm">
 
-    <p-dataTable
-        emptyMessage="{{ 'NO_RECORDS_FOUND' | translate}}"
+    <p-table
         [value]="(savingData | async)?.saving"
-        [tableStyleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'"
-        [selectionMode]="'single'"
+        [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'"
+        selectionMode="single"
         (onRowSelect)="goToSaving($event)">
-        <p-column field="profile" header="{{ 'PROFILE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['profileName'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="code" header="{{ 'CODE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['code'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="createdAt" header="{{ 'OPEN_DATE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['openDate'] | cbsDateFormat }} {{ row['openDate'] | cbsTimeFormat }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="status" header="{{ 'SAVING_OFFICER' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['savingOfficerFirstName'] + ' ' + row['savingOfficerLastName'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="status" header="{{ 'STATUS' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <ngl-badge [type]="(row['status'] | statusBadge)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ 'PROFILE' | translate }}</th>
+                <th>{{ 'CODE' | translate }}</th>
+                <th>{{ 'OPEN_DATE' | translate }}</th>
+                <th>{{ 'SAVING_OFFICER' | translate }}</th>
+                <th>{{ 'STATUS' | translate }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr [pSelectableRow]="row">
+                <td>{{ row['profileName'] }}</td>
+                <td>{{ row['code'] }}</td>
+                <td>{{ row['openDate'] | cbsDateFormat }} {{ row['openDate'] | cbsTimeFormat }}</td>
+                <td>{{ row['savingOfficerFirstName'] + ' ' + row['savingOfficerLastName'] }}</td>
+                <td><ngl-badge [type]="(row['status'] | statusBadge)">
                     {{ row['status'] === 'IN_PROGRESS' ? 'IN PROGRESS' : row['status'] }}
-                </ngl-badge>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
+                </ngl-badge></td>
+            </tr>
+        </ng-template>
+    </p-table>
 
     <cbs-loading-indicator [isFixed]="true" [showLoader]="(savingData | async)?.loading"></cbs-loading-indicator>
 

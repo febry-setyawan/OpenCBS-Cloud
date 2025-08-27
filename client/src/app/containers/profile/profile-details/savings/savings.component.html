@@ -61,49 +61,35 @@
         </div>
         <div class="cbs-profile__right" id="scrollable-section">
             <ng-container>
-                <p-dataTable
-                    emptyMessage="{{ 'NO_RECORDS_FOUND' | translate}}"
-                    [value]="(savingData | async)?.savingProfile"
-                    [tableStyleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'"
-                    [selectionMode]="'single'" (onRowSelect)="goToSavingInfo($event)">
-                    <p-column field="profile" header="{{ 'CODE' | translate }}">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['code'] }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="savingProductName" header="{{ 'SAVING_PRODUCT' | translate }}">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['savingProductName'] }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="openDate" header="{{ 'OPEN_DATE' | translate }}">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['openDate'] | cbsDateFormat }} {{ row['openDate'] | cbsTimeFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="savingOfficerName" header="{{ 'SAVING_OFFICER' | translate }}">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['savingOfficerName'] }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="savingBalanceName" header="{{ 'BALANCE' | translate }}">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['savingBalance'] | cbsNumberFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="accruedInterestName" header="{{ 'ACCRUED_INTEREST' | translate }}">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['accruedInterest'] | cbsNumberFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="savingOfficer" header="{{ 'STATUS' | translate }}">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <ngl-badge [type]="(row['status'] | statusBadge)">
+                <p-table
+        [value]="(savingData | async)?.savingProfile"
+                    [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'"
+                    selectionMode="single" (onRowSelect)="goToSavingInfo($event)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ 'CODE' | translate }}</th>
+                <th>{{ 'SAVING_PRODUCT' | translate }}</th>
+                <th>{{ 'OPEN_DATE' | translate }}</th>
+                <th>{{ 'SAVING_OFFICER' | translate }}</th>
+                <th>{{ 'BALANCE' | translate }}</th>
+                <th>{{ 'ACCRUED_INTEREST' | translate }}</th>
+                <th>{{ 'STATUS' | translate }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr [pSelectableRow]="row">
+                <td>{{ row['code'] }}</td>
+                <td>{{ row['savingProductName'] }}</td>
+                <td>{{ row['openDate'] | cbsDateFormat }} {{ row['openDate'] | cbsTimeFormat }}</td>
+                <td>{{ row['savingOfficerName'] }}</td>
+                <td>{{ row['savingBalance'] | cbsNumberFormat }}</td>
+                <td>{{ row['accruedInterest'] | cbsNumberFormat }}</td>
+                <td><ngl-badge [type]="(row['status'] | statusBadge)">
                                 {{ row['status'] === 'IN_PROGRESS' ? 'IN PROGRESS' : row['status'] }}
-                            </ngl-badge>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable>
+                            </ngl-badge></td>
+            </tr>
+        </ng-template>
+    </p-table>
             </ng-container>
         </div>
     </div>

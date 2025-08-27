@@ -46,7 +46,9 @@ import { MatMomentDateModule } from '@angular/material-moment-adapter';
     ChipsModule,
     CbsFormModule,
     ScheduleModule,
-    MatDatepickerModule
+    MatDatepickerModule,
+    TableModule,
+    MultiSelectModule
   ],
   declarations: COMPONENTS
 })
