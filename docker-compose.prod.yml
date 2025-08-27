@@ -37,7 +37,7 @@ services:
       SPRING_MAIL_PASSWORD: ${MAIL_PASSWORD}
       
       # JVM settings for production
-      JAVA_OPTS: -Xmx4g -Xms2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200
+      JAVA_OPTS: -Xmx4g -Xms2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200 --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.rmi/sun.rmi.transport=ALL-UNNAMED
       
     restart: unless-stopped
     healthcheck:

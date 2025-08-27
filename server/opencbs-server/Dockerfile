@@ -27,5 +27,14 @@ COPY ./opencbs-server/src/main/resources/application.properties /usr/app/applica
 # Expose port
 EXPOSE 8080
 
-CMD ["java", "-jar", "/usr/app/opencbs-server.jar", "-Djava.security.egd=file:/dev/./urandom", "-Dspring.config.location=/usr/app/application.properties"]
+CMD ["java", \
+     "--add-opens", "java.base/java.lang=ALL-UNNAMED", \
+     "--add-opens", "java.base/java.util=ALL-UNNAMED", \
+     "--add-opens", "java.base/java.lang.reflect=ALL-UNNAMED", \
+     "--add-opens", "java.base/java.text=ALL-UNNAMED", \
+     "--add-opens", "java.base/java.io=ALL-UNNAMED", \
+     "--add-opens", "java.rmi/sun.rmi.transport=ALL-UNNAMED", \
+     "-jar", "/usr/app/opencbs-server.jar", \
+     "-Djava.security.egd=file:/dev/./urandom", \
+     "-Dspring.config.location=/usr/app/application.properties"]
 

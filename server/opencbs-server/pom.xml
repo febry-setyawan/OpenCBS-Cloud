@@ -140,6 +140,9 @@
                         <configuration>
                             <executable>yarn</executable>
                             <workingDirectory>${basedir}/../../client</workingDirectory>
+                            <environmentVariables>
+                                <NODE_OPTIONS>--openssl-legacy-provider --max_old_space_size=4096</NODE_OPTIONS>
+                            </environmentVariables>
                         </configuration>
                     </execution>
                     <execution>
@@ -154,6 +157,9 @@
                                 <argument>build-prod</argument>
                             </arguments>
                             <workingDirectory>${basedir}/../../client</workingDirectory>
+                            <environmentVariables>
+                                <NODE_OPTIONS>--openssl-legacy-provider --max_old_space_size=4096</NODE_OPTIONS>
+                            </environmentVariables>
                         </configuration>
                     </execution>
                 </executions>

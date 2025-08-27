@@ -3,6 +3,7 @@ package com.opencbs.core.configs;
 import lombok.extern.slf4j.Slf4j;
 import org.flywaydb.core.Flyway;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.autoconfigure.flyway.FlywayMigrationStrategy;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +17,17 @@ public class CoreFlywayMigrationStrategy implements FlywayMigrationStrategy {
 
     @Autowired
     ApplicationContext context;
+    
+    @Value("${spring.flyway.enabled:true}")
+    private boolean flywayEnabled;
 
     @Override
     public void migrate(Flyway flyway) {
+        if (!flywayEnabled) {
+            log.info("Flyway migration is disabled, skipping database migration");
+            return;
+        }
+        
         log.info("Start migrate OpenCBS cloud database");
 
         flyway.setSchemas("public");

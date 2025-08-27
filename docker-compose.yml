@@ -108,7 +108,7 @@ services:
       NODE_OPTIONS: --openssl-legacy-provider --max_old_space_size=4096
       
       # Java Runtime Configuration  
-      JAVA_OPTS: -Xmx2g -Xms1g
+      JAVA_OPTS: -Xmx2g -Xms1g --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.rmi/sun.rmi.transport=ALL-UNNAMED
       
     volumes:
       - opencbs_attachments:/app/data/attachments
