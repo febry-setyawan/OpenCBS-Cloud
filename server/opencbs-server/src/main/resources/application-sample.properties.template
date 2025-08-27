@@ -1,0 +1,194 @@
+# OpenCBS Cloud Server - Sample Configuration Template
+# Copy this file to application.properties and customize the values
+# This file demonstrates various configuration examples for different environments
+
+# ============================================================================
+# DEVELOPMENT ENVIRONMENT EXAMPLE
+# ============================================================================
+
+# Core module features - enable for development/testing
+opencbs.core.enableInterestAccrual=true
+opencbs.core.enablePenaltyAccrual=true  
+opencbs.core.enableAutoRepayment=false
+
+# Local file storage paths (Linux/Mac)
+attachment.location=/tmp/opencbs/attachments
+template.location=/tmp/opencbs/templates
+
+# Windows paths example:
+# attachment.location=C:\\temp\\opencbs\\attachments
+# template.location=C:\\temp\\opencbs\\templates
+
+# Local RabbitMQ setup
+spring.rabbitmq.host=localhost
+spring.rabbitmq.frontHost=localhost
+spring.rabbitmq.port=5672
+spring.rabbitmq.username=guest
+spring.rabbitmq.password=guest
+spring.rabbitmq.virtualHost=/
+spring.rabbitmq.directExchange=opencbs.direct.dev
+spring.rabbitmq.fanoutExchange=opencbs.fanout.dev
+
+# Account balance calculation
+account-balance-calculation.exchange=balance.exchange.dev
+account-balance-calculation.queue=balance.calculation.queue.dev
+account-balance-calculation.routingKey=balance.calculation.dev
+
+# Day closure - manual trigger for development
+day-closure.autoStart=false
+day-closure.autoStartTime=02:00
+day-closure.errorToEmails=developer@opencbs.com
+
+# Small thread pool for development
+task-executor.minPoolSize=1
+task-executor.maxPoolSize=5
+
+# Email configuration for development (using Gmail)
+email.sender=OpenCBS Development
+spring.mail.host=smtp.gmail.com
+spring.mail.port=587
+spring.mail.username=dev@opencbs.com
+spring.mail.password=your-gmail-app-password
+
+# Development database (H2 in-memory for testing)
+spring.datasource.url=jdbc:h2:mem:opencbs_dev
+spring.datasource.username=sa
+spring.datasource.password=
+spring.datasource.driver-class-name=org.h2.Driver
+spring.jpa.hibernate.ddl-auto=create-drop
+
+# ============================================================================
+# PRODUCTION ENVIRONMENT EXAMPLE  
+# ============================================================================
+
+# Core module features - enable based on business requirements
+# opencbs.core.enableInterestAccrual=true
+# opencbs.core.enablePenaltyAccrual=true
+# opencbs.core.enableAutoRepayment=true
+
+# Production file storage paths
+# attachment.location=/opt/opencbs/data/attachments
+# template.location=/opt/opencbs/data/templates
+
+# Production RabbitMQ cluster
+# spring.rabbitmq.host=rabbitmq-cluster.internal
+# spring.rabbitmq.frontHost=rabbitmq-frontend.internal  
+# spring.rabbitmq.port=5672
+# spring.rabbitmq.username=opencbs_prod
+# spring.rabbitmq.password=strong_password_here
+# spring.rabbitmq.virtualHost=/opencbs
+# spring.rabbitmq.directExchange=opencbs.direct.prod
+# spring.rabbitmq.fanoutExchange=opencbs.fanout.prod
+
+# Production balance calculation
+# account-balance-calculation.exchange=balance.exchange.prod
+# account-balance-calculation.queue=balance.calculation.queue.prod
+# account-balance-calculation.routingKey=balance.calculation.prod
+
+# Automated day closure for production
+# day-closure.autoStart=true
+# day-closure.autoStartTime=23:30
+# day-closure.errorToEmails=operations@bank.com,it-support@bank.com,manager@bank.com
+
+# Production thread pool sizing
+# task-executor.minPoolSize=5
+# task-executor.maxPoolSize=20
+
+# Production email via corporate SMTP
+# email.sender=Bank Core Banking System
+# spring.mail.host=smtp.corporate.bank
+# spring.mail.port=587
+# spring.mail.username=corebanking@bank.com
+# spring.mail.password=corporate_email_password
+
+# Production PostgreSQL database
+# spring.datasource.url=jdbc:postgresql://db-cluster.internal:5432/opencbs_prod
+# spring.datasource.username=opencbs_user
+# spring.datasource.password=very_strong_password
+# spring.jpa.hibernate.ddl-auto=validate
+
+# Production server configuration
+# server.port=8443
+# server.ssl.enabled=true
+# server.ssl.key-store=/opt/opencbs/ssl/keystore.p12
+# server.ssl.key-store-password=ssl_password
+# server.ssl.key-store-type=PKCS12
+
+# ============================================================================
+# TESTING ENVIRONMENT EXAMPLE
+# ============================================================================
+
+# Testing with all features enabled
+# opencbs.core.enableInterestAccrual=true
+# opencbs.core.enablePenaltyAccrual=true
+# opencbs.core.enableAutoRepayment=true
+
+# Test data directories
+# attachment.location=/var/test/opencbs/attachments
+# template.location=/var/test/opencbs/templates
+
+# Test RabbitMQ setup
+# spring.rabbitmq.host=rabbitmq-test.internal
+# spring.rabbitmq.username=test_user
+# spring.rabbitmq.password=test_password
+# spring.rabbitmq.directExchange=opencbs.direct.test
+# spring.rabbitmq.fanoutExchange=opencbs.fanout.test
+
+# Test balance calculation
+# account-balance-calculation.exchange=balance.exchange.test
+# account-balance-calculation.queue=balance.calculation.queue.test
+# account-balance-calculation.routingKey=balance.calculation.test
+
+# Manual day closure for testing
+# day-closure.autoStart=false
+# day-closure.errorToEmails=tester@opencbs.com
+
+# Test database (PostgreSQL)
+# spring.datasource.url=jdbc:postgresql://localhost:5432/opencbs_test
+# spring.datasource.username=opencbs_test
+# spring.datasource.password=test_password
+# spring.jpa.hibernate.ddl-auto=create-drop
+
+# ============================================================================
+# DOCKER ENVIRONMENT EXAMPLE
+# ============================================================================
+
+# Docker-based configuration using environment variables
+# These would typically be overridden via Docker environment variables
+
+# File paths in Docker containers
+# attachment.location=/app/data/attachments
+# template.location=/app/data/templates
+
+# Docker services
+# spring.rabbitmq.host=rabbitmq
+# spring.rabbitmq.username=${RABBITMQ_USER:opencbs}
+# spring.rabbitmq.password=${RABBITMQ_PASS:opencbs123}
+
+# Database in Docker
+# spring.datasource.url=jdbc:postgresql://postgres:5432/${DB_NAME:opencbs}
+# spring.datasource.username=${DB_USER:opencbs}
+# spring.datasource.password=${DB_PASS:opencbs123}
+
+# ============================================================================
+# ADDITIONAL CONFIGURATION EXAMPLES
+# ============================================================================
+
+# Custom date formats
+# spring.jackson.date-format=yyyy-MM-dd HH:mm:ss
+# spring.jackson.time-zone=UTC
+
+# File upload limits
+# spring.servlet.multipart.max-file-size=10MB
+# spring.servlet.multipart.max-request-size=50MB
+
+# Connection pool settings
+# spring.datasource.hikari.maximum-pool-size=20
+# spring.datasource.hikari.minimum-idle=5
+# spring.datasource.hikari.connection-timeout=30000
+
+# Redis cache (if using)
+# spring.redis.host=localhost
+# spring.redis.port=6379
+# spring.redis.password=
+# spring.redis.database=0
