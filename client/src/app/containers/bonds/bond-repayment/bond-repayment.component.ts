@@ -29,10 +29,10 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 
 export class BondRepaymentComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(LoanInstallmentsTableComponent, {static: false}) installmentsTableComponent: LoanInstallmentsTableComponent;
-  @ViewChild(BondRepaymentFormComponent, {static: false}) formComponent: BondRepaymentFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
-  @ViewChild('previewButton', {static: false}) previewButton: ElementRef;
+  @ViewChild(LoanInstallmentsTableComponent) installmentsTableComponent: LoanInstallmentsTableComponent;
+  @ViewChild(BondRepaymentFormComponent) formComponent: BondRepaymentFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
+  @ViewChild('previewButton') previewButton: ElementRef;
 
   public svgData = {
     collection: 'custom',

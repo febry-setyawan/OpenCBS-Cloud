@@ -59,7 +59,7 @@ export class ColumnComponent implements AfterContentInit {
   @Input() hidden: boolean;
   @Input() width: string;
   @ContentChildren(CbsTemplateDirective) templates: QueryList<any>;
-  @ContentChild(TemplateRef, {static: false}) template: TemplateRef<any>;
+  @ContentChild(TemplateRef) template: TemplateRef<any>;
 
   public headerTemplate: TemplateRef<any>;
   public bodyTemplate: TemplateRef<any>;

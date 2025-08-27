@@ -20,8 +20,8 @@ const SVG_DATA = {collection: 'standard', class: 'calibration', name: 'calibrati
 })
 
 export class TermDepositProductCreateComponent implements OnInit {
-  @ViewChild(TermDepositProductFormComponent, {static: false}) termDepositProductForm: TermDepositProductFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(TermDepositProductFormComponent) termDepositProductForm: TermDepositProductFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public breadcrumbLinks = [
     {

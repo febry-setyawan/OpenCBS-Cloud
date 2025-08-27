@@ -24,7 +24,7 @@ import {CCRulesFormComponent} from '../../credit-committee/shared/credit-committ
 
 export class LoanPurposesListComponent implements OnInit, OnDestroy {
 
-  @ViewChild(CustomFormModalComponent, {static: false}) private loanPurposeFormModal: CustomFormModalComponent;
+  @ViewChild(CustomFormModalComponent) private loanPurposeFormModal: CustomFormModalComponent;
 
   public newLoanPurposeFields = [
     {

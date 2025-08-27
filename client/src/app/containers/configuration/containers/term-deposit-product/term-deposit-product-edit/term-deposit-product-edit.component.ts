@@ -24,8 +24,8 @@ const SVG_DATA = {collection: 'standard', class: 'calibration', name: 'calibrati
   styleUrls: ['term-deposit-product-edit.component.scss']
 })
 export class TermDepositProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(TermDepositProductFormComponent, {static: false}) termDepositProductForm: TermDepositProductFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(TermDepositProductFormComponent) termDepositProductForm: TermDepositProductFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public isOpen = false;
   public formChanged = false;

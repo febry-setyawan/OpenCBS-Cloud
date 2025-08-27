@@ -28,7 +28,7 @@ const SVG_DATA = {
 })
 
 export class LoanRepaymentMakerCheckerComponent implements OnInit, OnDestroy {
-  @ViewChild(LoanInstallmentsTableComponent, {static: false}) installmentsTableComponent: LoanInstallmentsTableComponent;
+  @ViewChild(LoanInstallmentsTableComponent) installmentsTableComponent: LoanInstallmentsTableComponent;
   public installments: any;
   public svgData = SVG_DATA;
   public breadcrumb = [];

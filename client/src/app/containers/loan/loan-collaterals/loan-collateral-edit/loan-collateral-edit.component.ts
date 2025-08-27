@@ -25,7 +25,7 @@ const SVG_DATA = {collection: 'custom', class: 'custom41', name: 'custom41'};
 })
 
 export class LoanUpdateCollateralComponent implements OnInit, OnDestroy {
-  @ViewChild(LoanCollateralFormComponent, {static: false}) public formComponent: LoanCollateralFormComponent;
+  @ViewChild(LoanCollateralFormComponent) public formComponent: LoanCollateralFormComponent;
   public loanAppId: number;
   public loan: any;
   public profile: any;

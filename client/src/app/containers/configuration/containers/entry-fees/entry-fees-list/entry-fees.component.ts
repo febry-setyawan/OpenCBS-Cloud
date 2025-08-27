@@ -23,7 +23,7 @@ const SVG_DATA = {collection: 'custom', class: 'custom41', name: 'custom41'};
   templateUrl: 'entry-fees.component.html'
 })
 export class EntryFeesComponent implements OnInit, OnDestroy {
-  @ViewChild(EntryFeesFormModalComponent, {static: false}) private formModal: EntryFeesFormModalComponent;
+  @ViewChild(EntryFeesFormModalComponent) private formModal: EntryFeesFormModalComponent;
   public svgData = SVG_DATA;
   public entryFees: Observable<EntryFeeListState>;
   public isNew = false;

@@ -11,7 +11,7 @@ import { ManageEventModalComponent } from './components/manage-event-popup/manag
 import { EventService } from './event.service';
 import { RouteGuard } from '../../core/guards/route-guard.service';
 
-const eventManagerRouting: ModuleWithProviders = RouterModule.forChild([{
+const eventManagerRouting: ModuleWithProviders<RouterModule> = RouterModule.forChild([{
   path: 'event-manager',
   component: EventManagerComponent,
   canActivate: [RouteGuard],

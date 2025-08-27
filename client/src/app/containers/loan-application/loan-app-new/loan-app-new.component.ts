@@ -32,8 +32,8 @@ import { Validators } from '@angular/forms';
 
 export class LoanAppNewComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(LoanDetailsFormComponent, {static: true}) formComponent: LoanDetailsFormComponent;
-  @ViewChild(PayeeFormModalComponent, {static: false}) payeeFormComponent: PayeeFormModalComponent;
-  @ViewChild(EntryFeesModalComponent, {static: false}) entryFeeModalComponent: EntryFeesModalComponent;
+  @ViewChild(PayeeFormModalComponent) payeeFormComponent: PayeeFormModalComponent;
+  @ViewChild(EntryFeesModalComponent) entryFeeModalComponent: EntryFeesModalComponent;
   public loanAppFormState: ILoanAppFormState;
   public formVisible = false;
   public formChangeSub: any;

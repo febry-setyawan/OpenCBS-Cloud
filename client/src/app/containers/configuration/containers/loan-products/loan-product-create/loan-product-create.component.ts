@@ -24,8 +24,8 @@ const SVG_DATA = {
   styleUrls: ['loan-product-create.component.scss']
 })
 export class LoanProductCreateComponent implements OnInit, OnDestroy {
-  @ViewChild(LoanProductFormComponent, {static: false}) loanProductForm: LoanProductFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(LoanProductFormComponent) loanProductForm: LoanProductFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public loanProduct: any;
   public breadcrumbLinks = [

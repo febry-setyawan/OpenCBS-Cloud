@@ -10,13 +10,13 @@ const ACCOUNTING_CONFIG = {url: `${environment.API_ENDPOINT}accounting/lookup`};
   templateUrl: 'penalties-form-modal.component.html'
 })
 export class PenaltiesFormModalComponent implements OnInit {
-  @ViewChild('accrualAccount', {static: false}) accrualAccount: FormLookupControlComponent;
-  @ViewChild('incomeAccount', {static: false}) incomeAccount: FormLookupControlComponent;
-  @ViewChild('writeOffAccount', {static: false}) writeOffAccount: FormLookupControlComponent;
+  @ViewChild('accrualAccount') accrualAccount: FormLookupControlComponent;
+  @ViewChild('incomeAccount') incomeAccount: FormLookupControlComponent;
+  @ViewChild('writeOffAccount') writeOffAccount: FormLookupControlComponent;
   public config = ACCOUNTING_CONFIG;
   @ViewChild('f', {static: true}) form: FormGroup;
-  @ViewChild('formFocus', {static: false}) formFocus: ElementRef;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('formFocus') formFocus: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   @Input() headerTitle = '';
   @Output() submitForm = new EventEmitter();
   public isOpen = false;

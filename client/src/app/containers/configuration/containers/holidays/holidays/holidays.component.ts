@@ -19,7 +19,7 @@ import * as fromStore from '../../../../../core/store';
   templateUrl: 'holidays.component.html'
 })
 export class HolidaysListComponent implements OnInit, OnDestroy {
-  @ViewChild(CustomFormModalComponent, {static: false}) private holidayFormModal: CustomFormModalComponent;
+  @ViewChild(CustomFormModalComponent) private holidayFormModal: CustomFormModalComponent;
 
   public newHolidayFields = [
     {

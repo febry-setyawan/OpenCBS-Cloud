@@ -24,7 +24,7 @@ const SVG_DATA = {collection: 'standard', class: 'person-account', name: 'person
   templateUrl: 'professions.component.html'
 })
 export class ProfessionsComponent implements OnInit, OnDestroy {
-  @ViewChild(CustomFormModalComponent, {static: false}) private professionFormModal: CustomFormModalComponent;
+  @ViewChild(CustomFormModalComponent) private professionFormModal: CustomFormModalComponent;
 
   public newProfessionFields = [
     {

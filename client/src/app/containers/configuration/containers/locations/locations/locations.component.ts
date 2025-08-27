@@ -20,7 +20,7 @@ import { CustomFormModalComponent } from '../../../../../shared/components/cbs-c
   templateUrl: 'locations.component.html'
 })
 export class LocationsComponent implements OnInit, OnDestroy {
-  @ViewChild(CustomFormModalComponent, {static: false}) private locationFormModal: CustomFormModalComponent;
+  @ViewChild(CustomFormModalComponent) private locationFormModal: CustomFormModalComponent;
 
   public newLocationFields = [
     {

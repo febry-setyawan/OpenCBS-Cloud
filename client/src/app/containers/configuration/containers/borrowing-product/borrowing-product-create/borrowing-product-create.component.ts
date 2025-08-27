@@ -18,8 +18,8 @@ import { BorrowingProductFormComponent } from '../shared/borrowing-product-form/
 })
 
 export class BorrowingProductCreateComponent implements OnInit {
-  @ViewChild(BorrowingProductFormComponent, {static: false}) loanProductForm: BorrowingProductFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(BorrowingProductFormComponent) loanProductForm: BorrowingProductFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public breadcrumbLinks = [
     {
       name: 'BORROWING_PRODUCTS',

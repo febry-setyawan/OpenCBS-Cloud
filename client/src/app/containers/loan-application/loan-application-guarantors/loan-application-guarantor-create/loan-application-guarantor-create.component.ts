@@ -23,7 +23,7 @@ const SVG_DATA = {collection: 'custom', class: 'custom41', name: 'custom41'};
 })
 
 export class LoanAppCreateGuarantorComponent implements OnInit, OnDestroy {
-  @ViewChild(GuarantorFormComponent, {static: false}) public guarantorForm: GuarantorFormComponent;
+  @ViewChild(GuarantorFormComponent) public guarantorForm: GuarantorFormComponent;
   public loanAppId: number;
   public breadcrumbLinks = [];
   public svgData = SVG_DATA;

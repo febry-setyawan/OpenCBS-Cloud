@@ -13,7 +13,7 @@ import { FormLookupControlComponent } from '../../modules/cbs-form/components';
 })
 
 export class PayeeFormModalComponent implements OnInit {
-  @ViewChild('payee', {static: false}) payee: FormLookupControlComponent;
+  @ViewChild('payee') payee: FormLookupControlComponent;
   @Input() headerTitle: string;
   @Output() onSubmit = new EventEmitter();
   public isOpen = false;

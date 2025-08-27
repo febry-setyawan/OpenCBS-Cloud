@@ -27,7 +27,7 @@ const SVG_DATA = {  collection: 'standard',  class: 'service-resource',  name: '
   styleUrls: ['role-edit.component.scss']
 })
 export class RoleEditComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild('f', {static: false}) roleForm;
+  @ViewChild('f') roleForm;
   public roleGroups: any;
   public role: any;
   public formChanged = false;

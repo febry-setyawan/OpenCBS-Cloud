@@ -23,7 +23,7 @@ const SVG_DATA = {
 })
 export class SavingProductCreateComponent implements OnInit, OnDestroy {
   @ViewChild(SavingProductFormComponent, {static: true}) savingProductForm: SavingProductFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public breadcrumbLinks = [
     {

@@ -25,8 +25,8 @@ const SVG_DATA = {collection: 'standard', class: 'service-resource', name: 'serv
   styleUrls: ['role-create.component.scss']
 })
 export class RoleCreateComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('f', {static: false}) roleForm;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('f') roleForm;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public role: Role;
   public isLoading = true;
   public roleGroups: any;

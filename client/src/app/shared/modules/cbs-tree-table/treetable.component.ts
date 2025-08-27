@@ -180,9 +180,9 @@ export class TreeTableComponent {
 
   @Input() labelCollapse = 'Collapse';
 
-  @ContentChild(HeaderComponent, {static: false}) header: HeaderComponent;
+  @ContentChild(HeaderComponent) header: HeaderComponent;
 
-  @ContentChild(FooterComponent, {static: false}) footer: FooterComponent;
+  @ContentChild(FooterComponent) footer: FooterComponent;
 
   @ContentChildren(ColumnComponent) columns: QueryList<ColumnComponent>;
 }

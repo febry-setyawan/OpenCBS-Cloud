@@ -22,10 +22,10 @@ import {CCRulesFormComponent} from '../../configuration/containers/credit-commit
 })
 
 export class BorrowingRepaymentComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(LoanInstallmentsTableComponent, {static: false}) installmentsTableComponent: LoanInstallmentsTableComponent;
-  @ViewChild(BorrowingRepaymentFormComponent, {static: false}) formComponent: BorrowingRepaymentFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
-  @ViewChild('previewButton', {static: false}) previewButton: ElementRef;
+  @ViewChild(LoanInstallmentsTableComponent) installmentsTableComponent: LoanInstallmentsTableComponent;
+  @ViewChild(BorrowingRepaymentFormComponent) formComponent: BorrowingRepaymentFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
+  @ViewChild('previewButton') previewButton: ElementRef;
 
   public svgData = {
     collection: 'custom',

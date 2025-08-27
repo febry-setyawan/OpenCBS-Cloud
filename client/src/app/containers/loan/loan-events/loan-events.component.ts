@@ -27,7 +27,7 @@ import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms'
 })
 
 export class LoanEventsComponent implements OnInit, OnDestroy {
-  @ViewChild('dt', {static: false}) dataTable: Table;
+  @ViewChild('dt') dataTable: Table;
   public events: any;
   public breadcrumb = [];
   public isRollbackConfirmOpen = false;

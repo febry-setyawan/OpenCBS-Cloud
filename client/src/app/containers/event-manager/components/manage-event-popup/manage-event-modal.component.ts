@@ -29,8 +29,8 @@ import * as moment from 'moment';
   styleUrls: ['manage-event-modal.component.scss']
 })
 export class ManageEventModalComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(FormLookupComponent, {static: false}) lookup: FormLookupComponent;
-  @ViewChild('submitBtn', {static: false}) submitBtn: ElementRef;
+  @ViewChild(FormLookupComponent) lookup: FormLookupComponent;
+  @ViewChild('submitBtn') submitBtn: ElementRef;
   @Output() onSubmit = new EventEmitter();
   public isDialogVisible = false;
   public eventForm: FormGroup;

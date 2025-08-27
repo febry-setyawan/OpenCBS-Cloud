@@ -23,7 +23,7 @@ const SVG_DATA = {collection: 'standard', class: 'client', name: 'client'};
   templateUrl: 'payment-methods.component.html'
 })
 export class PaymentMethodsComponent implements OnInit, OnDestroy {
-  @ViewChild(CustomFormModalComponent, {static: false}) private paymentMethodFormModal: CustomFormModalComponent;
+  @ViewChild(CustomFormModalComponent) private paymentMethodFormModal: CustomFormModalComponent;
   public svgData = SVG_DATA;
   public breadcrumbLinks = [
     {

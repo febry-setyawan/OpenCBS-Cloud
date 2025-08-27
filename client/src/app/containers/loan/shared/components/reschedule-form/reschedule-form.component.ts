@@ -15,7 +15,7 @@ import { FormLookupControlComponent } from '../../../../../shared/modules/cbs-fo
 })
 
 export class RescheduleFormComponent implements OnInit, OnDestroy {
-  @ViewChild(FormLookupControlComponent, {static: false}) formLookupControlComponent: FormLookupControlComponent;
+  @ViewChild(FormLookupControlComponent) formLookupControlComponent: FormLookupControlComponent;
   public rescheduleForm: FormGroup;
   public loanProduct: any;
   public isLoaded = false;

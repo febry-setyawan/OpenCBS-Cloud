@@ -18,8 +18,8 @@ const SVG_DATA = {collection: 'standard', class: 'calibration', name: 'calibrati
 })
 
 export class CreditLineCreateComponent implements OnInit {
-  @ViewChild(CreditLineFormComponent, {static: false}) creditLineForm: CreditLineFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(CreditLineFormComponent) creditLineForm: CreditLineFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public profile: any;
   public creditLine: any;

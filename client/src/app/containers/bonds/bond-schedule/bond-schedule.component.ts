@@ -18,7 +18,7 @@ import { LoanInstallmentsTableComponent } from '../../../shared/components/cbs-l
   templateUrl: 'bond-schedule.component.html'
 })
 export class BondScheduleComponent implements OnInit, OnDestroy {
-  @ViewChild(LoanInstallmentsTableComponent, {static: false}) installmentsTableComponent: LoanInstallmentsTableComponent;
+  @ViewChild(LoanInstallmentsTableComponent) installmentsTableComponent: LoanInstallmentsTableComponent;
   public bondFormState: BondFormState;
   public installments: {};
   public breadcrumb = [];

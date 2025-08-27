@@ -24,7 +24,7 @@ import {CCRulesFormComponent} from '../../../configuration/containers/credit-com
 })
 
 export class TopUpComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(EntryFeesModalComponent, {static: false}) entryFeeModalComponent: EntryFeesModalComponent;
+  @ViewChild(EntryFeesModalComponent) entryFeeModalComponent: EntryFeesModalComponent;
   public topUpForm: FormGroup;
   public loanAppEntryFees = [];
   public loan: any;

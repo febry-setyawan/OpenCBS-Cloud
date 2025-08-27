@@ -10,13 +10,13 @@ const CONFIG_ACCOUNTING = {url: `${environment.API_ENDPOINT}accounting/lookup`};
   templateUrl: 'other-fees-list-form-modal.component.html'
 })
 export class OtherFeesListFormModalComponent implements OnInit {
-  @ViewChild('chargeAccount', {static: false}) chargeAccount: FormLookupControlComponent;
-  @ViewChild('incomeAccount', {static: false}) incomeAccount: FormLookupControlComponent;
-  @ViewChild('expenseAccount', {static: false}) expenseAccount: FormLookupControlComponent;
+  @ViewChild('chargeAccount') chargeAccount: FormLookupControlComponent;
+  @ViewChild('incomeAccount') incomeAccount: FormLookupControlComponent;
+  @ViewChild('expenseAccount') expenseAccount: FormLookupControlComponent;
   public config = CONFIG_ACCOUNTING;
-  @ViewChild('f', {static: false}) form: FormGroup;
-  @ViewChild('formFocus', {static: false}) formFocus: ElementRef;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('f') form: FormGroup;
+  @ViewChild('formFocus') formFocus: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   @Input() headerTitle = '';
   @Output() submitForm = new EventEmitter();
   public isOpen = false;

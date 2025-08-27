@@ -20,7 +20,7 @@ import {CCRulesFormComponent} from '../../configuration/containers/credit-commit
 })
 
 export class BorrowingNewComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(BorrowingDetailsFormComponent, {static: false}) formComponent: BorrowingDetailsFormComponent;
+  @ViewChild(BorrowingDetailsFormComponent) formComponent: BorrowingDetailsFormComponent;
   public borrowingFormState: IBorrowingFormState;
   public formVisible = false;
   public borrowingFormSub: any;

@@ -30,7 +30,7 @@ const ACCOUNTING_CONFIG = {
   styleUrls: ['payees.component.scss']
 })
 export class PayeeListComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild('account', {static: false}) account: FormLookupControlComponent;
+  @ViewChild('account') account: FormLookupControlComponent;
   public opened = false;
   public form: FormGroup;
   public currentPayee: any;

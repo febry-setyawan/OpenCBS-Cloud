@@ -20,7 +20,7 @@ import { CCRulesFormComponent } from '../../../configuration/containers/credit-c
 export class EventManagerComponent implements OnInit, OnDestroy {
   public events: any[] = [];
   public scheduleConfigHeader: any;
-  @ViewChild(ManageEventModalComponent, {static: false}) private manageEventComponent: ManageEventModalComponent;
+  @ViewChild(ManageEventModalComponent) private manageEventComponent: ManageEventModalComponent;
   public currentUser: any;
   public calendarExtraOptions = {
     views: {

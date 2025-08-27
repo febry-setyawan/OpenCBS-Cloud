@@ -70,54 +70,51 @@
                  (scrolled)="onScroll({page: transactions?.termDepositPage})"
                  [scrollWindow]="false"
                  class="cbs-scrollable-table">
-                <p-dataTable
-                    emptyMessage="{{ 'NO_RECORDS_FOUND' | translate}}"
+                <p-table
                     [value]="transactions?.transactions"
-                    [tableStyleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
-                    <p-column field="id">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['id'] }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="date">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['date'] | cbsDateFormat }} {{ row['date'] | cbsTimeFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="deposit">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span *ngIf="row['deposit']; else nodata">{{ row['deposit'] | cbsNumberFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="withdraw">
-                        <ng-template let-row="rowData" pTemplate="body">
-                                <span
-                                    *ngIf="row['withdraw']; else nodata">{{ row['withdraw'] | cbsNumberFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="balance">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['balance'] | cbsNumberFormat }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="balance">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <span>{{ row['source']['number'] }}</span>
-                        </ng-template>
-                    </p-column>
-                    <p-column field="description">
-                        <ng-template let-row="rowData" pTemplate="body">
-                            <div class="slds-truncate" [attr.title]="row['description']">
-                                <span *ngIf="row['description']; else nodata">{{ row['description'] }}</span>
-                            </div>
-                        </ng-template>
-                    </p-column>
-                </p-dataTable>
+                    [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>ID</th>
+                <th>DATE</th>
+                <th>DEPOSIT</th>
+                <th>WITHDRAW</th>
+                <th>BALANCE</th>
+                <th>BALANCE</th>
+                <th>DESCRIPTION</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr>
+                <td>
+                    <span>{{ row['id'] }}</span>
+                </td>
+                <td>
+                    <span>{{ row['date'] | cbsDateFormat }} {{ row['date'] | cbsTimeFormat }}</span>
+                </td>
+                <td>
+                    <span *ngIf="row['deposit']; else nodata">{{ row['deposit'] | cbsNumberFormat }}</span>
+                </td>
+                <td>
+                    <span *ngIf="row['withdraw']; else nodata">{{ row['withdraw'] | cbsNumberFormat }}</span>
+                </td>
+                <td>
+                    <span>{{ row['balance'] | cbsNumberFormat }}</span>
+                </td>
+                <td>
+                    <span>{{ row['source']['number'] }}</span>
+                </td>
+                <td>
+                    <div class="slds-truncate" [attr.title]="row['description']">
+                        <span *ngIf="row['description']; else nodata">{{ row['description'] }}</span>
+                    </div>
+                </td>
+            </tr>
+        </ng-template>
+                </p-table>
             </div>
         </div>
         <cbs-loading-indicator [isFixed]="true" [showLoader]="!transactions?.loaded"></cbs-loading-indicator>
-    </div>
-</div>
 
 <ng-template #nodata>
     <span>-</span>

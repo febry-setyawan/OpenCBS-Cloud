@@ -23,7 +23,7 @@ const SVG_DATA = {
 })
 
 export class TransactionTemplatesEditComponent implements OnInit, OnDestroy {
-  @ViewChild(TransactionTemplatesFormComponent, {static: false}) transactionTemplatesForm: TransactionTemplatesFormComponent;
+  @ViewChild(TransactionTemplatesFormComponent) transactionTemplatesForm: TransactionTemplatesFormComponent;
   public svgData = SVG_DATA;
   public breadcrumbLinks = [
     {

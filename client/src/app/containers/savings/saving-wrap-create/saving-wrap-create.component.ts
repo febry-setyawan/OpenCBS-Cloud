@@ -24,7 +24,7 @@ const SVG_DATA = {
 })
 
 export class SavingWrapCreateComponent implements OnInit, OnDestroy {
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   @ViewChild(SavingNewComponent, {static: true}) formComponent: SavingNewComponent;
 
 

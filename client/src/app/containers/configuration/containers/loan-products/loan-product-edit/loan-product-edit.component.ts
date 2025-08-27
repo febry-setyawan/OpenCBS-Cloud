@@ -25,8 +25,8 @@ const SVG_DATA = {
   styleUrls: ['loan-product-edit.component.scss']
 })
 export class LoanProductEditComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(EditLoanProductFormComponent, {static: false}) editLoanProductForm: EditLoanProductFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild(EditLoanProductFormComponent) editLoanProductForm: EditLoanProductFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
   public svgData = SVG_DATA;
   public loanProductId: number;
   public loanProductState: LoanProductState;

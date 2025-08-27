@@ -34,7 +34,7 @@ const SVG_DATA = {
 export class LoanRescheduleComponent implements OnInit, OnDestroy, AfterViewInit {
   @ViewChild(RescheduleFormComponent, {static: true}) rescheduleFormComponent: RescheduleFormComponent;
   @ViewChild(LoanInstallmentsTableComponent, {static: true}) installmentsTableComponent: LoanInstallmentsTableComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
 
   public breadcrumb = [];
   public loanId: number;

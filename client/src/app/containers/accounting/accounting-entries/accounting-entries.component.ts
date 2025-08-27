@@ -25,9 +25,9 @@ const SVG_DATA = {collection: 'standard', class: 'social', name: 'social'};
   styleUrls: ['./accounting-entries.component.scss']
 })
 export class AccountingEntriesComponent implements OnInit, OnDestroy {
-  @ViewChild('lookupDebitAccount', {static: false}) lookupDebitAccount: FormLookupControlComponent;
-  @ViewChild('lookupCreditAccount', {static: false}) lookupCreditAccount: FormLookupControlComponent;
-  @ViewChild('lookupTransactionTemplate', {static: false}) lookupTransactionTemplate: FormLookupControlComponent;
+  @ViewChild('lookupDebitAccount') lookupDebitAccount: FormLookupControlComponent;
+  @ViewChild('lookupCreditAccount') lookupCreditAccount: FormLookupControlComponent;
+  @ViewChild('lookupTransactionTemplate') lookupTransactionTemplate: FormLookupControlComponent;
   public svgData = SVG_DATA;
   public entries: IAccountingEntries;
   public singleTransactionForm: FormGroup;

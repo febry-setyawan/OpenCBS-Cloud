@@ -16,7 +16,7 @@ import * as fromStore from '../../../../../core/store';
 })
 
 export class CCNewRulesComponent implements OnInit, OnDestroy, AfterViewInit {
-  @ViewChild(CCRulesFormComponent, {static: false}) formComponent: CCRulesFormComponent;
+  @ViewChild(CCRulesFormComponent) formComponent: CCRulesFormComponent;
   public svgData = {
     collection: 'standard',
     class: 'team-member',

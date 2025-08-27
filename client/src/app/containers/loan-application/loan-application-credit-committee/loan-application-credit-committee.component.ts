@@ -19,7 +19,7 @@ import { LoanAppStatus } from '../../../core/loan-application-status.enum';
   styleUrls: ['loan-application-credit-committee.component.scss']
 })
 export class CreditCommitteeComponent implements OnInit, OnDestroy {
-  @ViewChild('notes', {static: false}) notesTextArea: ElementRef;
+  @ViewChild('notes') notesTextArea: ElementRef;
   public loanAppState: any;
   public loanAppId: number;
   public loanApplication: any;

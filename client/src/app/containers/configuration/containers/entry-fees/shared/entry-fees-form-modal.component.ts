@@ -10,11 +10,11 @@ const CONFIG_ACCOUNTING = {url: `${environment.API_ENDPOINT}accounting/lookup`};
   templateUrl: 'entry-fees-form-modal.component.html'
 })
 export class EntryFeesFormModalComponent implements OnInit {
-  @ViewChild('lookupAccount', {static: false}) lookupAccount: FormLookupControlComponent;
+  @ViewChild('lookupAccount') lookupAccount: FormLookupControlComponent;
   public config = CONFIG_ACCOUNTING;
   @ViewChild('f', {static: true}) form: FormGroup;
-  @ViewChild('formFocus', {static: false}) formFocus: ElementRef;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
+  @ViewChild('formFocus') formFocus: ElementRef;
+  @ViewChild('submitButton') submitButton: ElementRef;
   @Input() headerTitle = '';
   @Output() submitForm = new EventEmitter();
   public isOpen = false;

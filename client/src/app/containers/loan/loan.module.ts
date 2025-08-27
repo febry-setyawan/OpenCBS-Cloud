@@ -58,7 +58,7 @@ import { LoanCommentsComponent } from './loan-comments/loan-comments.component';
 import { ProvisioningComponent } from './loan-special-operations/provisioning/provisioning.component';
 import { ProvisioningService } from './shared/services/provisioning.service';
 import {MatTooltipModule} from '@angular/material/tooltip';
-import {TooltipModule} from 'primeng/primeng';
+import {TooltipModule} from 'primeng/tooltip';
 import { LoanInfoEntityComponent } from './shared/components/loan-info-entity/loan-info-entity.component';
 import { LoanDashboardComponent } from './loan-dashboard/loan-dashboard.component';
 import { LoanDashboardService } from './loan-dashboard/service/loan-dashboard.service';

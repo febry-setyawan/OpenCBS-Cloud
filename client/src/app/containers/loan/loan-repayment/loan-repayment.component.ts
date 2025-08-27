@@ -27,9 +27,9 @@ const SVG_DATA = {collection: 'custom', class: 'custom41', name: 'custom41'};
 
 export class LoanRepaymentComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild(LoanInstallmentsTableComponent, {static: true}) installmentsTableComponent: LoanInstallmentsTableComponent;
-  @ViewChild(RepaymentFormComponent, {static: false}) formComponent: RepaymentFormComponent;
-  @ViewChild('submitButton', {static: false}) submitButton: ElementRef;
-  @ViewChild('previewButton', {static: false}) previewButton: ElementRef;
+  @ViewChild(RepaymentFormComponent) formComponent: RepaymentFormComponent;
+  @ViewChild('submitButton') submitButton: ElementRef;
+  @ViewChild('previewButton') previewButton: ElementRef;
   public installments: any;
   public svgData = SVG_DATA;
   public loan: Observable<ILoanInfo>;

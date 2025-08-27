@@ -17,7 +17,7 @@ import * as LoanPayeeEventsActions from '../../../core/store/loan-payees/loan-pa
 })
 
 export class LoanPayeesEventsComponent implements OnInit, OnDestroy {
-  @ViewChild('dt', {static: false}) dataTable: Table;
+  @ViewChild('dt') dataTable: Table;
   public events: any;
   public breadcrumb = [];
   public loanPayee: any;

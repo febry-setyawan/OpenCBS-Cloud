@@ -18,7 +18,7 @@ import { Observable, Subscription } from 'rxjs';
 })
 
 export class LoanInfoComponent implements OnInit, OnDestroy {
-  @ViewChild(PayeeFormModalComponent, {static: false}) payeeFormComponent: PayeeFormModalComponent;
+  @ViewChild(PayeeFormModalComponent) payeeFormComponent: PayeeFormModalComponent;
   public loanApp: any;
   public loanApplicationState: any;
   public breadcrumbPart: string;

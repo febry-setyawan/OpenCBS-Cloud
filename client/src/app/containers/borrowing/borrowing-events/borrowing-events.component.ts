@@ -23,7 +23,7 @@ import { BorrowingRollbackService } from '../shared/services/borrowing-rollback.
 })
 
 export class BorrowingEventsComponent implements OnInit, OnDestroy {
-  @ViewChild('dt', {static: false}) dataTable: Table;
+  @ViewChild('dt') dataTable: Table;
   public events: any;
   public breadcrumb = [];
   private borrowingId: number;

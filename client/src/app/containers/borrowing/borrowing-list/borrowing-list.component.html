@@ -22,55 +22,38 @@
 
 <main class="cbs-main cbs-main--pt-sm">
 
-    <p-dataTable
-        emptyMessage="{{ 'NO_RECORDS_FOUND' | translate}}"
+    <p-table
         [value]="(borrowingData | async)?.borrowings"
-        [tableStyleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'"
-        [selectionMode]="'single'"
+        [styleClass]="'slds-table slds-table--bordered slds-table--cell-buffer'"
+        selectionMode="single"
         (onRowSelect)="goToBorrowing($event)">
-        <p-column field="profile" header="{{ 'PROFILE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['profileName'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="code" header="{{ 'CODE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['code'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="amount" header="{{ 'AMOUNT' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['amount'] | cbsNumberFormat }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="interestRate" header="{{ 'INTEREST_RATE' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['interestRate'] + '%'}}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="loanProduct" header="{{ 'BORROWING_PRODUCTS' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['loanProductName'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="createdBy" header="{{ 'CREATED_BY' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['createdBy'] }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="createdAt" header="{{ 'CREATED_AT' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <span>{{ row['createdAt'] | cbsDateFormat }} {{ row['createdAt'] | cbsTimeFormat }}</span>
-            </ng-template>
-        </p-column>
-        <p-column field="status" header="{{ 'STATUS' | translate }}">
-            <ng-template let-row="rowData" pTemplate="body">
-                <ngl-badge [type]="(row['status'] | statusBadge)">
+        <ng-template pTemplate="header">
+            <tr>
+                <th>{{ 'PROFILE' | translate }}</th>
+                <th>{{ 'CODE' | translate }}</th>
+                <th>{{ 'AMOUNT' | translate }}</th>
+                <th>{{ 'INTEREST_RATE' | translate }}</th>
+                <th>{{ 'BORROWING_PRODUCTS' | translate }}</th>
+                <th>{{ 'CREATED_BY' | translate }}</th>
+                <th>{{ 'CREATED_AT' | translate }}</th>
+                <th>{{ 'STATUS' | translate }}</th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-row>
+            <tr [pSelectableRow]="row">
+                <td>{{ row['profileName'] }}</td>
+                <td>{{ row['code'] }}</td>
+                <td>{{ row['amount'] | cbsNumberFormat }}</td>
+                <td>{{ row['interestRate'] + '%'}}</td>
+                <td>{{ row['loanProductName'] }}</td>
+                <td>{{ row['createdBy'] }}</td>
+                <td>{{ row['createdAt'] | cbsDateFormat }} {{ row['createdAt'] | cbsTimeFormat }}</td>
+                <td><ngl-badge [type]="(row['status'] | statusBadge)">
                     {{ row['status'] === 'IN_PROGRESS' ? 'IN PROGRESS' : row['status'] }}
-                </ngl-badge>
-            </ng-template>
-        </p-column>
-    </p-dataTable>
+                </ngl-badge></td>
+            </tr>
+        </ng-template>
+    </p-table>
 
     <cbs-loading-indicator [isFixed]="true" [showLoader]="(borrowingData | async)?.loading"></cbs-loading-indicator>
 

@@ -23,7 +23,7 @@ import * as moment from 'moment';
   styleUrls: ['./bond-new.component.scss']
 })
 export class BondNewComponent implements OnInit, AfterViewInit, OnDestroy {
-  @ViewChild(BondDetailsFormComponent, {static: false}) formComponent: BondDetailsFormComponent;
+  @ViewChild(BondDetailsFormComponent) formComponent: BondDetailsFormComponent;
   public bondFormState: BondFormState;
   public formVisible = false;
   public bondFormSub: any;
