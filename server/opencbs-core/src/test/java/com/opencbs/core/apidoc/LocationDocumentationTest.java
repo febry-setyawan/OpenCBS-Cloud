@@ -29,7 +29,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = com.opencbs.core.TestConfiguration.class)
 @ActiveProfiles("test")
 public class LocationDocumentationTest extends BaseDocumentationTest {
 

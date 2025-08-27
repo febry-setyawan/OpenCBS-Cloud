@@ -39,4 +39,10 @@ public class AccountingEntryWorkerTests {
                 accountingEntryService, accountService, printingFormService
         );
     }
+
+    @Test
+    public void testInitialization() {
+        // Basic test to ensure the worker is initialized correctly
+        assert accountingEntryWorker != null;
+    }
 }

@@ -30,7 +30,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+@SpringBootTest(classes = com.opencbs.core.TestConfiguration.class)
 @ActiveProfiles("test")
 public class PersonCustomFieldDocumentationTest extends BaseCustomFieldSectionDocumentationTest {
 
