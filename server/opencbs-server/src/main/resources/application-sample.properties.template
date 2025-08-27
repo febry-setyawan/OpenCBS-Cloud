@@ -48,7 +48,10 @@ email.sender=OpenCBS Development
 spring.mail.host=smtp.gmail.com
 spring.mail.port=587
 spring.mail.username=dev@opencbs.com
-spring.mail.password=your-gmail-app-password
+# It is recommended to use an environment variable for sensitive data like passwords.
+# For example, set SPRING_MAIL_PASSWORD in your environment and reference it here:
+# spring.mail.password=${SPRING_MAIL_PASSWORD}
+spring.mail.password=your-app-password
 
 # Development database (H2 in-memory for testing)
 spring.datasource.url=jdbc:h2:mem:opencbs_dev
