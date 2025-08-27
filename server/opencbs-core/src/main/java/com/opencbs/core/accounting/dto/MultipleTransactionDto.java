@@ -1,7 +1,7 @@
 package com.opencbs.core.accounting.dto;
 
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
+import javax.validation.constraints.NotEmpty;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
