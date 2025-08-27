@@ -214,4 +214,6 @@ management.endpoints.web.exposure.include=health,info,metrics
 management.endpoints.web.base-path=/actuator
 
 # Health endpoint details
-management.endpoint.health.show-details=when-authorized
+# By default, do not show health details to avoid leaking sensitive information.
+# If you set this to 'when-authorized', ensure actuator endpoints are properly secured with authentication and authorization.
+management.endpoint.health.show-details=never
