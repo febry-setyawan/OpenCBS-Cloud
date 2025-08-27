@@ -1,0 +1,162 @@
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:13-alpine
+    container_name: opencbs-postgres
+    environment:
+      POSTGRES_DB: opencbs
+      POSTGRES_USER: opencbs_user
+      POSTGRES_PASSWORD: opencbs_pass
+      POSTGRES_INITDB_ARGS: "--encoding=UTF-8 --lc-collate=C --lc-ctype=C"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./server/opencbs-core/src/main/resources/db/migration:/docker-entrypoint-initdb.d/
+    ports:
+      - "5432:5432"
+    networks:
+      - opencbs-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U opencbs_user -d opencbs"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  # RabbitMQ Message Broker
+  rabbitmq:
+    image: rabbitmq:3.11-management-alpine
+    container_name: opencbs-rabbitmq
+    environment:
+      RABBITMQ_DEFAULT_USER: opencbs
+      RABBITMQ_DEFAULT_PASS: opencbs_rabbit
+      RABBITMQ_DEFAULT_VHOST: opencbs_vhost
+    volumes:
+      - rabbitmq_data:/var/lib/rabbitmq
+    ports:
+      - "5672:5672"      # AMQP port
+      - "15672:15672"    # Management UI
+    networks:
+      - opencbs-network
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  # OpenCBS Backend Application
+  opencbs-server:
+    build:
+      context: ./server
+      dockerfile: opencbs-server/Dockerfile
+      args:
+        - NODE_OPTIONS=--openssl-legacy-provider --max_old_space_size=4096
+    container_name: opencbs-backend
+    depends_on:
+      postgres:
+        condition: service_healthy
+      rabbitmq:
+        condition: service_healthy
+    environment:
+      # Database Configuration
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/opencbs
+      SPRING_DATASOURCE_USERNAME: opencbs_user
+      SPRING_DATASOURCE_PASSWORD: opencbs_pass
+      SPRING_DATASOURCE_DRIVER_CLASS_NAME: org.postgresql.Driver
+      
+      # JPA Configuration
+      SPRING_JPA_HIBERNATE_DDL_AUTO: validate
+      SPRING_JPA_SHOW_SQL: false
+      SPRING_JPA_DATABASE_PLATFORM: org.hibernate.dialect.PostgreSQLDialect
+      
+      # RabbitMQ Configuration
+      SPRING_RABBITMQ_HOST: rabbitmq
+      SPRING_RABBITMQ_PORT: 5672
+      SPRING_RABBITMQ_USERNAME: opencbs
+      SPRING_RABBITMQ_PASSWORD: opencbs_rabbit
+      SPRING_RABBITMQ_VIRTUAL_HOST: opencbs_vhost
+      ACCOUNT_BALANCE_CALCULATION_EXCHANGE_NAME: account.balance.calculation
+      ACCOUNT_BALANCE_CALCULATION_QUEUE_NAME: account.balance.calculation.queue
+      ACCOUNT_BALANCE_CALCULATION_ROUTING_KEY: account.balance.calculation.routing.key
+      
+      # OpenCBS Core Configuration
+      OPENCBS_CORE_ENABLEINTERESTACCRUAL: true
+      OPENCBS_CORE_ENABLEPENALTYACCRUAL: true
+      OPENCBS_CORE_ENABLEAUTOREPAYMENT: false
+      
+      # File Storage Configuration
+      ATTACHMENT_DIRECTORY: /app/data/attachments
+      TEMPLATE_DIRECTORY: /app/data/templates
+      
+      # Process Automation
+      DAY_CLOSURE_ENABLE: false
+      DAY_CLOSURE_DELAY_IN_MILLISECONDS: 3600000
+      DAY_CLOSURE_REPEATS: 24
+      TASK_EXECUTOR_CORE_POOL_SIZE: 5
+      TASK_EXECUTOR_MAX_POOL_SIZE: 10
+      
+      # Email Configuration (configure as needed)
+      EMAIL_ENABLED: false
+      SPRING_MAIL_HOST: smtp.gmail.com
+      SPRING_MAIL_PORT: 587
+      EMAIL_SENDER_ADDRESS: noreply@opencbs.com
+      
+      # Server Configuration
+      SERVER_PORT: 8080
+      LOGGING_LEVEL_COM_OPENCBS: INFO
+      MANAGEMENT_SECURITY_ENABLED: true
+      
+      # Node.js compatibility fix for Angular build
+      NODE_OPTIONS: --openssl-legacy-provider --max_old_space_size=4096
+      
+      # Java Runtime Configuration  
+      JAVA_OPTS: -Xmx2g -Xms1g
+      
+    volumes:
+      - opencbs_attachments:/app/data/attachments
+      - opencbs_templates:/app/data/templates
+      - ./server/templates:/app/templates:ro
+    ports:
+      - "8080:8080"
+    networks:
+      - opencbs-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8080/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 120s
+
+  # pgAdmin for Database Management (Optional)
+  pgadmin:
+    image: dpage/pgadmin4:7
+    container_name: opencbs-pgadmin
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@opencbs.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+      PGADMIN_CONFIG_SERVER_MODE: 'False'
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    ports:
+      - "8081:80"
+    networks:
+      - opencbs-network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    driver: local
+  rabbitmq_data:
+    driver: local
+  opencbs_attachments:
+    driver: local
+  opencbs_templates:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  opencbs-network:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 172.20.0.0/16
