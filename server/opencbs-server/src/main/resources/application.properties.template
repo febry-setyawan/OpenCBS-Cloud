@@ -40,6 +40,14 @@ attachment.location=/var/opencbs/attachments
 template.location=/var/opencbs/templates
 
 # ============================================================================
+# SPRING BOOT CORE CONFIGURATION
+# Spring Boot 2.7.x specific settings
+# ============================================================================
+
+# Allow bean definition overriding for Spring Boot 2.7.x compatibility
+spring.main.allow-bean-definition-overriding=true
+
+# ============================================================================
 # RABBITMQ CONFIGURATION (spring.rabbitmq.*)
 # Message queue system settings for asynchronous processing
 # ============================================================================

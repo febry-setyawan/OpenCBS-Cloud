@@ -107,8 +107,8 @@ services:
       # Node.js compatibility fix for Angular build
       NODE_OPTIONS: --openssl-legacy-provider --max_old_space_size=4096
       
-      # Java Runtime Configuration  
-      JAVA_OPTS: -Xmx2g -Xms1g --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.rmi/sun.rmi.transport=ALL-UNNAMED
+      # Java Runtime Configuration for Spring Boot 2.7.18 (native Java 17 support)
+      JAVA_OPTS: -Xmx2g -Xms1g
       
     volumes:
       - opencbs_attachments:/app/data/attachments

@@ -23,6 +23,10 @@ template:
 
 # Message Queue Configuration
 spring:
+  # Allow bean definition overriding for Spring Boot 2.7.x compatibility
+  main:
+    allow-bean-definition-overriding: true
+  
   rabbitmq:
     # RabbitMQ server configuration
     host: localhost

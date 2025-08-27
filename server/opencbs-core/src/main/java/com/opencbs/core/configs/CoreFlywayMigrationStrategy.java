@@ -30,18 +30,27 @@ public class CoreFlywayMigrationStrategy implements FlywayMigrationStrategy {
         
         log.info("Start migrate OpenCBS cloud database");
 
-        flyway.setSchemas("public");
-        flyway.setTable("schema_version_core");
-        flyway.setLocations("classpath:db/migration/core");
-        flyway.migrate();
+        // Create new flyway configuration for core migration
+        Flyway coreFlywayConfig = Flyway.configure()
+                .dataSource(flyway.getConfiguration().getDataSource())
+                .schemas("public")
+                .table("schema_version_core")
+                .locations("classpath:db/migration/core")
+                .load();
+        coreFlywayConfig.migrate();
 
         for (FlywayConfig config : this.getConfigs()) {
             log.info(String.format("Start migrate to %s", config.getTable()));
-            flyway.setSchemas(config.getSchema());
-            flyway.setTable(config.getTable());
-            flyway.setLocations(config.getLocation());
-            flyway.setBaselineOnMigrate(config.getBaselineOnMigrate());
-            flyway.migrate();
+            
+            // Create new flyway configuration for each module
+            Flyway moduleFlywayConfig = Flyway.configure()
+                    .dataSource(flyway.getConfiguration().getDataSource())
+                    .schemas(config.getSchema())
+                    .table(config.getTable())
+                    .locations(config.getLocation())
+                    .baselineOnMigrate(config.getBaselineOnMigrate())
+                    .load();
+            moduleFlywayConfig.migrate();
         }
     }
 

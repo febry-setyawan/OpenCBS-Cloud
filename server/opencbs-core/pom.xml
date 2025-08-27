@@ -19,10 +19,10 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>17</java.version>
-        <spring.cloud.version>Dalston.SR1</spring.cloud.version>
+        <spring.cloud.version>2021.0.8</spring.cloud.version>
         <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
         <commons-io.version>2.6</commons-io.version>
-        <flyway-core.version>4.0.3</flyway-core.version>
+        <flyway-core.version>8.5.13</flyway-core.version>
         <hibernate-envers.version>5.4.1.Final</hibernate-envers.version>
         <commons-fileupload.version>1.4</commons-fileupload.version>
         <springfox-swagger.version>2.9.2</springfox-swagger.version>

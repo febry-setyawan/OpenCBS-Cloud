@@ -36,8 +36,8 @@ services:
       SPRING_MAIL_USERNAME: ${MAIL_USERNAME}
       SPRING_MAIL_PASSWORD: ${MAIL_PASSWORD}
       
-      # JVM settings for production
-      JAVA_OPTS: -Xmx4g -Xms2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200 --add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.text=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED --add-opens java.rmi/sun.rmi.transport=ALL-UNNAMED
+      # JVM settings for production with Spring Boot 2.7.18 (native Java 17 support)
+      JAVA_OPTS: -Xmx4g -Xms2g -XX:+UseG1GC -XX:MaxGCPauseMillis=200
       
     restart: unless-stopped
     healthcheck:

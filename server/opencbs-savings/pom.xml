@@ -22,7 +22,7 @@
         <java.version>17</java.version>
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
-        <spring.cloud.version>Dalston.SR1</spring.cloud.version>
+        <spring.cloud.version>2021.0.8</spring.cloud.version>
         <snippetsDirectory>${project.build.directory}/generated-snippets</snippetsDirectory>
         <opencbs.version>0.0.1-SNAPSHOT</opencbs.version>
     </properties>
