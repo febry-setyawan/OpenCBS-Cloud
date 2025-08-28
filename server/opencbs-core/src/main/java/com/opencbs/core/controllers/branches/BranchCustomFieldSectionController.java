@@ -37,7 +37,7 @@ public class BranchCustomFieldSectionController extends BaseController {
 
     @RequestMapping(path = "/{id}", method = GET)
     public CustomFieldSectionDto get(@PathVariable long id) throws ResourceNotFoundException {
-        return this.branchCustomFieldSectionService.findOne(id).orElse(null)
+        return this.branchCustomFieldSectionService.findOne(id)
                 .map(this.branchCustomFieldSectionMapper::map)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Custom field section not found (ID=%d).", id)));
     }

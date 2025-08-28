@@ -55,7 +55,7 @@ public class UserController {
     @PermissionRequired(name = "MAKER_FOR_USER", moduleType = ModuleType.MAKER_CHECKER, description = "")
     @PutMapping(value = "/{id}")
     public RequestDto put(@PathVariable long id, @RequestBody UserDto userDto) throws Exception {
-        Optional<User> user = this.userService.findOne(id);
+        Optional<User> user = this.userService.findById(id);
         if (!user.isPresent() || user.get().getId() == 1) {
             throw new ResourceNotFoundException(String.format("User not found (ID=%d).", id));
         }
@@ -73,7 +73,7 @@ public class UserController {
 
     @RequestMapping(path = "/{id}", method = GET)
     public UserDetailsDto get(@PathVariable long id) throws ResourceNotFoundException {
-        Optional<User> user = this.userService.findOne(id);
+        Optional<User> user = this.userService.findById(id);
         if (!user.isPresent()) {
             throw new ResourceNotFoundException(String.format("User not found (ID=%d).", id));
         }
@@ -113,7 +113,7 @@ public class UserController {
 
     @RequestMapping(value = "/update-password", method = PUT)
     public UserDetailsDto updatePassword(@RequestBody PasswordUpdateDto dto) throws ResourceNotFoundException {
-        User user = this.userService.findOne(dto.getUserId()).orElseThrow(
+        User user = this.userService.findById(dto.getUserId()).orElseThrow(
                 () -> new ResourceNotFoundException(String.format("User is not found (ID=%d).", dto.getUserId())));
         this.userDtoValidator.validateOnUpdatePassword(user, UserHelper.getCurrentUser(), dto);
         return this.userMapper.mapToDto(this.userService.save(this.userMapper.mapUpdatePassword(user, dto)));
@@ -121,7 +121,7 @@ public class UserController {
 
     @GetMapping(value = "/{id}/history")
     public List<HistoryDto> getHistory(@PathVariable Long id) throws Exception {
-        this.userService.findOne(id)
+        this.userService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User not found(ID=%d).", id)));
 
         return this.userService.getAllRevisions(id);
@@ -129,7 +129,7 @@ public class UserController {
 
     @GetMapping(value = "/{id}/history/last_change")
     public HistoryDto getLastChange(@PathVariable Long id, @RequestParam(value = "dateTime")  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime) throws Exception {
-        this.userService.findOne(id)
+        this.userService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User not found(ID=%d).", id)));
         return this.userService.getRevisionByDate(id, dateTime);
     }

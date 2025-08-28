@@ -52,7 +52,7 @@ public class EntryFeeController extends BaseController {
 
     @GetMapping(value = "/{id}")
     public EntryFeeMainDto get(@PathVariable long id) throws Exception {
-        return this.entryFeeService.findOne(id).orElse(null)
+        return this.entryFeeService.findOne(id)
                 .map(this.entryFeeMapper::mapToDto)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Entry Fee not found(ID=%d).", id)));
     }

@@ -41,24 +41,24 @@ public class RequestController {
 
     @GetMapping(value = "/{id}")
     public RequestDetailsDto get(@PathVariable long id) throws IOException {
-        return this.requestMapper.mapEntityToDto(this.requestService.findOneAndBranch(id, UserHelper.getCurrentUser().getBranch()));
+        return this.requestMapper.mapEntityToDto(this.requestService.findByIdAndBranch(id, UserHelper.getCurrentUser().getBranch()));
     }
 
     @GetMapping(value = "/{id}/content")
     public BaseRequestDto getContent(@PathVariable long id) throws IOException {
-        return this.requestMapper.mapEntityToContent(this.requestService.findOneAndBranch(id, UserHelper.getCurrentUser().getBranch()));
+        return this.requestMapper.mapEntityToContent(this.requestService.findByIdAndBranch(id, UserHelper.getCurrentUser().getBranch()));
     }
 
     @PostMapping(value = "/{id}/approve")
     public Long approveRequest(@PathVariable long id) throws Exception {
-        Request request = this.requestService.findOneAndBranch(id, UserHelper.getCurrentUser().getBranch());
+        Request request = this.requestService.findByIdAndBranch(id, UserHelper.getCurrentUser().getBranch());
         this.requestValidator.validateOnApprove(request);
         return this.makerCheckerWorker.approve(request);
     }
 
     @PostMapping(value = "/{id}/delete")
     public String deleteRequest(@PathVariable long id) {
-        Request request = this.requestService.findOneAndBranch(id, UserHelper.getCurrentUser().getBranch());
+        Request request = this.requestService.findByIdAndBranch(id, UserHelper.getCurrentUser().getBranch());
         this.requestService.delete(request);
         return "Request has been deleted successfully";
     }
