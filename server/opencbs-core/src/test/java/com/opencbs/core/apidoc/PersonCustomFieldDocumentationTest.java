@@ -8,15 +8,16 @@ import com.opencbs.core.domain.enums.CustomFieldType;
 import com.opencbs.core.dto.customfields.CustomFieldDto;
 import com.opencbs.core.services.customFields.PersonCustomFieldSectionService;
 import com.opencbs.core.services.customFields.PersonCustomFieldService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
 import java.util.Optional;
@@ -29,8 +30,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = CoreTestApplication.class)
 @ActiveProfiles("test")
 public class PersonCustomFieldDocumentationTest extends BaseCustomFieldSectionDocumentationTest {
 
@@ -44,10 +45,10 @@ public class PersonCustomFieldDocumentationTest extends BaseCustomFieldSectionDo
     @Autowired
     private PersonCustomFieldService personCustomFieldService;
 
-    @Before
+    @BeforeEach
     @Override
-    public void setup() throws Exception {
-        super.setup();
+    public void setup(RestDocumentationContextProvider restDocumentation) throws Exception {
+        super.setup(restDocumentation);
         this.authHeader = this.login();
     }
 
@@ -142,8 +143,8 @@ public class PersonCustomFieldDocumentationTest extends BaseCustomFieldSectionDo
     }
 
     private PersonCustomField createCityCustomField() {
-        Optional<PersonCustomFieldSection> section = this.personCustomFieldSectionService.findOne(1L).orElse(null);
-        if (!section.isPresent()) {
+        PersonCustomFieldSection section = this.personCustomFieldSectionService.findOne(1L).orElse(null);
+        if (section == null) {
             throw new RuntimeException("Section is not found.");
         }
 
@@ -153,7 +154,7 @@ public class PersonCustomFieldDocumentationTest extends BaseCustomFieldSectionDo
         cityCustomField.setCaption("City");
         cityCustomField.setRequired(true);
         cityCustomField.setUnique(false);
-        cityCustomField.setSection(section.get());
+        cityCustomField.setSection(section);
         CustomFieldExtra extra = new CustomFieldExtra();
         extra.put("key", "locations");
         cityCustomField.setExtra(extra);

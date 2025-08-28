@@ -5,14 +5,15 @@ import com.opencbs.core.domain.customfields.PersonCustomFieldSection;
 import com.opencbs.core.dto.UpdateCustomFieldSectionDto;
 import com.opencbs.core.services.customFields.PersonCustomFieldSectionService;
 import lombok.Data;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
 import static org.springframework.restdocs.mockmvc.RestDocumentationRequestBuilders.get;
@@ -23,8 +24,8 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
-@SpringBootTest
+@ExtendWith(SpringExtension.class)
+@SpringBootTest(classes = CoreTestApplication.class)
 @ActiveProfiles("test")
 public class PersonCustomFieldSectionDocumentationTest extends BaseCustomFieldSectionDocumentationTest {
 
@@ -35,10 +36,10 @@ public class PersonCustomFieldSectionDocumentationTest extends BaseCustomFieldSe
 
     private String authHeader;
 
-    @Before
+    @BeforeEach
     @Override
-    public void setup() throws Exception {
-        super.setup();
+    public void setup(RestDocumentationContextProvider restDocumentation) throws Exception {
+        super.setup(restDocumentation);
         this.authHeader = this.login();
     }
 

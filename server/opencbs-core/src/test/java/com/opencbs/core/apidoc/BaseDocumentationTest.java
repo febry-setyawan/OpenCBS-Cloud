@@ -6,11 +6,12 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencbs.core.dto.requests.LoginRequest;
 import com.opencbs.core.helpers.DateHelper;
 import org.flywaydb.core.Flyway;
-import org.junit.Rule;
+import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
-import org.springframework.restdocs.JUnitRestDocumentation;
+import org.springframework.restdocs.RestDocumentationContextProvider;
+import org.springframework.restdocs.RestDocumentationExtension;
 import org.springframework.restdocs.payload.FieldDescriptor;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -27,8 +28,8 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 
 public abstract class BaseDocumentationTest {
 
-    @Rule
-    public final JUnitRestDocumentation restDocumentation = new JUnitRestDocumentation("target/generated-snippets");
+    @RegisterExtension
+    final RestDocumentationExtension restDocumentation = new RestDocumentationExtension("target/generated-snippets");
 
     MockMvc mockMvc;
 
@@ -38,7 +39,7 @@ public abstract class BaseDocumentationTest {
     @Autowired
     private Flyway flyway;
 
-    protected void setup() throws Exception {
+    protected void setup(RestDocumentationContextProvider restDocumentation) throws Exception {
         this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(this.context)
                 .apply(springSecurity())

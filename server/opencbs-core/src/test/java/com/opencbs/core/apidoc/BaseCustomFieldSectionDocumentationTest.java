@@ -1,6 +1,7 @@
 package com.opencbs.core.apidoc;
 
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 
 import java.util.ArrayList;
 import java.util.List;
