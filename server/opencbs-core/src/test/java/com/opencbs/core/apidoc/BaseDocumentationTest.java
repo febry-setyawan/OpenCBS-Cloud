@@ -39,8 +39,6 @@ public abstract class BaseDocumentationTest {
     @Autowired
     private WebApplicationContext context;
 
-
-
     /**
      * Mock JasperReportService to avoid initialization issues in tests
      */
@@ -95,6 +93,12 @@ public abstract class BaseDocumentationTest {
                 .apply(springSecurity())
                 .apply(documentationConfiguration(restDocumentation))
                 .build();
+                
+        // Configure SystemSettingsService mock to return required values
+        // This prevents NumberFormatException in TokenHelper.IsSessionExpired
+        org.mockito.Mockito.when(systemSettingsService.getValueByName(
+            com.opencbs.core.domain.enums.SystemSettingsName.EXPIRATION_SESSION_TIME_IN_MINUTES))
+            .thenReturn("30"); // 30 minutes session timeout
     }
 
     @Autowired
