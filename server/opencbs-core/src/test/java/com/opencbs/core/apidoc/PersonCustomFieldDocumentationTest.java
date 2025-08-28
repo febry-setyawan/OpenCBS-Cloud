@@ -31,7 +31,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.restdocs.payload.PayloadDocumentation.requestFields;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = CoreTestApplication.class)
 @ActiveProfiles("test")
 public class PersonCustomFieldDocumentationTest extends BaseCustomFieldSectionDocumentationTest {
 

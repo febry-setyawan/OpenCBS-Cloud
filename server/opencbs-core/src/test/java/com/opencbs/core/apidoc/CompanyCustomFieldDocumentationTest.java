@@ -31,7 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = CoreTestApplication.class)
 @ActiveProfiles("test")
 public class CompanyCustomFieldDocumentationTest extends BaseCustomFieldSectionDocumentationTest {
 

@@ -20,7 +20,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.response
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest
+@SpringBootTest(classes = CoreTestApplication.class)
 @ActiveProfiles("test")
 public class GlobalSettingsDocumentationTest  extends BaseDocumentationTest {
     private static final String ENDPOINT = "/api/global-settings";
