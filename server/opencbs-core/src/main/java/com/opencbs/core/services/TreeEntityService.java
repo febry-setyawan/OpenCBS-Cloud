@@ -23,7 +23,7 @@ public abstract class TreeEntityService<Tr extends TreeEntityRepository, Tte ext
     }
 
     public Optional<Tte> findOne(long id) {
-        return Optional.ofNullable((Tte) this.repository.findById(id));
+        return (Optional<Tte>) this.repository.findById(id);
     }
 
     public Optional<Tte> findByName(String name) {

@@ -169,7 +169,7 @@ public class LoanRollBackWorker {
                 .min(Comparator.comparing(AccountingEntry::getEffectiveAt))
                 .get();
 
-        this.accountingEntryService.save(accountingEntries);
+        this.accountingEntryService.saveAll(accountingEntries);
         this.accountingEntryLogService.saveAccountingEntryLog(minAccountingEntry);
     }
 

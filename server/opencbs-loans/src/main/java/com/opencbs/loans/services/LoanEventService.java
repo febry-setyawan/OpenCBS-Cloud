@@ -301,7 +301,7 @@ public class LoanEventService implements ContractAccountingEntryService {
             event.setGroupKey(loanInstallment.getEventGroupKey());
         });
 
-        this.loanEventRepository.save(events);
+        this.loanEventRepository.saveAll(events);
     }
 
     public Optional<LoanEvent> getLastEvent(Long loanId, EventType eventType, LocalDateTime localDateTime) {

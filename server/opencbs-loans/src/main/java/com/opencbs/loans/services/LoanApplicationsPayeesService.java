@@ -49,7 +49,7 @@ public class LoanApplicationsPayeesService {
 
     @Transactional
     public LoanApplicationPayees update(LoanApplicationPayees loanApplicationPayees) {
-        return this.loanApplicationPayeeRepository.save(loanApplicationPayees);
+        return this.loanApplicationPayeeRepository.saveAll(loanApplicationPayees);
     }
 
     public Optional<LoanApplicationPayees> getById(long id) {

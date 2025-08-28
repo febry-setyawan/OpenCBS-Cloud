@@ -25,6 +25,6 @@ public class LocationService extends TreeEntityService<LocationRepository, Locat
     }
 
     public Location findById(Long id) {
-        return this.locationRepository.findById(id);
+        return this.locationRepository.findById(id).orElse(null);
     }
 }

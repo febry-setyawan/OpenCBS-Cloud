@@ -108,7 +108,7 @@ public class LoanPenaltyAccrualProcessor implements LoanDayClosureProcessor {
             this.createAccountingEntry(event, penaltyAccounts.get(0));
         }
 
-        this.loanPenaltyEventRepository.save(events);
+        this.loanPenaltyEventRepository.saveAll(events);
     }
 
     private LoanPenaltyEvent createPenaltyEvent(BigDecimal amount, Long eventGroupKey, Long loanId, LoanApplicationPenalty loanApplicationPenalty, @NonNull LocalDate date) {

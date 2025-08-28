@@ -27,7 +27,7 @@ public class AccountTagService {
     }
 
     public AccountTag findOne(Long accountTagId) {
-        return this.accountTagRepository.findById(accountTagId);
+        return this.accountTagRepository.findById(accountTagId).orElse(null);
     }
 
     public List<AccountTag> getAll() {
