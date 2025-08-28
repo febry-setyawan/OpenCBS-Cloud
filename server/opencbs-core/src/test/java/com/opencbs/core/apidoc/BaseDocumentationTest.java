@@ -89,13 +89,27 @@ public abstract class BaseDocumentationTest {
         request.setUsername("admin");
         request.setPassword("admin");
 
-        String result = this.mockMvc.perform(post("/api/login")
-                .content(asJson(request))
-                .contentType(MediaType.APPLICATION_JSON))
-                .andReturn().getResponse().getContentAsString();
+        try {
+            String result = this.mockMvc.perform(post("/api/login")
+                    .content(asJson(request))
+                    .contentType(MediaType.APPLICATION_JSON))
+                    .andReturn().getResponse().getContentAsString();
 
-        JsonNode jsonNode = new ObjectMapper().readValue(result, JsonNode.class);
-        return "Bearer " + jsonNode.get("data").asText();
+            System.out.println("Login response: " + result);  // Debug output
+            JsonNode jsonNode = new ObjectMapper().readValue(result, JsonNode.class);
+            System.out.println("JsonNode: " + jsonNode); // Debug output
+            System.out.println("Data node: " + jsonNode.get("data")); // Debug output
+            
+            if (jsonNode.get("data") == null) {
+                throw new RuntimeException("Login failed: " + result);
+            }
+            
+            return "Bearer " + jsonNode.get("data").asText();
+        } catch (Exception e) {
+            System.out.println("Exception during login: " + e.getMessage());
+            e.printStackTrace();
+            throw e;
+        }
     }
 
     String asJson(Object object) throws JsonProcessingException {
