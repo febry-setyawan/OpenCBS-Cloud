@@ -6,7 +6,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencbs.core.dto.requests.LoginRequest;
 import com.opencbs.core.helpers.DateHelper;
 import com.opencbs.core.officedocuments.services.JasperReportService;
-import org.flywaydb.core.Flyway;
+
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -38,8 +38,7 @@ public abstract class BaseDocumentationTest {
     @Autowired
     private WebApplicationContext context;
 
-    @Autowired
-    private Flyway flyway;
+
 
     /**
      * Mock JasperReportService to avoid initialization issues in tests
@@ -65,15 +64,24 @@ public abstract class BaseDocumentationTest {
     @MockBean
     private com.opencbs.core.officedocuments.services.ExcelReportService excelReportService;
 
+    /**
+     * Mock PermissionInitializer to avoid database initialization issues in tests
+     */
+    @MockBean
+    private com.opencbs.core.security.permissions.PermissionInitializer permissionInitializer;
+
+    /**
+     * Mock AccountTagInitializer to avoid initialization issues in tests
+     */
+    @MockBean
+    private com.opencbs.core.accounting.services.AccountTagInitializer accountTagInitializer;
+
     protected void setup(RestDocumentationContextProvider restDocumentation) throws Exception {
         this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(this.context)
                 .apply(springSecurity())
                 .apply(documentationConfiguration(restDocumentation))
                 .build();
-
-        flyway.clean();
-        flyway.migrate();
     }
 
     String login() throws Exception {
