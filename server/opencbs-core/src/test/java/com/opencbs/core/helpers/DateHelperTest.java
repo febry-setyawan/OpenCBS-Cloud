@@ -12,7 +12,7 @@ public class DateHelperTest {
         LocalDate start = LocalDate.of(2019,01,28);
         LocalDate end = LocalDate.of(2019,04,01);
         Long daysBetweenAs30360 = DateHelper.daysBetweenAs_30_360(start, end);
-        Assertions.assertEquals(17L, daysBetweenAs30360.longValue());
+        Assertions.assertEquals(63L, daysBetweenAs30360.longValue());
     }
 
     @Test
@@ -20,6 +20,6 @@ public class DateHelperTest {
         LocalDate start = LocalDate.of(2019,4,1);
         LocalDate end = LocalDate.of(2019,7,24);
         Long daysBetweenAs30360 = DateHelper.daysBetweenAs_30_360(start, end);
-        Assertions.assertEquals(37L, daysBetweenAs30360.longValue());
+        Assertions.assertEquals(113L, daysBetweenAs30360.longValue());
     }
 }
