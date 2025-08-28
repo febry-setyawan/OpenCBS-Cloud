@@ -70,7 +70,7 @@ public class AccountingController {
                                                    @RequestParam(name = "to")
                                                    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate to) throws ResourceNotFoundException {
         Account account = this.accountService
-                .findById(id).orElse(null)
+                .findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found (ID=%d).", id)));
 
         return this.accountingEntryService.findAccountOperations(account, pageable, from, to);
@@ -81,7 +81,7 @@ public class AccountingController {
                                                        @RequestBody AccountingTransactionDto dto) {
         this.accountingValidator.validateOnTransfer(dto);
         Account currentAccount = this.accountService
-                .findById(id).orElse(null)
+                .findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found (ID=%d).", id)));
 
         AccountingEntry accountingEntry = this.accountingEntryService.transferTo(dto, currentAccount, UserHelper.getCurrentUser());
@@ -93,7 +93,7 @@ public class AccountingController {
                                                          @RequestBody AccountingTransactionDto dto) {
         this.accountingValidator.validateOnTransfer(dto);
         Account currentAccount = this.accountService
-                .findById(id).orElse(null)
+                .findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found (ID=%d).", id)));
 
         AccountingEntry accountingEntry = this.accountingEntryService.transferFrom(dto, currentAccount, UserHelper.getCurrentUser());

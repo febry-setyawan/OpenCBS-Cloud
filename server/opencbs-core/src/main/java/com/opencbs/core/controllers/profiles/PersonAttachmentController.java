@@ -46,7 +46,7 @@ public class PersonAttachmentController {
                               @RequestParam("file") MultipartFile file,
                               @RequestParam(value = "comment", required = false) String comment) throws Exception {
         Person person = this.personService
-                .findById(personId).orElse(null)
+                .findOne(personId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Person not found (ID=%d).", personId)));
         PersonAttachment attachment = personAttachmentService.create(file, person, UserHelper.getCurrentUser(), comment);
         return this.attachmentMapper.mapToDto(attachment);
@@ -55,7 +55,7 @@ public class PersonAttachmentController {
     @RequestMapping(method = RequestMethod.GET)
     public List<AttachmentDto> get(@PathVariable long personId) throws ApiException {
         Person person = this.personService
-                .findById(personId).orElse(null)
+                .findOne(personId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Person not found (ID=%d).", personId)));
 
         return personAttachmentService.findByOwnerId(person.getId())
@@ -67,7 +67,7 @@ public class PersonAttachmentController {
     @RequestMapping(value = "/{attachmentId}", method = RequestMethod.DELETE)
     public AttachmentDto delete(@PathVariable long attachmentId) throws Exception {
         PersonAttachment attachment = this.personAttachmentService
-                .findById(attachmentId).orElse(null)
+                .findOne(attachmentId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         this.personAttachmentService.delete(attachment);
@@ -77,7 +77,7 @@ public class PersonAttachmentController {
     @RequestMapping(value = "/{attachmentId}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity get(@PathVariable long attachmentId, @RequestParam(value = "size", required = false) Integer size) throws Exception {
-        PersonAttachment attachment = this.personAttachmentService.findOne(attachmentId).orElse(null)
+        PersonAttachment attachment = this.personAttachmentService.findOne(attachmentId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         return this.personAttachmentService.getResponseEntity(attachment, size);
@@ -86,7 +86,7 @@ public class PersonAttachmentController {
     @RequestMapping(value = "/{attachmentId}/pin", method = RequestMethod.POST)
     public AttachmentDto pin(@PathVariable long attachmentId) throws Exception {
         PersonAttachment attachment = this.personAttachmentService
-                .findById(attachmentId).orElse(null)
+                .findOne(attachmentId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         attachment = this.personAttachmentService.pin(attachment);
@@ -96,7 +96,7 @@ public class PersonAttachmentController {
     @RequestMapping(value = "/{attachmentId}/unpin", method = RequestMethod.POST)
     public AttachmentDto unpin(@PathVariable long attachmentId) throws Exception {
         PersonAttachment attachment = this.personAttachmentService
-                .findById(attachmentId).orElse(null)
+                .findOne(attachmentId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         attachment = this.personAttachmentService.unpin(attachment);

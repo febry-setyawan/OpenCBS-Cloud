@@ -40,7 +40,7 @@ public class GlobalSettingsController extends BaseController {
     @RequestMapping(value = "/{name}", method = GET)
     public GlobalSettingsDto get(@PathVariable String name) {
         GlobalSettings globalSettings = this.globalSettingsService
-                .findById(name).orElse(null)
+                .findOne(name)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Global setting not found (name=%s).", name)));
         return this.globalSettingsMapper.mapToDto(globalSettings);
     }

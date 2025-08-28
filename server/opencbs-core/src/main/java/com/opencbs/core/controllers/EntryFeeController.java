@@ -66,7 +66,7 @@ public class EntryFeeController extends BaseController {
 
     @PutMapping(value = "/{id}")
     public EntryFeeMainDto put(@PathVariable long id, @RequestBody CreateEntryFeeDto dto) throws ResourceNotFoundException {
-        this.entryFeeService.findOne(id).orElse(null)
+        this.entryFeeService.findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Entry Fee not found(ID=%d).", id)));
         dto.setId(id);
         EntryFee entryFee = this.entryFeeMapper.mapToEntity(dto);

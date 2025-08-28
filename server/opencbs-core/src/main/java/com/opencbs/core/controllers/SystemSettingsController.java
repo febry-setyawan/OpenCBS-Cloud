@@ -46,7 +46,7 @@ public class SystemSettingsController {
     public List<CustomFieldValueDto> edit(@RequestBody List<CustomFieldValueDto> dto) {
         List<CustomFieldValueDto> result = new ArrayList<>();
         for (CustomFieldValueDto systemSettingsDto : dto) {
-            SystemSettings systemSetting = this.systemSettingsService.findOne(systemSettingsDto.getCustomField().getId())
+            SystemSettings systemSetting = this.systemSettingsService.findById(systemSettingsDto.getCustomField().getId())
                     .orElseThrow(() -> new ResourceNotFoundException(String.format("System setting not found (ID=%d).", systemSettingsDto.getCustomField().getId())));
             this.systemSettingsValidator.validateOnEdit(systemSettingsDto);
             result.add(this.systemSettingsMapper.mapToDto(systemSettingsService.update(systemSetting, systemSettingsDto)));

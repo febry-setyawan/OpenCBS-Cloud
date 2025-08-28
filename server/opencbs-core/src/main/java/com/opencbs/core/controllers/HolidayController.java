@@ -44,7 +44,7 @@ public class HolidayController {
     @RequestMapping(value = "/{id}", method = GET)
     public HolidayDto get(@PathVariable long id) throws Exception {
         Holiday holiday = this.holidayService
-                .findById(id).orElse(null)
+                .findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Holiday not found (ID=%d).", id)));
         return this.holidayMapper.mapToDto(holiday);
     }
@@ -59,7 +59,7 @@ public class HolidayController {
     @RequestMapping(value = "/{id}", method = PUT)
     public HolidayDto put(@PathVariable long id, @RequestBody HolidayDto holidayDto) throws Exception {
         this.holidayService
-                .findById(id).orElse(null)
+                .findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Holiday not found (ID=%d).", id)));
         this.holidayDtoValidator.validate(holidayDto);
         Holiday holiday = this.holidayMapper.mapToEntity(holidayDto);

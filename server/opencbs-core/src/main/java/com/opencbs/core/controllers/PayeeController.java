@@ -51,7 +51,7 @@ public class PayeeController extends BaseController {
     @RequestMapping(value = "/{id}", method = PUT)
     public PayeeDetailsDto put(@PathVariable long id, @RequestBody PayeeDto dto) throws ResourceNotFoundException {
         this.payeeService
-                .findById(id).orElse(null)
+                .findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Payee not found (ID=%d).", id)));
         dto.setId(id);
         this.payeeValidator.validateOnUpdate(dto);
@@ -62,7 +62,7 @@ public class PayeeController extends BaseController {
     @RequestMapping(value = "/{id}", method = GET)
     public Payee get(@PathVariable long id) throws ResourceNotFoundException {
         Payee payee = this.payeeService
-                .findById(id).orElse(null)
+                .findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Payee not found (ID=%d).", id)));
         return payee;
     }

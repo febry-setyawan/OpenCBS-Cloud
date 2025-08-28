@@ -51,7 +51,7 @@ public class BranchController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public BranchDto get(@PathVariable Long id) throws ResourceNotFoundException {
-        Branch branch = this.branchService.findOne(id).orElse(null)
+        Branch branch = this.branchService.findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Branch not found (ID=%d).", id)));
         return this.branchMapper.mapToDto(branch);
     }
@@ -65,7 +65,7 @@ public class BranchController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public BranchDto edit(@PathVariable Long id, @RequestBody BranchUpdateDto branchDto) throws ResourceNotFoundException {
-        this.branchService.findOne(id).orElse(null)
+        this.branchService.findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Branch not found(ID=%d).", id)));
         this.branchDtoValidator.validateOnUpdate(branchDto, id);
         Branch branch = branchMapper.mapToEntity(branchDto);

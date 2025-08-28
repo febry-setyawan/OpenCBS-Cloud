@@ -45,7 +45,7 @@ public class BranchCustomFieldController extends BaseController {
 
     @RequestMapping(path = "/{id}", method = PUT)
     public List<CustomFieldSectionDto> edit(@PathVariable long id, @RequestBody CustomFieldDto customFieldDto) {
-        BranchCustomField branchCustomField = this.branchCustomFieldService.findOne(id).orElse(null)
+        BranchCustomField branchCustomField = this.branchCustomFieldService.findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("CustomField not found (ID=%d).", id)));
         customFieldDto.setId(id);
         this.customFieldDtoValidator.validateOnEdit(branchCustomField, customFieldDto);
@@ -67,7 +67,7 @@ public class BranchCustomFieldController extends BaseController {
 
     @DeleteMapping(value = "/{fieldId}")
     public void deleteCustomField(@PathVariable @NonNull Long fieldId) {
-        CustomField customField = this.branchCustomFieldService.findOne(fieldId).orElse(null)
+        CustomField customField = this.branchCustomFieldService.findOne(fieldId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Field not found (ID=%d).")));
 
         this.branchCustomFieldService.delete(customField);

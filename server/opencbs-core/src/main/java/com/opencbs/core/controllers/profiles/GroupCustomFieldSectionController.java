@@ -46,7 +46,7 @@ public class GroupCustomFieldSectionController extends BaseController {
 
     @RequestMapping(path = "/{id}", method = GET)
     public CustomFieldSectionDto get(@PathVariable long id) throws ResourceNotFoundException {
-        return this.groupCustomFieldSectionService.findOne(id).orElse(null)
+        return this.groupCustomFieldSectionService.findOne(id)
                 .map(this.groupCustomFieldSectionMapper::map)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Custom field section is not found (ID=%d).", id)));
     }
@@ -62,7 +62,7 @@ public class GroupCustomFieldSectionController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = PUT)
     public List<CustomFieldSectionDto> put(@PathVariable long id, @RequestBody UpdateCustomFieldSectionDto sectionDto) throws ResourceNotFoundException {
-        GroupCustomFieldSection section = this.groupCustomFieldSectionService.findOne(id).orElse(null)
+        GroupCustomFieldSection section = this.groupCustomFieldSectionService.findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Section is not found (ID=%d).", id)));
 
         this.customFieldSectionDtoValidator.validate(sectionDto);

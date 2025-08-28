@@ -61,7 +61,7 @@ public class LocationController {
     @RequestMapping(path = "/{id}", method = GET)
     public TreeEntityDto get(@PathVariable long id) throws ResourceNotFoundException {
         Location location = this.locationService
-                .findById(id).orElse(null)
+                .findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Location not found (ID=%d).", id)));
 
         return this.locationMapper.map(location, this.locationService.findAll());
@@ -81,7 +81,7 @@ public class LocationController {
     @RequestMapping(path = "/{id}", method = PUT)
     public TreeEntityDto put(@PathVariable long id, @RequestBody UpdateTreeEntityDto updateTreeEntityDto) throws Exception {
         Location location = this.locationService
-                .findById(id).orElse(null)
+                .findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Location not found (ID=%d).", id)));
         updateTreeEntityDto.setId(id);
         this.locationDtoValidator.validate(updateTreeEntityDto);
