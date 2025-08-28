@@ -37,7 +37,7 @@ public class LoanRescheduleController {
     @PermissionRequired(name = "LOAN_RESCHEDULE", moduleType = ModuleType.LOANS, description = "")
     @PostMapping(value = "/preview")
     public ScheduleDto preview(@PathVariable long loanId, @RequestBody RescheduleDto rescheduleDto) throws Exception {
-        Loan loan = this.loanService.findOne(loanId)
+        Loan loan = this.loanService.findById(loanId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan not found (ID=%d).", loanId)));
         this.loanRescheduleValidator.validate(rescheduleDto, loan);
         return this.loanScheduleMapper.mapToScheduleDto(this.rescheduleService.preview(loan, rescheduleDto), rescheduleDto.getRescheduleDate());
@@ -47,7 +47,7 @@ public class LoanRescheduleController {
     @PostMapping(value = "/apply")
     public LoanDto reschedule( @PathVariable long loanId, @RequestBody ManualEditRescheduleDto manualEditRescheduleDto) {
         Loan loan = this.loanService
-                .findOne(loanId)
+                .findById(loanId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan not found (ID=%d).", loanId)));
         this.loanRescheduleValidator.validate(manualEditRescheduleDto.getRescheduleDto(), loan);
         this.loanInstallmentsService.validate(loan, manualEditRescheduleDto);

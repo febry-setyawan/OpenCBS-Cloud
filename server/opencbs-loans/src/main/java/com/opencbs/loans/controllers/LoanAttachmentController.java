@@ -42,7 +42,7 @@ public class LoanAttachmentController {
     @GetMapping()
     public List<AttachmentDto> get(@PathVariable long loanId) throws ApiException {
         Loan loan = this.loanService
-                .findOne(loanId)
+                .findById(loanId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan not found (ID=%d).", loanId)));
 
         return loanAttachmentService.findByOwnerId(loan.getId())
@@ -54,7 +54,7 @@ public class LoanAttachmentController {
     @GetMapping(value = "/{attachmentId}")
     @ResponseBody
     public ResponseEntity get(@PathVariable long attachmentId, @RequestParam(value = "size", required = false) Integer size) throws Exception {
-        LoanAttachment attachment = this.loanAttachmentService.findOne(attachmentId)
+        LoanAttachment attachment = this.loanAttachmentService.findById(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         return this.loanAttachmentService.getResponseEntity(attachment, size);
@@ -65,7 +65,7 @@ public class LoanAttachmentController {
                               @RequestParam("file")MultipartFile file,
                               @RequestParam(value = "comment", required = false) String comment) throws Exception {
         Loan loan = this.loanService
-                .findOne(loanId)
+                .findById(loanId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan not found (ID=%d).", loanId)));
 
         LoanAttachment attachment = loanAttachmentService.create(file, loan, UserHelper.getCurrentUser(), comment);
@@ -75,7 +75,7 @@ public class LoanAttachmentController {
     @DeleteMapping(value = "/{attachmentId}")
     public AttachmentDto delete(@PathVariable long attachmentId) throws Exception {
         LoanAttachment attachment = this.loanAttachmentService
-                .findOne(attachmentId)
+                .findById(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         this.loanAttachmentService.delete(attachment);

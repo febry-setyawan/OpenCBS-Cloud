@@ -65,7 +65,7 @@ public class GroupService extends ProfileBaseService<Group, GroupCustomFieldValu
     }
 
     public Group addMember(Group group, Long memberId) {
-        Person person = this.personService.findOne(memberId).get();
+        Person person = this.personService.findById(memberId).orElse(null).get();
         GroupMember groupMember = new GroupMember();
         groupMember.setMember(person);
         groupMember.setGroup(group);
@@ -92,7 +92,7 @@ public class GroupService extends ProfileBaseService<Group, GroupCustomFieldValu
     }
 
     public Group getGroup(long id) throws ResourceNotFoundException {
-        return this.findOne(id)
+        return this.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Group not found (ID=%d).", id)));
     }
 

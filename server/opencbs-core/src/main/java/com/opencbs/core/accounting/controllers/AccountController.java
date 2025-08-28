@@ -88,14 +88,14 @@ public class AccountController {
     @GetMapping(value = "/chart-of-accounts/root/{accountId}/leaves")
     public Page<AccountDto> getLeavesByParent(@PathVariable long accountId,
                                               Pageable pageable) throws ResourceNotFoundException {
-        Account account = this.accountService.findOne(accountId)
+        Account account = this.accountService.findById(accountId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found(ID=%d).", accountId)));
         return this.accountService.findLeavesByParent(pageable, account).map(this.accountMapper::mapToDetailsDto);
     }
 
     @GetMapping(value = "/chart-of-accounts/{accountId}")
     public AccountDto getAccountForEdit(@PathVariable Long accountId) {
-        Account account = this.accountService.findOne(accountId)
+        Account account = this.accountService.findById(accountId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found(ID=%d).", accountId)));
         return this.accountMapper.mapToDetailsForEdit(account);
     }
@@ -113,7 +113,7 @@ public class AccountController {
     public Page<AccountDto> filterLeavesByBranch(@PathVariable long accountId,
                                                  @RequestParam(value = "branch") long branchId,
                                                  Pageable pageable) throws ResourceNotFoundException {
-        Account account = this.accountService.findOne(accountId)
+        Account account = this.accountService.findById(accountId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found(ID=%d).", accountId)));
         return this.accountService.findLeavesByParentAndBranch(pageable, account, branchId).map(this.accountMapper::mapToDetailsDto);
     }
@@ -131,7 +131,7 @@ public class AccountController {
     @PermissionRequired(name = "MAKER_FOR_ACCOUNT", moduleType = ModuleType.MAKER_CHECKER, description = "")
     @PutMapping(value = "/chart-of-accounts/{accountId}")
     public RequestDto updateAccount(@PathVariable Long accountId, @RequestBody AccountCreateDto dto) throws Exception {
-        Account updatingAccount = this.accountService.findOne(accountId)
+        Account updatingAccount = this.accountService.findById(accountId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found(ID=%d).", accountId)));
         this.accountValidator.validateOnUpdate(dto, updatingAccount);
         this.accountService.validateOnUpdate(accountId);
@@ -154,7 +154,7 @@ public class AccountController {
 
     @GetMapping(value = "/{id}/history")
     public List<HistoryDto> getHistory(@PathVariable Long id) throws Exception {
-        this.accountService.findOne(id)
+        this.accountService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found(ID=%d).", id)));
 
         return accountService.getAllRevisions(id);
@@ -162,7 +162,7 @@ public class AccountController {
 
     @GetMapping(value = "/{id}/history/last_change")
     public HistoryDto getLastChange(@PathVariable Long id, @RequestParam(value = "dateTime")  @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime ) throws Exception {
-        this.accountService.findOne(id)
+        this.accountService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found(ID=%d).", id)));
         return this.accountService.getRevisionByDate(id, dateTime);
     }

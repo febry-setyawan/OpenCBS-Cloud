@@ -49,7 +49,7 @@ public class GroupLoanController extends BaseController {
 
     @GetMapping(value = "/by-profile/{profileId}")
     public Page<LoanDto> getByProfile(Pageable pageable, @PathVariable(value = "profileId") long profileId) {
-        Profile profile = this.profileService.findOne(profileId)
+        Profile profile = this.profileService.findById(profileId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Profile is not found (ID=%d).", profileId)));
         String groupTypeOfProfile = Group.class.getAnnotation(DiscriminatorValue.class).value();
 
@@ -60,7 +60,7 @@ public class GroupLoanController extends BaseController {
     }
 
     private LoanApplication getLoanApplication(Long loanApplicationId) throws ResourceNotFoundException {
-        return this.loanApplicationService.findOne(loanApplicationId)
+        return this.loanApplicationService.findById(loanApplicationId).orElse(null)
                 .orElseThrow(()-> new ResourceNotFoundException(String.format("Loan application is not found (ID=%d) for group loan.", loanApplicationId)));
     }
 }

@@ -43,7 +43,7 @@ public class PaymentMethodController {
 
     @GetMapping(value = "/{id}")
     public TreeEntityDto get(@PathVariable long id) throws ResourceNotFoundException {
-        PaymentMethod paymentMethod = this.paymentMethodService.findOne(id)
+        PaymentMethod paymentMethod = this.paymentMethodService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Payment Method not found (ID=%d)", id)));
         return this.paymentMethodMapper.map(paymentMethod, this.paymentMethodService.findAll());
     }
@@ -63,7 +63,7 @@ public class PaymentMethodController {
 
     @PutMapping(value = "/{id}")
     public TreeEntityDto edit(@PathVariable long id, @RequestBody UpdateTreeEntityDto updateTreeEntityDto) throws Exception {
-        PaymentMethod paymentMethod = this.paymentMethodService.findOne(id)
+        PaymentMethod paymentMethod = this.paymentMethodService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Payment Method not found (ID=%d)", id)));
         updateTreeEntityDto.setId(id);
         this.paymentMethodDtoValidator.validate(updateTreeEntityDto);

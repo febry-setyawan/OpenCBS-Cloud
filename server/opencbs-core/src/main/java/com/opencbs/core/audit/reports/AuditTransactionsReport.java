@@ -61,8 +61,8 @@ public class AuditTransactionsReport implements AuditReport {
             return new PageImpl(Collections.EMPTY_LIST, pageable, accountingEntries.size());
         }
 
-        int fromPosition = (accountingEntries.size() < (int)pageable.getOffset()) ? accountingEntries.size() : (int)pageable.getOffset();
-        int toPosition = (accountingEntries.size() > (int)pageable.getOffset() + pageable.getPageSize()) ? (int)pageable.getOffset() + pageable.getPageSize() : accountingEntries.size();
+        int fromPosition = (accountingEntries.size() < (int)pageable(int).getOffset()) ? accountingEntries.size() : (int)pageable(int).getOffset();
+        int toPosition = (accountingEntries.size() > (int)pageable(int).getOffset() + pageable(int).getPageSize()) ? (int)pageable(int).getOffset() + pageable(int).getPageSize() : accountingEntries.size();
         List<AccountingEntry> accountingEntryPart = accountingEntries.subList(fromPosition, toPosition);
 
         return new PageImpl(accountingEntryPart, pageable, accountingEntries.size())

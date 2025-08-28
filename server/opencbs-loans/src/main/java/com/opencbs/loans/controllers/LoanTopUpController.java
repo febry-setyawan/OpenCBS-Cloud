@@ -35,7 +35,7 @@ public class LoanTopUpController extends BaseController {
     @PermissionRequired(name = "TOP_UP", moduleType = ModuleType.LOANS, description = "")
     @RequestMapping(value = "/{loanId}/top-up", method = POST)
     public void topUp(@PathVariable long loanId, @RequestBody LoanTopUpDto dto) throws Exception {
-        Loan loan = this.loanService.findOne(loanId)
+        Loan loan = this.loanService.findById(loanId).orElse(null)
                 .orElseThrow(() -> new RuntimeException(String.format("Loan with id - %s not found", loanId)));
         //add validator for check already done day closure for this loan
         

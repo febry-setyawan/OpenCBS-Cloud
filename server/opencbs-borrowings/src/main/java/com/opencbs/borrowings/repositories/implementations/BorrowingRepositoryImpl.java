@@ -69,8 +69,8 @@ public class BorrowingRepositoryImpl extends BaseRepository<Borrowing> implement
         criteria.add(criterion);
 
         long total = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
-        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        criteria.setMaxResults(pageable.getPageSize());
+        criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
+        criteria.setMaxResults(pageable(int).getPageSize());
         criteria.addOrder(Order.desc("createdAt"));
 
         criteria.setProjection(this.getProjectionList());

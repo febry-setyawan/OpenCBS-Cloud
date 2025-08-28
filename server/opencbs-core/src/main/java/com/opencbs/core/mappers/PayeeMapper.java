@@ -24,7 +24,7 @@ public class PayeeMapper {
         Payee payee = new ModelMapper().map(dto, Payee.class);
         Set<Account> accountSet = dto.getCurrentAccounts()
                 .stream()
-                .map(x -> this.accountService.findOne(x).get())
+                .map(x -> this.accountService.findById(x).orElse(null).get())
                 .collect(Collectors.toSet());
         payee.setPayeeAccounts(accountSet);
         return payee;

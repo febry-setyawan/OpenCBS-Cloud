@@ -46,7 +46,7 @@ public class LoanApplicationAttachmentController {
     @GetMapping()
     public List<AttachmentDto> get(@PathVariable long loanApplicationId) throws ApiException {
         LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
+                .findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
 
         return loanApplicationAttachmentService.findByOwnerId(loanApplication.getId())
@@ -60,7 +60,7 @@ public class LoanApplicationAttachmentController {
     public ResponseEntity get(@PathVariable long attachmentId,
                               @RequestParam(value = "comment", required = false) String comment,
                               @RequestParam(value = "size", required = false) Integer size) throws Exception {
-        LoanApplicationAttachment attachment = this.loanApplicationAttachmentService.findOne(attachmentId)
+        LoanApplicationAttachment attachment = this.loanApplicationAttachmentService.findById(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         return this.loanApplicationAttachmentService.getResponseEntity(attachment, size);
@@ -72,7 +72,7 @@ public class LoanApplicationAttachmentController {
                               @RequestParam("file") MultipartFile file,
                               @RequestParam(value = "comment", required = false) String comment) throws Exception {
         LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
+                .findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
 
         LoanApplicationAttachment attachment = loanApplicationAttachmentService.create(file, loanApplication, UserHelper.getCurrentUser(), comment);
@@ -83,7 +83,7 @@ public class LoanApplicationAttachmentController {
     @PermissionRequired(name = "ATTACHMENT", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
     public AttachmentDto delete(@PathVariable long attachmentId) throws Exception {
         LoanApplicationAttachment attachment = this.loanApplicationAttachmentService
-                .findOne(attachmentId)
+                .findById(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         this.loanApplicationAttachmentService.delete(attachment);

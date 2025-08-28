@@ -141,7 +141,7 @@ public class TillValidator {
         Assert.notEmpty(dto.getAccounts(), "Accounts is required.");
 
         for (Long accountId : dto.getAccounts()) {
-            this.accountService.findOne(accountId)
+            this.accountService.findById(accountId).orElse(null)
                     .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found (ID=%d).", accountId)));
             Assert.isTrue(this.tillService
                             .findAll()
@@ -159,7 +159,7 @@ public class TillValidator {
         if (currencyId == null) {
             return;
         }
-        Currency currency = this.currencyService.findOne(currencyId)
+        Currency currency = this.currencyService.findById(currencyId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Currency not found(ID=%d)", currencyId)));
         Assert.isTrue(till.getAccounts()
                 .stream()

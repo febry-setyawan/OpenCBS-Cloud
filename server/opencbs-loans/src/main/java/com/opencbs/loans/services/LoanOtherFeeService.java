@@ -80,7 +80,7 @@ public class LoanOtherFeeService extends OtherFeeService {
 
     @Transactional
     public LoanEvent repay(Long loanId, Long otherFeeId, OtherFeeParamsDto dto, User currentUser) {
-        Loan loan = this.loanService.findOne(loanId).get();
+        Loan loan = this.loanService.findById(loanId).orElse(null).get();
         LoanEvent loanEvent = this.createLoanEvent(loanId, otherFeeId, dto.getAmount(), currentUser, dto.getDate(), dto.getComment(), OTHER_FEE_REPAY);
         this.loanAccountingService.repayOtherFee(loanEvent, currentUser, loan);
         return loanEvent;

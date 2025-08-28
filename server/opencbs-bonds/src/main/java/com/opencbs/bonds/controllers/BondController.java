@@ -90,7 +90,7 @@ public class BondController {
 
     @GetMapping(value = "/by-profile/{profileId}")
     public Page<BondDetailsDto> getByProfile(Pageable pageable, @PathVariable(value = "profileId") long profileId) {
-        Profile profile = this.profileService.findOne(profileId)
+        Profile profile = this.profileService.findById(profileId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Profile not found (ID=%d).", profileId)));
         return this.bondService.getByProfile(pageable, profile).map(this.bondMapper::mapToDto);
     }

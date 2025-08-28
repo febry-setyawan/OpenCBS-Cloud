@@ -39,8 +39,8 @@ public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
                         "where lower(sp.searchableContent) like lower(:searchString) " +
                         "order by sp.createdAt desc", SearchableProfile.class);
         query.setParameter("searchString", "%" + searchString + "%");
-        query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        query.setMaxResults(pageable.getPageSize());
+        query.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
+        query.setMaxResults(pageable(int).getPageSize());
 
         return getProfilesPage(query.getResultList(), pageable, total);
     }
@@ -152,8 +152,8 @@ public class ProfileRepositoryImpl implements ProfileRepositoryCustom {
 
         TypedQuery<SearchableProfile> query = this.entityManager.createQuery("select sp " + queryString + " order by sp.createdAt desc", SearchableProfile.class);
         this.setSearchParams(query, searchParams);
-        query.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
-        query.setMaxResults(pageable.getPageSize());
+        query.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
+        query.setMaxResults(pageable(int).getPageSize());
 
         return this.getProfilesPage(query.getResultList(), pageable, total);
     }

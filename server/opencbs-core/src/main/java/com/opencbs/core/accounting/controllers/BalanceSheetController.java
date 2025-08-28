@@ -65,7 +65,7 @@ public class BalanceSheetController {
                                               Pageable pageable) throws ResourceNotFoundException {
         User currentUser = UserHelper.getCurrentUser();
         this.accountingEntryLogService.checkActualBalance(currentUser);
-        Account account = this.accountService.findOne(accountId)
+        Account account = this.accountService.findById(accountId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found(ID=%d).", accountId)));
 
         return this.accountEnrichService.findLeavesWithBalanceByParent(pageable, account, dateTime, currentUser)

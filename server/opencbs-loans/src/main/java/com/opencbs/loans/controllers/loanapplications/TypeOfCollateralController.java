@@ -53,7 +53,7 @@ public class TypeOfCollateralController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = GET)
     public CustomFieldSectionDto get(@PathVariable long id) throws ResourceNotFoundException {
-        return this.typeOfCollateralService.findOne(id)
+        return this.typeOfCollateralService.findById(id).orElse(null)
                 .map(this.typeOfCollateralMapper::map)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Type of collateral not found (ID=%d).", id)));
     }
@@ -69,7 +69,7 @@ public class TypeOfCollateralController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = PUT)
     public CustomFieldSectionDto put(@PathVariable long id, @RequestBody UpdateCustomFieldSectionDto sectionDto) throws ResourceNotFoundException {
-        TypeOfCollateral typeOfCollateral = this.typeOfCollateralService.findOne(id)
+        TypeOfCollateral typeOfCollateral = this.typeOfCollateralService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Type of collateral not found (ID=%d).", id)));
 
         this.typeOfCollateralDtoValidator.validateOnUpdate(sectionDto, typeOfCollateral);

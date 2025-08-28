@@ -44,7 +44,7 @@ public class LoanApplicationCustomFieldSectionController extends BaseController 
 
     @RequestMapping(path = "/{id}", method = RequestMethod.GET)
     public CustomFieldSectionDto get(@PathVariable long id) throws ResourceNotFoundException {
-        return this.loanApplicationCustomFieldSectionService.findOne(id)
+        return this.loanApplicationCustomFieldSectionService.findById(id).orElse(null)
                 .map(this.loanApplicationCustomFieldSectionMapper::map)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Custom field section not found (ID=%d).", id)));
     }
@@ -60,7 +60,7 @@ public class LoanApplicationCustomFieldSectionController extends BaseController 
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public List<CustomFieldSectionDto> put(@PathVariable long id, @RequestBody UpdateCustomFieldSectionDto sectionDto) throws ResourceNotFoundException {
-        LoanApplicationCustomFieldSection section = this.loanApplicationCustomFieldSectionService.findOne(id)
+        LoanApplicationCustomFieldSection section = this.loanApplicationCustomFieldSectionService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Section not found (ID=%d).", id)));
 
         this.customFieldSectionDtoValidator.validate(sectionDto);

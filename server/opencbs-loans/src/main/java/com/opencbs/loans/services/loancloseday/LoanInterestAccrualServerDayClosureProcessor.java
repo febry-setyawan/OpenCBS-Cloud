@@ -75,7 +75,7 @@ public class LoanInterestAccrualServerDayClosureProcessor implements LoanDayClos
                 .filter(x -> x.getAccruedInterest().compareTo(x.getInterest()) < 0)
                 .collect(Collectors.toList());
 
-        ScheduleGeneratorTypes scheduleType = this.loanService.findOne(loanId).get().getLoanApplication().getScheduleType();
+        ScheduleGeneratorTypes scheduleType = this.loanService.findById(loanId).orElse(null).get().getLoanApplication().getScheduleType();
         ScheduleGenerator scheduleGenerator = this.scheduleService.getScheduleByType(scheduleType);
         LocalDate lastAccrualDate = installments
                 .stream()

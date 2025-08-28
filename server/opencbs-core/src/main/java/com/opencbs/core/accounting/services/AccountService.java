@@ -144,7 +144,7 @@ public class AccountService extends BaseHistoryService<AccountRepository> implem
 
     public Page<Account> findLeavesByParentAndBranch(Pageable pageable, Account account, Long branchId) {
         Long total = accountRepository.countByParent(account);
-        Branch branch = this.branchService.findOne(branchId).get();
+        Branch branch = this.branchService.findById(branchId).orElse(null).get();
         List<Account> accountList = this.accountRepository.findLeavesByParentAndBranch(pageable, account, branch)
                 .stream()
                 .sorted(Comparator.comparing(Account::getNumber))

@@ -55,7 +55,7 @@ public class LoanInstallmentsServiceImpl implements LoanInstallmentsService {
     @Override
     @Transactional
     public ScheduleDto preview(@NonNull Long loanId, @NonNull ManualEditRescheduleDto manualEditRescheduleDto) {
-        Loan loan = loanService.findOne(loanId)
+        Loan loan = loanService.findById(loanId).orElse(null)
                 .orElseThrow(() -> new RuntimeException("Loan not found: " + loanId));
 
         final RescheduleDto rescheduleDto = manualEditRescheduleDto.getRescheduleDto();

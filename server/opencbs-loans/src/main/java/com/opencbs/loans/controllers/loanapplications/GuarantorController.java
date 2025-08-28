@@ -57,7 +57,7 @@ public class GuarantorController extends BaseController {
     @RequestMapping(method = RequestMethod.GET)
     public List<GuarantorDetailDto> get(@PathVariable long loanApplicationId) {
         LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
+                .findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceAccessException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
 
         return this.guarantorService.findAll(loanApplication)
@@ -69,10 +69,10 @@ public class GuarantorController extends BaseController {
     @RequestMapping(value = "/{guarantorId}", method = RequestMethod.GET)
     public GuarantorDetailDto getById(@PathVariable long guarantorId,
                                       @PathVariable long loanApplicationId) throws Exception {
-        LoanApplication loanApplication = this.loanApplicationService.findOne(loanApplicationId)
+        LoanApplication loanApplication = this.loanApplicationService.findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
 
-        Guarantor guarantor = this.guarantorService.findOne(guarantorId)
+        Guarantor guarantor = this.guarantorService.findById(guarantorId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Guarantor not found (ID=%d).", guarantorId)));
 
         if (!loanApplication.getId().equals(guarantor.getLoanApplication().getId())) {
@@ -86,7 +86,7 @@ public class GuarantorController extends BaseController {
     public GuarantorDetailDto post(@PathVariable long loanApplicationId,
                                    @RequestBody GuarantorDto guarantorDto) throws Exception {
         LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
+                .findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
         this.guarantorDtoValidator.validate(guarantorDto);
         Guarantor guarantor = this.guarantorMapper.mapToEntity(guarantorDto);
@@ -102,10 +102,10 @@ public class GuarantorController extends BaseController {
                                   @PathVariable long loanApplicationId,
                                   @PathVariable long guarantorId) throws Exception {
         LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
+                .findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
         Guarantor oldGuarantor = this.guarantorService
-                .findOne(guarantorId)
+                .findById(guarantorId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Guarantor not found (ID=%d).", guarantorId)));
         if (!loanApplication.getId().equals(oldGuarantor.getLoanApplication().getId())) {
             throw new ResourceNotFoundException("Guarantor belongs to another loan application.");
@@ -123,7 +123,7 @@ public class GuarantorController extends BaseController {
     @PermissionRequired(name = "GUARANTOR", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
     public void delete(@PathVariable long guarantorId) throws Exception {
         Guarantor guarantor = this.guarantorService
-                .findOne(guarantorId)
+                .findById(guarantorId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Guarantor not found (ID=%d).", guarantorId)));
 
         guarantor.setClosedAt(DateHelper.getLocalDateTimeNow());
@@ -134,7 +134,7 @@ public class GuarantorController extends BaseController {
     @RequestMapping(value = "/lookup", method = GET)
     public Page<ProfileDto> lookup(@PathVariable long loanApplicationId, @RequestParam(value = "search", required = false) String query, Pageable pageable) throws ResourceNotFoundException {
         LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
+                .findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
         ModelMapper mapper = new ModelMapper();
         return this.guarantorService.findAvailableProfiles(query, loanApplication, pageable).map(x -> mapper.map(x, ProfileDto.class));

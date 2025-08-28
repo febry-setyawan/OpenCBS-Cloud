@@ -54,7 +54,7 @@ public class PersonCustomFieldController extends BaseController {
 
     @RequestMapping(path = "/{id}", method = PUT)
     public List<CustomFieldSectionDto> put(@PathVariable long id, @RequestBody CustomFieldDto customFieldDto) throws Exception {
-        PersonCustomField customField = this.personCustomFieldService.findOne(id)
+        PersonCustomField customField = this.personCustomFieldService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("CustomField not found (ID=%d).", id)));
 
         customFieldDto.setId(id);
@@ -84,7 +84,7 @@ public class PersonCustomFieldController extends BaseController {
     }
 
     private PersonCustomFieldSection getSection(long id) throws ResourceNotFoundException {
-        return this.personCustomFieldSectionService.findOne(id)
+        return this.personCustomFieldSectionService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Section not found (ID=%d).", id)));
     }
 
@@ -106,7 +106,7 @@ public class PersonCustomFieldController extends BaseController {
 
     @DeleteMapping(value = "/{fieldId}")
     public void deleteCustomField(@PathVariable @NonNull Long fieldId) {
-        CustomField customField = this.personCustomFieldService.findOne(fieldId)
+        CustomField customField = this.personCustomFieldService.findById(fieldId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Field not found (ID=%d).")));
 
         this.personCustomFieldService.delete(customField);

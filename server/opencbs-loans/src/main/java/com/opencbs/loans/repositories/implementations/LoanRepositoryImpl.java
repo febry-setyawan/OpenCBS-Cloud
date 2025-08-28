@@ -98,8 +98,8 @@ public class LoanRepositoryImpl extends BaseRepository<Loan> implements LoanRepo
 
         criteria.setProjection(this.buildProjectionList());
         criteria.addOrder(Order.desc("l.createdAt"));
-        criteria.setMaxResults(pageable.getPageSize());
-        criteria.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+        criteria.setMaxResults(pageable(int).getPageSize());
+        criteria.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
         criteria.setResultTransformer(Transformers.aliasToBean(SimplifiedLoan.class));
 
         return new PageImpl<>(criteria.list(), pageable, total);

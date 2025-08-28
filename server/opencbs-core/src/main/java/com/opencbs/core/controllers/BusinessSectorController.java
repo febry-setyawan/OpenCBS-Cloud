@@ -55,7 +55,7 @@ public class BusinessSectorController {
     @RequestMapping(value = "/{id}", method = GET)
     public TreeEntityDto get(@PathVariable long id) throws Exception {
         BusinessSector businessSector = this.businessSectorService
-                .findOne(id)
+                .findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Business sector not found (ID=%d).", id)));
 
         return this.businessSectorMapper.map(businessSector, this.businessSectorService.findAll());
@@ -79,7 +79,7 @@ public class BusinessSectorController {
     @RequestMapping(value = "/{id}", method = PUT)
     public TreeEntityDto put(@PathVariable long id, @RequestBody UpdateTreeEntityDto updateTreeEntityDto) throws Exception {
         BusinessSector businessSector = this.businessSectorService
-                .findOne(id)
+                .findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Business sector not found (ID=%d).", id)));
         updateTreeEntityDto.setId(id);
         businessSectorValidator.validate(updateTreeEntityDto);

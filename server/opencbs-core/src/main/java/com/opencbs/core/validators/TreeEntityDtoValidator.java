@@ -25,7 +25,7 @@ public abstract class TreeEntityDtoValidator<Ts extends TreeEntityService> {
             this.validateName(updateTreeEntityDto);
             return;
         }
-        Optional<TreeEntity> parent = this.service.findOne(parentId);
+        Optional<TreeEntity> parent = this.service.findById(parentId).orElse(null);
         Assert.isTrue(parent.isPresent(), String.format("Parent not found (ID=%d).", parentId));
         this.validateNameAndParent(updateTreeEntityDto, parent);
     }

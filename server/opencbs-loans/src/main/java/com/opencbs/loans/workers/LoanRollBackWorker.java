@@ -53,7 +53,7 @@ public class LoanRollBackWorker {
 
     @Transactional
     public void rollBack(RollbackParams rollbackParams, Long loanId) {
-        Loan loan = this.loanService.findOne(loanId).get();
+        Loan loan = this.loanService.findById(loanId).orElse(null).get();
 
         LocalDateTime startDateTime = rollbackParams.getDateTime();
         Optional<LoanEvent> lastEvent = this.loanEventService.findLastEvent(loan.getId());
@@ -190,7 +190,7 @@ public class LoanRollBackWorker {
     }
 
     public Set<Account> getInvolvedAccounts(Long loanId) {
-        Loan loan = this.loanService.findOne(loanId).get();
+        Loan loan = this.loanService.findById(loanId).orElse(null).get();
         Set<Account> accounts = loan.getLoanAccountList()
                 .stream()
                 .map(LoanAccount::getAccount)

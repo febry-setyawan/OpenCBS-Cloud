@@ -80,7 +80,7 @@ public class LoanApplicationController {
     @PermissionRequired(name = "UPDATE_LOANS_APPLICATIONS", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
     public LoanApplicationDto edit(@RequestBody LoanApplicationCreateDto dto, @PathVariable long id) throws ScriptException {
         this.loanApplicationValidator.validateOnUpdate(dto);
-        LoanApplication loanApplication = this.loanApplicationService.findOne(id)
+        LoanApplication loanApplication = this.loanApplicationService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", id)));
         if (!loanApplication.getStatus().equals(LoanApplicationStatus.IN_PROGRESS)) {
             throw new ForbiddenException("Loan application edit is possible if only status is in progress.");
@@ -145,7 +145,7 @@ public class LoanApplicationController {
     @PermissionRequired(name = "CHANGE_STATUS_OF_LOANS_APPLICATIONS", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
     public void changeStatus(@PathVariable long id,
                              @RequestBody CreditCommitteeVoteStatusChangeDto dto) {
-        LoanApplication loanApplication = this.loanApplicationService.findOne(id)
+        LoanApplication loanApplication = this.loanApplicationService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", id)));
         this.creditCommitteeVoteStatusChangeDtoValidator.validate(dto);
         this.loanApplicationService.changeStatus(loanApplication, dto, UserHelper.getCurrentUser());
@@ -188,14 +188,14 @@ public class LoanApplicationController {
 
     @GetMapping(value = "/{id}/history")
     public List<HistoryDto> getHistory(@PathVariable Long id) throws Exception {
-        this.loanApplicationService.findOne(id)
+        this.loanApplicationService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan Application not found(ID=%d).", id)));
         return loanApplicationService.getAllRevisions(id);
     }
 
     @GetMapping(value = "/{id}/history/last_change")
     public HistoryDto getLastChange(@PathVariable Long id, @RequestParam(value = "dateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)LocalDateTime dateTime) throws Exception {
-        this.loanApplicationService.findOne(id)
+        this.loanApplicationService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan Application not found(ID=%d).", id)));
         return loanApplicationService.getRevisionByDate(id, dateTime);
     }

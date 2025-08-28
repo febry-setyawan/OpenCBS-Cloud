@@ -50,7 +50,7 @@ public class LoanOperationsService {
 
     @Transactional
     public void writeOff(long loanId, WriteOffDto dto, long userId) {
-        Loan loan = this.loanService.findOne(loanId).get();
+        Loan loan = this.loanService.findById(loanId).orElse(null).get();
         LoanEvent lastEvent = this.loanEventService.findAllByLoanId(loanId)
                 .stream()
                 .filter(x -> x.getDeleted().equals(false))

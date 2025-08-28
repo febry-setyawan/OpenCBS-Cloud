@@ -38,8 +38,8 @@ public class SavingRepositoryImpl extends BaseRepository<Saving> implements Savi
         criteria.add(criterion);
 
         long total = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
-        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        criteria.setMaxResults(pageable.getPageSize());
+        criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
+        criteria.setMaxResults(pageable(int).getPageSize());
         criteria.addOrder(Order.desc("createdAt"));
 
         criteria.setProjection(this.getProjectionSavingList());
@@ -74,8 +74,8 @@ public class SavingRepositoryImpl extends BaseRepository<Saving> implements Savi
 
         criteria.setProjection(buildProjectionList());
 
-        criteria.setMaxResults(pageable.getPageSize());
-        criteria.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+        criteria.setMaxResults(pageable(int).getPageSize());
+        criteria.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
 
         criteria.setResultTransformer(Transformers.aliasToBean(SavingWithAccountDto.class));
         List<SavingWithAccountDto> results = (List<SavingWithAccountDto>) criteria.list();

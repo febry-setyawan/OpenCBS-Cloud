@@ -26,17 +26,17 @@ public class GroupValidator {
 
 
     public void validateMembers(Long memberId, Long groupId) {
-        if(this.companyService.findOne(memberId).isPresent()){
-            Assert.isTrue(this.companyService.findOne(memberId).get().getType().equals(ProfileType.PERSON.toString()), String.format("Profile with (ID = %d) is company. You can only add a person", memberId));
+        if(this.companyService.findById(memberId).orElse(null).isPresent()){
+            Assert.isTrue(this.companyService.findById(memberId).orElse(null).get().getType().equals(ProfileType.PERSON.toString()), String.format("Profile with (ID = %d) is company. You can only add a person", memberId));
         }
 
-        if(this.groupService.findOne(memberId).isPresent()) {
-            Assert.isTrue(this.groupService.findOne(memberId).get().getType().equals(ProfileType.PERSON.toString()), String.format("Profile with (ID = %d) is group. You can only add a person", memberId));
+        if(this.groupService.findById(memberId).orElse(null).isPresent()) {
+            Assert.isTrue(this.groupService.findById(memberId).orElse(null).get().getType().equals(ProfileType.PERSON.toString()), String.format("Profile with (ID = %d) is group. You can only add a person", memberId));
         }
 
         Assert.isTrue(personService.exists(memberId), String.format("Person doesn't exist (ID = %d)", memberId));
         Assert.isTrue(
-                groupService.findOne(groupId).get().getGroupMembers()
+                groupService.findById(groupId).orElse(null).get().getGroupMembers()
                         .stream()
                         .noneMatch(x -> x.getMember().getId()
                                 .equals(memberId) && x.getLeftDate() == null),

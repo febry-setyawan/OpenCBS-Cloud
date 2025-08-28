@@ -55,7 +55,7 @@ public class LoanService {
     }
 
     public Loan getLoanById(Long loanId) throws ResourceNotFoundException {
-        return this.findOne(loanId)
+        return this.findById(loanId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan not found (ID=%d).", loanId)));
     }
 

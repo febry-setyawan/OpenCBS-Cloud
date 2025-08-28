@@ -61,7 +61,7 @@ public class BorrowingRepaymentController {
             @RequestBody RepaymentSplit repaymentSplit) {
         BorrowingRepaymentService borrowingRepaymentService = this.borrowingRepaymentServiceFactory
                 .getBorrowingRepaymentService(repaymentSplit.getRepaymentType());
-        Borrowing borrowing = this.borrowingService.findOne(borrowingId)
+        Borrowing borrowing = this.borrowingService.findById(borrowingId).orElse(null)
                 .orElseThrow(() -> new RuntimeException(String.format("Borrowing not found with (ID=%d)", borrowingId)));
         return borrowingRepaymentService.split(borrowing, repaymentSplit, UserHelper.getCurrentUser());
     }
@@ -98,7 +98,7 @@ public class BorrowingRepaymentController {
     }
 
     private Borrowing getBorrowing(Long borrowingId) throws ResourceNotFoundException {
-        return this.borrowingService.findOne(borrowingId)
+        return this.borrowingService.findById(borrowingId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Borrowing is not found (ID=%d).", borrowingId)));
     }
 }

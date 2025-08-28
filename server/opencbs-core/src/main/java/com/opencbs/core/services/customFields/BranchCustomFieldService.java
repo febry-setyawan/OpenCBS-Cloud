@@ -42,7 +42,7 @@ public class BranchCustomFieldService extends CustomFieldService<BranchCustomFie
     }
 
     public BranchCustomFieldSection getSection(long sectionId) throws ResourceNotFoundException {
-        return this.branchCustomFieldSectionService.findOne(sectionId)
+        return this.branchCustomFieldSectionService.findById(sectionId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Section not found (ID=%d).", sectionId)));
     }
 

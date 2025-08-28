@@ -57,7 +57,7 @@ public class CompanyService extends ProfileBaseService<Company, CompanyCustomFie
 
     public Company addMember(Company company, Long memberId) {
         CompanyMember companyMember = new CompanyMember();
-        Person person = this.personService.findOne(memberId).get();
+        Person person = this.personService.findById(memberId).orElse(null).get();
         companyMember.setCompany(company);
         companyMember.setMember(person);
         companyMember.setJoinDate(DateHelper.getLocalDateTimeNow());
@@ -79,7 +79,7 @@ public class CompanyService extends ProfileBaseService<Company, CompanyCustomFie
     }
 
     public Company getCompany(long id) throws ResourceNotFoundException {
-        return this.findOne(id)
+        return this.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Company not found (ID=%d).", id)));
     }
 

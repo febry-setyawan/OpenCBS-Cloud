@@ -82,7 +82,7 @@ public abstract class ProfileBaseService<T extends Profile, TV extends CustomFie
     }
 
     public List<ChangesInfo> getChangesById(long id) {
-        T profile = this.findOne(id).get();
+        T profile = this.findById(id).orElse(null).get();
         List<TV> pendingValues = this.getValuesByStatus(profile, EntityStatus.PENDING);
 
         if (listIsEmpty(pendingValues)) {
@@ -143,7 +143,7 @@ public abstract class ProfileBaseService<T extends Profile, TV extends CustomFie
                     .anyMatch(x -> x.getCurrency().getId().equals(currencyId)), String.format("Account for this currency already exist(CURRENCY_ID=%d).", currencyId));
         }
 
-        Currency currency = this.currencyService.findOne(currencyId)
+        Currency currency = this.currencyService.findById(currencyId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Currency not found (ID=%d).", currencyId)));
         Account newAccount = this.currentAccountGenerator.getCurrentAccount(profile, currency);
         profile.getCurrentAccounts().add(newAccount);

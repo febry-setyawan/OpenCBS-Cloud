@@ -86,7 +86,7 @@ public class BondService {
     }
 
     public Optional<BondProduct> findOneProduct(Long id) {
-        return Optional.ofNullable(this.bondProductService.findOne(id));
+        return Optional.ofNullable(this.bondProductService.findById(id).orElse(null));
     }
 
     public Bond findById(Long id) throws ResourceNotFoundException {
@@ -186,7 +186,7 @@ public class BondService {
         BondProduct cost = this.bondProductService.getDefaultBondProduct().get();
         BigDecimal amount = cost.getAmount().multiply(BigDecimal.valueOf(quantity));
         Currency fromCurrency = this.bondProductService.getDefaultBondProduct().get().getCurrency();
-        Currency toCurrency = this.currencyService.findOne(currencyId).get();
+        Currency toCurrency = this.currencyService.findById(currencyId).orElse(null).get();
         BondAmountDto bond = new BondAmountDto();
         bond.setAmount(amount);
         amount = this.abstractExchangeRateService.getConvertedRate(fromCurrency, toCurrency, amount, date, true);

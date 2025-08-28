@@ -29,8 +29,8 @@ public abstract class TreeEntityRepositoryImpl<Tte extends TreeEntity> extends B
         Criterion queryCriterion = this.getValueRestriction(query);
         criteria.add(queryCriterion);
         criteria.add(this.getLeavesSubQuery());
-        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        criteria.setMaxResults(pageable.getPageSize());
+        criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
+        criteria.setMaxResults(pageable(int).getPageSize());
         criteria.addOrder(Order.asc("t.name"));
         return new PageImpl<>(criteria.list(), pageable, this.getTotal(queryCriterion));
     }
@@ -38,8 +38,8 @@ public abstract class TreeEntityRepositoryImpl<Tte extends TreeEntity> extends B
     @Override
     public Page<Tte> findLeaves(Pageable pageable) {
         Criteria criteria = this.getCriteria();
-        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        criteria.setMaxResults(pageable.getPageSize());
+        criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
+        criteria.setMaxResults(pageable(int).getPageSize());
         criteria.addOrder(Order.asc("t.name"));
         return new PageImpl<>(criteria.list(), pageable, this.getTotal(null));
     }

@@ -58,7 +58,7 @@ public class LoanApplicationsPayeesService {
 
     @Transactional
     public void createLoanApplicationPayee(Long loanApplicationId, LoanApplicationPayeesDto loanApplicationPayeesDto, Long payeeId) throws Exception {
-        Payee payee = this.payeeService.findOne(payeeId).orElseThrow(() -> new Exception("Payee not found"));
+        Payee payee = this.payeeService.findById(payeeId).orElse(null).orElseThrow(() -> new Exception("Payee not found"));
         LoanApplication loanApplication = this.loanApplicationRepository.findById(loanApplicationId).orElse(null);
 
         LoanApplicationPayees loanApplicationPayee = this.loanApplicationPayeeMapper.mapToEntity(loanApplicationPayeesDto);

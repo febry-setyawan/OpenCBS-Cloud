@@ -263,7 +263,7 @@ public class LoanEventService implements ContractAccountingEntryService {
                 .map(LoanAuditEventIdentificator::getLoanEventId).collect(Collectors.toList());
 
         Set<Long> set = new HashSet<>();
-        for (LoanEvent loanEvent : this.loanEventRepository.findAll(collect)) {
+        for (LoanEvent loanEvent : this.loanEventRepository.findAllById(collect)) {
             set.addAll(loanEvent.getAccountingEntry().stream()
                     .mapToLong(AccountingEntry::getId)
                     .boxed().collect(Collectors.toSet())
@@ -294,7 +294,7 @@ public class LoanEventService implements ContractAccountingEntryService {
             return;
         }
 
-        List<LoanEvent> events = this.loanEventRepository.findAll(eventIds);
+        List<LoanEvent> events = this.loanEventRepository.findAllById(eventIds);
 
         events.forEach(event->{
             event.setInstallmentNumber(loanInstallment.getNumber());

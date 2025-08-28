@@ -47,7 +47,7 @@ public class GroupAttachmentController {
                               @RequestParam("file") MultipartFile file,
                               @RequestParam(value = "comment", required = false) String comment) throws Exception {
         Group group = this.groupService
-                .findOne(groupId)
+                .findById(groupId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Group not found (ID=%d).", groupId)));
 
         GroupAttachment attachment = groupAttachmentService.create(file, group, UserHelper.getCurrentUser(), comment);
@@ -57,7 +57,7 @@ public class GroupAttachmentController {
     @GetMapping()
     public List<AttachmentDto> get(@PathVariable long groupId) {
         Group group = this.groupService
-                .findOne(groupId)
+                .findById(groupId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Group not found (ID=%d).", groupId)));
 
         return this.groupAttachmentService.findByOwnerId(group.getId())
@@ -69,7 +69,7 @@ public class GroupAttachmentController {
     @GetMapping(value = "/{attachmentId}")
     public ResponseEntity get(@PathVariable long attachmentId,
                               @RequestParam(value = "size", required = false) Integer size) throws Exception {
-        GroupAttachment attachment = this.groupAttachmentService.findOne(attachmentId)
+        GroupAttachment attachment = this.groupAttachmentService.findById(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         return this.groupAttachmentService.getResponseEntity(attachment, size);
@@ -78,7 +78,7 @@ public class GroupAttachmentController {
     @PostMapping(value = "/{attachmentId}/pin")
     public AttachmentDto pin(@PathVariable long attachmentId) {
         GroupAttachment companyAttachment = this.groupAttachmentService
-                .findOne(attachmentId)
+                .findById(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
         companyAttachment = this.groupAttachmentService.pin(companyAttachment);
 
@@ -88,7 +88,7 @@ public class GroupAttachmentController {
     @PostMapping(value = "/{attachmentId}/unpin")
     public AttachmentDto unpin(@PathVariable long attachmentId) {
         GroupAttachment companyAttachment = this.groupAttachmentService
-                .findOne(attachmentId)
+                .findById(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
         companyAttachment = this.groupAttachmentService.unpin(companyAttachment);
 
@@ -98,7 +98,7 @@ public class GroupAttachmentController {
     @DeleteMapping(value = "/{attachmentId}")
     public AttachmentDto delete(@PathVariable long attachmentId) throws Exception {
         GroupAttachment companyAttachment = this.groupAttachmentService
-                .findOne(attachmentId)
+                .findById(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found(ID=%d).", attachmentId)));
         this.groupAttachmentService.delete(companyAttachment);
 

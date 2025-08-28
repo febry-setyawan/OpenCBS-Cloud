@@ -61,7 +61,7 @@ public class LoanPurposeController {
     @RequestMapping(path = "/{id}", method = GET)
     public TreeEntityDto get(@PathVariable long id) throws ResourceNotFoundException {
         LoanPurpose loanPurpose = this.loanPurposeService
-                    .findOne(id)
+                    .findById(id).orElse(null)
                     .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan purpose not found (ID=%d).", id)));
         return this.loanPurposeMapper.map(loanPurpose, this.loanPurposeService.findAll());
     }
@@ -77,7 +77,7 @@ public class LoanPurposeController {
     @RequestMapping(path = "/{id}", method = PUT)
     public TreeEntityDto put(@PathVariable long id, @RequestBody UpdateTreeEntityDto updateTreeEntityDto) throws Exception {
         LoanPurpose loanPurpose = this.loanPurposeService
-                .findOne(id)
+                .findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan purpose not found(ID=%d).", id)));
         updateTreeEntityDto.setId(id);
         this.loanPurposeValidator.validate(updateTreeEntityDto);
