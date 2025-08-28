@@ -318,7 +318,7 @@ public class TillService {
 
     private void transfer(TransferDto transferDto, User currentUser, TillOperation tillOperation) {
         Till till = this.findOne(transferDto.getTillId()).get();
-        Vault vault = this.vaultService.findOne(transferDto.getVaultId()).get();
+        Vault vault = this.vaultService.findById(transferDto.getVaultId()).get();
         List<AccountingEntry> accountingEntries = transferDto.getTransactions()
                 .stream()
                 .filter(x -> x.getAmount().doubleValue() > 0)
@@ -350,7 +350,7 @@ public class TillService {
     }
 
     private User getTeller(long tellerId) throws ResourceNotFoundException {
-        return this.userService.findOne(tellerId).orElseThrow(() ->
+        return this.userService.findById(tellerId).orElseThrow(() ->
                 new ResourceNotFoundException(String.format("Teller not found (ID=%d).", tellerId)));
     }
 

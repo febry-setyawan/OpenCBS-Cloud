@@ -51,7 +51,7 @@ public class VaultController extends BaseController {
 
     @GetMapping(value = "/{id}")
     public VaultDetailsDto get(@PathVariable long id) throws ResourceNotFoundException {
-        Vault vault = this.vaultService.findOne(id)
+        Vault vault = this.vaultService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Vault not found (ID=%d).", id)));
         List<Account> accounts = vault.getAccounts()
                 .stream()
@@ -70,7 +70,7 @@ public class VaultController extends BaseController {
 
     @PutMapping(value = "/{id}")
     public VaultDetailsDto update(@PathVariable long id, @RequestBody VaultDto vaultDto) throws ResourceNotFoundException {
-        this.vaultService.findOne(id)
+        this.vaultService.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Vault not found (ID=%d).", id)));
         vaultDto.setId(id);
         this.vaultValidator.validateOnUpdate(vaultDto);

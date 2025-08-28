@@ -91,7 +91,7 @@ public class TillValidator {
                     String.format("Till does not have account for currency (CURRENCY_ID=%d).", x.getCurrencyId()));
         }
 
-        Optional<Vault> vault = this.vaultService.findOne(dto.getVaultId());
+        Optional<Vault> vault = this.vaultService.findById(dto.getVaultId());
         Assert.isTrue(vault.isPresent(), String.format("Vault not found (ID=%d).", till.get().getId()));
         for (TillTransactionDto x : dto.getTransactions()) {
             Assert.notNull(this.tillService.findAccount(x.getCurrencyId(), vault.get().getAccounts()).isPresent(),

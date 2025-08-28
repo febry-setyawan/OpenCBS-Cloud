@@ -56,7 +56,7 @@ public class LoginController extends BaseController {
 
     @PutMapping(value = "/login/update-password")
     public String changePassword(@RequestBody PasswordUpdateDto dto) {
-        User user = this.userService.findOne(dto.getUserId()).orElseThrow(
+        User user = this.userService.findById(dto.getUserId()).orElseThrow(
                 () -> new ResourceNotFoundException(String.format("User is not found (ID=%d).", dto.getUserId())));
         this.userDtoValidator.validatePasswordCreate(dto.getPassword());
         this.userService.save(this.userMapper.mapUpdatePassword(user, dto));

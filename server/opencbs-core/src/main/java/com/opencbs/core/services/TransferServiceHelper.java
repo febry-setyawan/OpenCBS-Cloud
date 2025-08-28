@@ -50,7 +50,7 @@ public class TransferServiceHelper {
         Assert.isTrue(transferFromBankToVault.getAmount().compareTo(BigDecimal.ZERO) > 0, "Amount must be greater than zero.");
 
         ExtraJson extra = new ExtraJson();
-        User user = this.userService.findOne(transferFromBankToVault.getPersonInCharge())
+        User user = this.userService.findById(transferFromBankToVault.getPersonInCharge())
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User not found (ID=%d).", transferFromBankToVault.getPersonInCharge())));
         extra.put(PERSON_IN_CHARGE, user.getName());
         extra.put(CHEQUE_NUMBER, transferFromBankToVault.getChequeNumber());
@@ -61,7 +61,7 @@ public class TransferServiceHelper {
     }
 
     public AccountingEntry transferToBank(TransferFromVaultToBank transferFromVaultToBank) {
-        final Vault vault = vaultService.findOne(transferFromVaultToBank.getVaultId())
+        final Vault vault = vaultService.findById(transferFromVaultToBank.getVaultId())
                 .orElseThrow(()->new IllegalArgumentException(String.format("Not found Vault by Id:%s", transferFromVaultToBank.getVaultId())));
         final Account vaultAccount = vault.getAccounts().stream()
                 .filter(account -> account.getCurrency().getId().compareTo(transferFromVaultToBank.getCurrencyId())==0)
@@ -74,7 +74,7 @@ public class TransferServiceHelper {
         Assert.isTrue(transferFromVaultToBank.getAmount().compareTo(BigDecimal.ZERO) > 0, "Amount must be greater than zero.");
 
         ExtraJson extra = new ExtraJson();
-        User user = this.userService.findOne(transferFromVaultToBank.getPersonInCharge())
+        User user = this.userService.findById(transferFromVaultToBank.getPersonInCharge())
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User not found (ID=%d).", transferFromVaultToBank.getPersonInCharge())));
         extra.put(PERSON_IN_CHARGE, user.getName());
         accountingEntry.setExtra(extra);
