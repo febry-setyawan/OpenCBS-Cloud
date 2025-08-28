@@ -21,27 +21,6 @@ This guide provides complete Docker deployment instructions for OpenCBS Cloud wi
    - RabbitMQ Management: http://localhost:15672 (opencbs/opencbs_rabbit)
    - PgAdmin: http://localhost:8081 (admin@opencbs.com/admin123)
 
-## ✅ Spring Boot 2.7.18 Upgrade Completed
-
-### Major Improvements
-- **Spring Boot 1.5.4 → 2.7.18** - Modern, actively supported version
-- **Native Java 17 support** - No compatibility flags required
-- **Spring Cloud Dalston.SR1 → 2021.0.8** - Updated cloud-native features  
-- **Enhanced security and performance** - Latest 2.7.x improvements
-
-## Build Issues Fixed
-
-### ✅ Maven Dependencies Resolved
-- **Fixed parent POM references** - Corrected relative paths
-- **Updated Java 8 → Java 17** - All modules now compile with modern Java
-- **Resolved library conflicts** - Fixed deprecated LATEST/RELEASE versions
-- **Updated Flyway** - 4.0.3 → 8.5.13 with new API configuration
-- **Updated dependency versions** - QueryDSL, pdf2dom, JAXB for stability
-
-### ✅ Node.js Compatibility Fixed
-The original build issue with Node.js 17+ and older Angular/Webpack has been resolved using:
-- `NODE_OPTIONS=--openssl-legacy-provider` - Fixes OpenSSL compatibility
-- `--max_old_space_size=4096` - Increases memory for large builds
 
 ## Deployment Options
 
@@ -161,25 +140,7 @@ docker-compose exec postgres pg_dump -U opencbs_user opencbs > backup.sql
 cat backup.sql | docker-compose exec -T postgres psql -U opencbs_user opencbs
 ```
 
-## Testing the Setup
-
-1. **Validate configuration**:
-   ```bash
-   ./server/validate-config.sh
-   ```
-
-2. **Test startup readiness**:
-   ```bash
-   ./server/startup-readiness-test.sh
-   ```
-
-3. **Run application startup test**:
-   ```bash
-   ./server/test-startup.sh
-   ```
-
 ## Support
 
-- **Configuration Reference**: See `server/PROPERTIES_REFERENCE.md`
 - **Setup Issues**: Check service logs with `docker-compose logs <service-name>`
 - **Build Problems**: All Maven dependency issues have been resolved in this PR
