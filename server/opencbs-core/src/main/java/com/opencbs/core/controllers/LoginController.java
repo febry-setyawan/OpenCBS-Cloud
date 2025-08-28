@@ -12,6 +12,7 @@ import com.opencbs.core.services.LoginService;
 import com.opencbs.core.services.UserService;
 import com.opencbs.core.validators.UserDtoValidator;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -47,7 +48,7 @@ public class LoginController extends BaseController {
         this.userMapper = userMapper;
     }
 
-    @PostMapping(value = "/login")
+    @PostMapping(value = "/login", produces = MediaType.APPLICATION_JSON_VALUE)
     public ApiResponse<String> login(@RequestBody LoginRequest loginRequest) throws InvalidCredentialsException {
         return this.loginService.login(loginRequest)
                 .map(user -> ReturnResponse(this.tokenHelper.tokenFor(user)))
