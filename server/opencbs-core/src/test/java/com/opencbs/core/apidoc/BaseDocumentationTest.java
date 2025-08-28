@@ -76,6 +76,18 @@ public abstract class BaseDocumentationTest {
     @MockBean
     private com.opencbs.core.accounting.services.AccountTagInitializer accountTagInitializer;
 
+    /**
+     * Mock UserSessionHandler to avoid authentication context issues in tests
+     */
+    @MockBean
+    private com.opencbs.core.configs.UserSessionHandler userSessionHandler;
+
+    /**
+     * Mock SystemSettingsService to avoid system settings dependencies in tests
+     */
+    @MockBean
+    private com.opencbs.core.services.SystemSettingsService systemSettingsService;
+
     protected void setup(RestDocumentationContextProvider restDocumentation) throws Exception {
         this.mockMvc = MockMvcBuilders
                 .webAppContextSetup(this.context)
@@ -90,18 +102,27 @@ public abstract class BaseDocumentationTest {
         request.setPassword("admin");
 
         try {
-            String result = this.mockMvc.perform(post("/api/login")
+            var result = this.mockMvc.perform(post("/api/login")
                     .content(asJson(request))
                     .contentType(MediaType.APPLICATION_JSON))
-                    .andReturn().getResponse().getContentAsString();
+                    .andReturn();
+            
+            int status = result.getResponse().getStatus();
+            String responseContent = result.getResponse().getContentAsString();
+            
+            System.out.println("Login HTTP Status: " + status);
+            System.out.println("Login response content: '" + responseContent + "'");
 
-            System.out.println("Login response: " + result);  // Debug output
-            JsonNode jsonNode = new ObjectMapper().readValue(result, JsonNode.class);
+            if (responseContent.isEmpty()) {
+                throw new RuntimeException("Login returned empty response with status: " + status);
+            }
+
+            JsonNode jsonNode = new ObjectMapper().readValue(responseContent, JsonNode.class);
             System.out.println("JsonNode: " + jsonNode); // Debug output
             System.out.println("Data node: " + jsonNode.get("data")); // Debug output
             
             if (jsonNode.get("data") == null) {
-                throw new RuntimeException("Login failed: " + result);
+                throw new RuntimeException("Login failed: " + responseContent);
             }
             
             return "Bearer " + jsonNode.get("data").asText();
