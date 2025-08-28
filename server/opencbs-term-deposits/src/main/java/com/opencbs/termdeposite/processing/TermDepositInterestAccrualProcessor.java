@@ -47,7 +47,7 @@ public class TermDepositInterestAccrualProcessor implements TermDepositDayClosur
 
     @Override
     public void processContract(@NonNull Long termDepositId, @NonNull LocalDate closureDate, @NonNull User user) {
-        TermDepositInterestAccrual termDeposit = termDepositRepository.findOne(termDepositId);
+        TermDepositInterestAccrual termDeposit = termDepositRepository.findById(termDepositId).orElse(null);
         if (BigDecimal.ZERO.equals(termDeposit.getInterestRate())) {
             return;
         }

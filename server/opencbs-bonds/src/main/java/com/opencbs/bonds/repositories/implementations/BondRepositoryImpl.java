@@ -43,8 +43,8 @@ public class BondRepositoryImpl extends BaseRepository<Bond> implements BondRepo
         criteria.setProjection(Projections.rowCount());
         Long total = (Long) criteria.uniqueResult();
 
-        criteria.setMaxResults(pageable.getPageSize());
-        criteria.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+        criteria.setMaxResults(pageable(int).getPageSize());
+        criteria.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
         criteria.setProjection(this.getSimplifiedBondProjections());
         criteria.setResultTransformer(Transformers.aliasToBean(SimplifiedBond.class));
         List<SimplifiedBond> results = (List<SimplifiedBond>) criteria.list();

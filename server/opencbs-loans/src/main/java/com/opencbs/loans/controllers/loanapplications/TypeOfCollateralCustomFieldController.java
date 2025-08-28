@@ -47,7 +47,7 @@ public class TypeOfCollateralCustomFieldController {
     @RequestMapping(value = "/{id}", method = PUT)
     public CustomFieldDto put(@PathVariable("typeOfCollateralId") long typeOfCollateralId, @PathVariable("id") long id, @RequestBody CustomFieldDto customFieldDto) {
         TypeOfCollateralCustomField typeOfCollateralCustomField = this.typeOfCollateralCustomFieldService
-                .findOne(id).orElseThrow(() -> new ResourceNotFoundException(String.format("CustomField not found (ID=%d).", id)));
+                .findById(id).orElse(null).orElseThrow(() -> new ResourceNotFoundException(String.format("CustomField not found (ID=%d).", id)));
         this.typeOfCollateralCustomFieldDtoValidator.validate(customFieldDto);
         this.typeOfCollateralCustomFieldDtoValidator.validateOnEdit(typeOfCollateralCustomField, customFieldDto);
         int oldOrder = typeOfCollateralCustomField.getOrder();
@@ -66,7 +66,7 @@ public class TypeOfCollateralCustomFieldController {
 
     @DeleteMapping(value = "/{fieldId}")
     public void deleteCustomField(@PathVariable @NonNull Long fieldId) {
-        CustomField customField = this.typeOfCollateralCustomFieldService.findOne(fieldId)
+        CustomField customField = this.typeOfCollateralCustomFieldService.findById(fieldId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Field not found (ID=%d).")));
 
         this.typeOfCollateralCustomFieldService.delete(customField);
@@ -81,7 +81,7 @@ public class TypeOfCollateralCustomFieldController {
     }
 
     private TypeOfCollateral getTypeOfCollateral(long id) throws ResourceNotFoundException {
-        return this.typeOfCollateralService.findOne(id)
+        return this.typeOfCollateralService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("TypeOfCollateral not found (ID=%d).", id)));
     }
 }

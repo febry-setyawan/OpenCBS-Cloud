@@ -39,6 +39,6 @@ public class LoanApplicationCustomFieldService extends CustomFieldService<LoanAp
     }
 
     public Optional<LoanApplicationCustomField> findOne(Long id) {
-        return Optional.ofNullable(this.loanApplicationCustomFieldRepository.findOne(id));
+        return this.loanApplicationCustomFieldRepository.findById(id);
     }
 }

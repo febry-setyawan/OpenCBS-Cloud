@@ -110,7 +110,7 @@ public class LoanPenaltyEventService {
         List<LoanPenaltyEvent> penaltiesEvents = this.loanPenaltyEventRepository.findAllByLoanIdAndEffectiveAtBetweenAndDeletedFalse(loanId, beginDateTime, endDateTime);
         if (!penaltiesEvents.isEmpty()) {
             penaltiesEvents.forEach(loanPenaltyEvent -> loanPenaltyEvent.setDeleted(true));
-            this.loanPenaltyEventRepository.save(penaltiesEvents);
+            this.loanPenaltyEventRepository.saveAll(penaltiesEvents);
         }
     }
 

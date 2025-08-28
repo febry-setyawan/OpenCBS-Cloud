@@ -29,8 +29,8 @@ public class SavingProductRepositoryImpl extends BaseRepository<SavingProduct> {
 
         query = this.getEntityManager().createQuery(String.format("select sp %s", querySql), SavingProduct.class);
         query.setParameter("searchString", String.format("%%%s%%", searchString));
-        query.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        query.setMaxResults(pageable.getPageSize());
+        query.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
+        query.setMaxResults(pageable(int).getPageSize());
         return new PageImpl<>((List<SavingProduct>) query.getResultList(), pageable, total);
     }
 }

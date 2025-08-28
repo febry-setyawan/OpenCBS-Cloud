@@ -75,7 +75,7 @@ public class BorrowingService {
     }
 
     public Optional<Borrowing> findOne(Long id) {
-        return Optional.ofNullable(this.borrowingRepository.findOne(id));
+        return this.borrowingRepository.findById(id);
     }
 
     public Borrowing findById(Long id) throws ResourceNotFoundException {

@@ -42,7 +42,7 @@ public class CreditCommitteeVoteHistoryController {
     public List<CreditCommitteeVoteHistoryDto> getAll(@PathVariable long loanApplicationId) {
 
         LoanApplication loanApplication = this.loanApplicationService
-                .findOne(loanApplicationId)
+                .findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceAccessException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
 
         List<CreditCommitteeVoteHistoryDto> list = this.creditCommitteeVoteHistoryService.findAll(loanApplication)

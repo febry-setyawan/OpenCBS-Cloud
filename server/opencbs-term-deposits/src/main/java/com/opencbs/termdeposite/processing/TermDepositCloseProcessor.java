@@ -26,7 +26,7 @@ public class TermDepositCloseProcessor implements TermDepositDayClosureProcessor
 
     @Override
     public void processContract(@NonNull  Long termDepositId, @NonNull LocalDate date, @NonNull User user) {
-        TermDepositClose termDeposit = termDepositCloseRepository.findOne(termDepositId);
+        TermDepositClose termDeposit = termDepositCloseRepository.findById(termDepositId).orElse(null);
         LocalDate closeDate = termDepositService.getExpiredDate(termDeposit.getOpenDate(), termDeposit.getTermAgreement());
         if (date.equals(closeDate)) {
             termDepositCloseInterface.close(termDepositId, date);

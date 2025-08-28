@@ -136,7 +136,7 @@ public class CompanyCustomFieldDocumentationTest extends BaseCustomFieldSectionD
     }
 
     private CompanyCustomField createAddressCustomField() {
-        Optional<CompanyCustomFieldSection> section = this.companyCustomFieldSectionService.findOne(1L);
+        Optional<CompanyCustomFieldSection> section = this.companyCustomFieldSectionService.findOne(1L).orElse(null);
         if (!section.isPresent()) {
             throw new RuntimeException("Section is not found.");
         }

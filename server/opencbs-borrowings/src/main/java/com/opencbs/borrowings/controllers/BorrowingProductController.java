@@ -46,7 +46,7 @@ public class BorrowingProductController {
     @GetMapping(value = "/{borrowingId}")
     public BorrowingProductDetailsDto get(@PathVariable long borrowingId) throws ResourceNotFoundException {
         return this.borrowingProductService
-                .findOne(borrowingId)
+                .findById(borrowingId).orElse(null)
                 .map(this.borrowingProductMapper::mapToDto)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Borrowing product not found (ID=%d).", borrowingId)));
     }
@@ -61,7 +61,7 @@ public class BorrowingProductController {
 
     @PutMapping(value = "/{borrowingId}")
     public BorrowingProductDetailsDto update(@PathVariable long borrowingId, @RequestBody BorrowingProductDto borrowingProductDto) throws ResourceNotFoundException {
-        this.borrowingProductService.findOne(borrowingId)
+        this.borrowingProductService.findById(borrowingId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Borrowing product not found (ID=%d)", borrowingId)));
         borrowingProductDto.setId(borrowingId);
         this.borrowingProductValidator.validateOnUpdate(borrowingProductDto);

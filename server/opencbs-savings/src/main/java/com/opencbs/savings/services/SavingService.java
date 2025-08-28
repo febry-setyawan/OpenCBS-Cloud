@@ -74,7 +74,7 @@ public class SavingService {
     }
 
     public Optional<Saving> findOne(Long id) {
-        Saving saving = this.savingRepository.findOne(id);
+        Saving saving = this.savingRepository.findById(id).orElse(null);
         if (saving == null || !saving.getStatus().equals(SavingStatus.OPEN)) {
             return Optional.ofNullable(saving);
         }
@@ -82,7 +82,7 @@ public class SavingService {
     }
 
     public Saving findById(Long id) throws ResourceNotFoundException {
-        return this.findOne(id)
+        return this.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Saving not found (ID=%d).", id)));
     }
 

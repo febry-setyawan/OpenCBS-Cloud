@@ -142,7 +142,7 @@ public class TillValidator {
 
         for (Long accountId : dto.getAccounts()) {
             this.accountService.findOne(accountId)
-                    .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found (ID=%d).", accountId)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found (ID=%d).", accountId)));
             Assert.isTrue(this.tillService
                             .findAll()
                             .stream()

@@ -1,6 +1,6 @@
 package com.opencbs.core.configs.properties;
 
-import org.hibernate.validator.constraints.NotBlank;
+import javax.validation.constraints.NotBlank;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 
 import java.nio.file.Path;

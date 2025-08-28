@@ -42,7 +42,7 @@ public class SavingPostingDayClosureProcessor implements SavingDayClosureProcess
 
     @Override
     public void processContract(@NonNull Long savingId, @NonNull LocalDate closureDate, @NonNull User user) {
-        SavingPosting saving = savingRepository.findOne(savingId);
+        SavingPosting saving = savingRepository.findById(savingId).orElse(null);
 
         LocalDateTime entryDate = getEntryEffectiveDate(closureDate, saving.getInterestPostingFrequency());
         if(entryDate == null) {

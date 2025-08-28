@@ -58,7 +58,7 @@ public class LoanPenaltyAccrualProcessor implements LoanDayClosureProcessor {
 
     @Override
     public void processContract(@NonNull Long contractId, @NonNull LocalDate closureDate, @NonNull User user) {
-        final Loan loan = this.loanService.findOne(contractId).orElseThrow(() -> new IllegalArgumentException(String.format("Not found loan with ID=%s", contractId)));
+        final Loan loan = this.loanService.findById(contractId).orElse(null).orElseThrow(() -> new IllegalArgumentException(String.format("Not found loan with ID=%s", contractId)));
         final List<LoanApplicationPenalty> loanPenalties = loan.getLoanApplication().getLoanApplicationPenalties();
         if (loanPenalties.isEmpty()) {
             return;
@@ -108,7 +108,7 @@ public class LoanPenaltyAccrualProcessor implements LoanDayClosureProcessor {
             this.createAccountingEntry(event, penaltyAccounts.get(0));
         }
 
-        this.loanPenaltyEventRepository.save(events);
+        this.loanPenaltyEventRepository.saveAll(events);
     }
 
     private LoanPenaltyEvent createPenaltyEvent(BigDecimal amount, Long eventGroupKey, Long loanId, LoanApplicationPenalty loanApplicationPenalty, @NonNull LocalDate date) {

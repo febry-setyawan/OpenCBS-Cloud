@@ -17,7 +17,7 @@ public class RelationshipService {
     }
 
     public Optional<Relationship> findOne(long id) {
-        return Optional.ofNullable(this.relationshipRepository.findOne(id));
+        return this.relationshipRepository.findById(id);
     }
 
     public List<Relationship> findAll() {

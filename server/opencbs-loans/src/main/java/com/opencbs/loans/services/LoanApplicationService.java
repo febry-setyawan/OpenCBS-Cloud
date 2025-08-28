@@ -160,7 +160,7 @@ public class LoanApplicationService extends BaseHistoryService<LoanApplicationRe
     }
 
     public LoanApplication getLoanApplicationById(Long id) throws ResourceNotFoundException {
-        LoanApplication loanApplication = this.findOne(id)
+        LoanApplication loanApplication = this.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan application not found (ID=%d).", id)));
         loanApplication.getCreditCommitteeVotes().sort(Comparator.comparingLong(BaseEntity::getId));
         loanApplication.getLoanApplicationPayees().sort(Comparator.comparing(LoanApplicationPayees::getId));
@@ -445,7 +445,7 @@ public class LoanApplicationService extends BaseHistoryService<LoanApplicationRe
     }
 
     public LoanApplication getByLoanId(long loanId) throws ResourceNotFoundException {
-        Loan loan = this.loanService.findOne(loanId).orElseThrow(() -> new ResourceNotFoundException(String.format("Loan not found ID=%d.", loanId)));
+        Loan loan = this.loanService.findById(loanId).orElse(null).orElseThrow(() -> new ResourceNotFoundException(String.format("Loan not found ID=%d.", loanId)));
         return loan.getLoanApplication();
     }
 

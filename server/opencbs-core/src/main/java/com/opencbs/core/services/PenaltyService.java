@@ -19,7 +19,7 @@ public class PenaltyService {
 
 
     public Optional<Penalty> get(Long id) {
-        return Optional.ofNullable(this.penaltyRepository.findOne(id));
+        return this.penaltyRepository.findById(id);
     }
 
     public Penalty create(Penalty penalty) {
@@ -35,6 +35,6 @@ public class PenaltyService {
     }
 
     public List<Penalty> findAllByIds(Iterable<Long> ids) {
-        return this.penaltyRepository.findAll(ids);
+        return this.penaltyRepository.findAllById(ids);
     }
 }

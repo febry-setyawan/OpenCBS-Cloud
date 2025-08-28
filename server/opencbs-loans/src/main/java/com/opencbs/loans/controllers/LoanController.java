@@ -77,7 +77,7 @@ public class LoanController extends BaseController {
 
     @GetMapping(value = "/by-profile/{profileId}")
     public Page<LoanDto> getByProfile(@PathVariable(value = "profileId") long profileId, Pageable pageable) {
-        Profile profile = this.profileService.findOne(profileId)
+        Profile profile = this.profileService.findById(profileId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Profile is not found (ID=%d).", profileId)));
         return this.loanWorker.getByProfile(pageable, profile);
     }
@@ -131,7 +131,7 @@ public class LoanController extends BaseController {
     }
 
     private Loan getLoan(Long loanId) throws ResourceNotFoundException {
-        return loanService.findOne(loanId)
+        return loanService.findById(loanId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan is not found (ID=%d).", loanId)));
     }
 
@@ -189,7 +189,7 @@ public class LoanController extends BaseController {
     @PostMapping(value = "{loanId}/reassign-loan-officer/{loanOfficerId}")
     @PermissionRequired(name = "REASSIGN_LOAN", moduleType = ModuleType.LOANS, description = "")
     public void reassignLoanOfficer(@PathVariable Long loanId, @PathVariable Long loanOfficerId) {
-        this.loanService.findOne(loanId)
+        this.loanService.findById(loanId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan is not found (ID=%d).", loanId)));
         this.loanOperationsService.reassignLoanOfficer(Collections.singletonList(loanId), loanOfficerId);
     }

@@ -89,7 +89,7 @@ public class LoanSpecificProvisionService {
                 .loanId(loanId)
                 .provisionType(provisionType)
                 .build();
-        return Optional.ofNullable(this.loanSpecificProvisionRepository.findOne(Example.of(probe)));
+        return this.loanSpecificProvisionRepository.findById(Example.of(probe));
     }
 
     @Transactional

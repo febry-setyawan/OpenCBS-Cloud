@@ -66,7 +66,7 @@ public class CreditCommitteeAmountRangeValidator {
         Assert.notNull(dto.getAmount(), "Amount is required.");
         Assert.isTrue(dto.getAmount().doubleValue() > 0, "Amount should be greater than zero.");
 
-        BigDecimal oldAmount = this.rangeRepository.findOne(oldRange.getId()).getAmount();
+        BigDecimal oldAmount = this.rangeRepository.findById(oldRange.getId()).getAmount();
         List<BigDecimal> amounts = this.rangeRepository.findAll().stream().map(x -> x.getAmount()).collect(Collectors.toList());
         Collections.sort(amounts);
         int index = amounts.indexOf(oldAmount);

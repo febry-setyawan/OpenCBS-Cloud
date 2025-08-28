@@ -76,7 +76,7 @@ public class TillWorkerImpl implements TillWorker {
     }
 
     private Till getTill(Long id) throws ResourceNotFoundException {
-        return this.tillService.findOne(id)
+        return this.tillService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Till not found (ID=%d).", id)));
     }
 }

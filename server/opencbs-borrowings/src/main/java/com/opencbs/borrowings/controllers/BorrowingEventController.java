@@ -36,7 +36,7 @@ public class BorrowingEventController {
 
     @GetMapping()
     public List<BorrowingEventDto> getAllBorrowingEvents(@PathVariable Long borrowingId, EventRequest request) {
-        this.borrowingService.findOne(borrowingId).orElseThrow(
+        this.borrowingService.findById(borrowingId).orElse(null).orElseThrow(
                 () -> new ResourceAccessException(String.format("Borrowing is not found (ID=%d).", borrowingId)));
         return this.borrowingEventService.findAllConsolidatedByBorrowingId(borrowingId, request)
                 .stream()

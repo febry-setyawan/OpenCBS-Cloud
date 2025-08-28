@@ -49,8 +49,8 @@ public class TermDepositRepositoryImpl extends BaseRepository<TermDeposit> imple
         long total = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
 
         criteria.setProjection(this.getProjectionList());
-        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
-        criteria.setMaxResults(pageable.getPageSize());
+        criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
+        criteria.setMaxResults(pageable(int).getPageSize());
         criteria.addOrder(Order.desc("createdAt"));
         criteria.setResultTransformer(Transformers.aliasToBean(TermDepositSimplified.class));
 

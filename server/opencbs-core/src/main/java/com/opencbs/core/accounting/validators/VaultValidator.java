@@ -36,7 +36,7 @@ public class VaultValidator {
         Assert.notEmpty(dto.getAccounts(), "Accounts is required.");
         for (Long x : dto.getAccounts()) {
             this.accountService.findOne(x)
-                    .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found (ID=%d).", x)));
+                .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found (ID=%d).", x)));
         }
     }
 

@@ -19,11 +19,11 @@ public abstract class TreeEntityService<Tr extends TreeEntityRepository, Tte ext
     }
 
     public List<Tte> findAll() {
-        return this.repository.findAll(new Sort(Sort.Direction.ASC, "id"));
+        return this.repository.findAll(Sort.by(Sort.Direction.ASC, "id"));
     }
 
     public Optional<Tte> findOne(long id) {
-        return Optional.ofNullable((Tte) this.repository.findOne(id));
+        return (Optional<Tte>) this.repository.findById(id);
     }
 
     public Optional<Tte> findByName(String name) {

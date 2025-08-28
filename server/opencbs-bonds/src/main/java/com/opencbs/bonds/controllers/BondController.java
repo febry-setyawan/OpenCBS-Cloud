@@ -83,14 +83,14 @@ public class BondController {
 
     @GetMapping(value = "/{id}")
     public BondDetailsDto get(@PathVariable long id) {
-        Bond bond = this.bondService.findById(id);
+        Bond bond = this.bondService.findById(id).orElse(null);
         BondDetailsDto result = this.bondMapper.mapToDto(bond);
         return result;
     }
 
     @GetMapping(value = "/by-profile/{profileId}")
     public Page<BondDetailsDto> getByProfile(Pageable pageable, @PathVariable(value = "profileId") long profileId) {
-        Profile profile = this.profileService.findOne(profileId)
+        Profile profile = this.profileService.findById(profileId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Profile not found (ID=%d).", profileId)));
         return this.bondService.getByProfile(pageable, profile).map(this.bondMapper::mapToDto);
     }
@@ -108,7 +108,7 @@ public class BondController {
     public BondDetailsDto update(@PathVariable Long id, @RequestBody BondDto dto)
             throws ScriptException, ResourceNotFoundException {
         this.bondValidator.validate(dto);
-        Bond bond = this.bondService.findById(id);
+        Bond bond = this.bondService.findById(id).orElse(null);
         if (!bond.getStatus().equals(BondStatus.IN_PROGRESS))
             throw new RuntimeException("Bond edit is possible only if the status is IN PROGRESS");
         Bond zip = this.bondMapper.zip(bond, dto);
@@ -127,7 +127,7 @@ public class BondController {
     @PostMapping(value = "/start/{id}")
     public BondDetailsDto start(@PathVariable Long id)
             throws ResourceNotFoundException {
-        Bond bond = this.bondService.findById(id);
+        Bond bond = this.bondService.findById(id).orElse(null);
         return this.bondMapper.mapToDto(this.bondWorker.start(bond));
     }
 
@@ -147,7 +147,7 @@ public class BondController {
 
     @GetMapping(value = "/{bondId}/schedule")
     public ScheduleDto getBondSchedule(@PathVariable Long bondId){
-        Bond bond = this.bondService.findById(bondId);
+        Bond bond = this.bondService.findById(bondId).orElse(null);
         return this.bondScheduleMapper.mapToScheduleDto(this.bondService.getInstallmentsByBond(bond));
     }
 
@@ -170,7 +170,7 @@ public class BondController {
     @PostMapping(value = "/{bondId}/valueDate")
     public BondDetailsDto setValueDate(@PathVariable Long bondId,
                              @RequestParam(value = "date") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate date) throws Exception {
-        Bond bond = this.bondService.findById(bondId);
+        Bond bond = this.bondService.findById(bondId).orElse(null);
         return this.bondMapper.mapToDto(this.bondWorker.setValueDate(bond, date));
     }
 

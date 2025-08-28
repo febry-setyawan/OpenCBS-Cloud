@@ -51,7 +51,7 @@ public class AuditTransactionsReport implements AuditReport {
             accountEntryWithEventIds.addAll(contractEntryService.getIdsAccountEntriesWithEvent(filter.getFromDate(), filter.getToDate(), user));
         });
 
-        Pageable pages = new PageRequest(0, Integer.MAX_VALUE, Sort.Direction.DESC, "effective_at");
+        Pageable pages = PageRequest.of(0, Integer.MAX_VALUE, Sort.by(Sort.Direction.DESC, "effective_at"));
         List<AccountingEntry> accountingEntries = this.accountingEntryService.getAll(sortedAccountingEntryDto, pages).getContent()
                 .stream()
                 .filter(accountingEntry -> !accountEntryWithEventIds.contains(accountingEntry.getId()))
@@ -61,8 +61,8 @@ public class AuditTransactionsReport implements AuditReport {
             return new PageImpl(Collections.EMPTY_LIST, pageable, accountingEntries.size());
         }
 
-        int fromPosition = (accountingEntries.size() < pageable.getOffset()) ? accountingEntries.size() : pageable.getOffset();
-        int toPosition = (accountingEntries.size() > pageable.getOffset() + pageable.getPageSize()) ? pageable.getOffset() + pageable.getPageSize() : accountingEntries.size();
+        int fromPosition = (accountingEntries.size() < (int)pageable.getOffset()) ? accountingEntries.size() : (int)pageable.getOffset();
+        int toPosition = (accountingEntries.size() > (int)pageable.getOffset() + pageable.getPageSize()) ? (int)pageable.getOffset() + pageable.getPageSize() : accountingEntries.size();
         List<AccountingEntry> accountingEntryPart = accountingEntries.subList(fromPosition, toPosition);
 
         return new PageImpl(accountingEntryPart, pageable, accountingEntries.size())

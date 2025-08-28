@@ -25,7 +25,7 @@ public class BorrowingProductService {
     }
 
     public Optional<BorrowingProduct> findOne(long id) {
-        return Optional.ofNullable(this.borrowingProductRepository.findOne(id));
+        return this.borrowingProductRepository.findById(id);
     }
 
     public Optional<BorrowingProduct> findByName(String name) {

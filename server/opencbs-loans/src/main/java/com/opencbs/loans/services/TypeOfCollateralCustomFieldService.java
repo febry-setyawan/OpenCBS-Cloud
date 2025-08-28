@@ -30,7 +30,7 @@ public class TypeOfCollateralCustomFieldService extends CustomFieldService<TypeO
 
     @Transactional
     public Optional<TypeOfCollateralCustomField> findOne(long id) {
-        return Optional.ofNullable(this.typeOfCollateralCustomFieldRepository.findOne(id));
+        return this.typeOfCollateralCustomFieldRepository.findById(id);
     }
 
     public Optional<TypeOfCollateralCustomField> findBySectionIdAndName(long sectionId, @NonNull String name) {

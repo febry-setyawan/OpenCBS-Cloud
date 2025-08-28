@@ -80,7 +80,7 @@ public class BorrowingController {
     public BorrowingDetailDto put(@RequestBody BorrowingDto dto,
                                   @PathVariable long borrowingId) throws ResourceNotFoundException, ScriptException {
         this.borrowingValidator.validate(dto);
-        Borrowing borrowing = this.borrowingService.findOne(borrowingId)
+        Borrowing borrowing = this.borrowingService.findById(borrowingId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Borrowing is not found (ID=%d).", borrowingId)));
         if (!borrowing.getStatus().equals(BorrowingStatus.PENDING))
             throw new RuntimeException("Borrowing edit is possible if only the status is PENDING.");
@@ -92,7 +92,7 @@ public class BorrowingController {
     @PermissionRequired(name = "GET_BORROWINGS", moduleType = ModuleType.BORROWINGS, description = "")
     @GetMapping(value = "/{borrowingId}")
     public BorrowingDetailDto getOne(@PathVariable long borrowingId) {
-        Borrowing borrowing = this.borrowingService.findOne(borrowingId).orElseThrow(
+        Borrowing borrowing = this.borrowingService.findById(borrowingId).orElse(null).orElseThrow(
                 () -> new ResourceAccessException(String.format("Borrowing is not found (ID=%d).", borrowingId)));
         return this.borrowingMapper.mapToDetailDto(borrowing);
     }
@@ -100,7 +100,7 @@ public class BorrowingController {
     @PermissionRequired(name = "GET_BORROWINGS", moduleType = ModuleType.BORROWINGS, description = "")
     @GetMapping(value = "/by-profile/{profileId}")
     public Page<BorrowingDetailDto> getByProfile(Pageable pageable, @PathVariable(value = "profileId") long profileId) {
-        Profile profile = this.profileService.findOne(profileId)
+        Profile profile = this.profileService.findById(profileId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Profile not found (ID=%d).", profileId)));
         return this.borrowingService.getByProfile(pageable, profile).map(this.borrowingMapper::mapToDetailDto);
     }
@@ -114,7 +114,7 @@ public class BorrowingController {
 
     @PostMapping(value = "/{borrowingId}/disburse")
     public BorrowingDetailDto disburse(@PathVariable long borrowingId) throws ResourceNotFoundException {
-        Borrowing borrowing = this.borrowingService.findOne(borrowingId).orElseThrow(
+        Borrowing borrowing = this.borrowingService.findById(borrowingId).orElse(null).orElseThrow(
                 () -> new ResourceAccessException(String.format("Borrowing is not found (ID=%d).", borrowingId)));
         if (!borrowing.getStatus().equals(BorrowingStatus.PENDING))
             throw new RuntimeException("Borrowing must be pending");
@@ -132,14 +132,14 @@ public class BorrowingController {
     @PostMapping(value = "/{borrowingId}/roll-back")
     public BorrowingDetailDto rollBackBorrowingEvent(@PathVariable Long borrowingId,
                                                      @RequestBody CommentDto dto) throws ResourceNotFoundException{
-        Borrowing borrowing = this.borrowingService.findOne(borrowingId)
+        Borrowing borrowing = this.borrowingService.findById(borrowingId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Borrowing is not found (ID=%d).", borrowingId)));
         return this.borrowingMapper.mapToDetailDto(this.borrowingOperationsService.rollBack(dto.getComment(), borrowing, UserHelper.getCurrentUser()));
     }
 
     @GetMapping(value = "/{borrowingId}/schedule")
     public ScheduleDto getBorrowingSchedule(@PathVariable Long borrowingId) {
-        Borrowing borrowing = this.borrowingService.findOne(borrowingId).orElseThrow(
+        Borrowing borrowing = this.borrowingService.findById(borrowingId).orElse(null).orElseThrow(
                 () -> new ResourceAccessException(String.format("Borrowing is not found (ID=%d).", borrowingId)));
         return this.borrowingMapper.mapToSchedule(this.borrowingService.getInstallment(borrowing));
     }

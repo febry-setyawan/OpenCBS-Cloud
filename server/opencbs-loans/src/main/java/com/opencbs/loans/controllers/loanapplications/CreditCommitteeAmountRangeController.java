@@ -57,14 +57,14 @@ public class CreditCommitteeAmountRangeController extends BaseController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public CreditCommitteeAmountRangeDto get(@PathVariable long id) throws Exception {
-        CreditCommitteeAmountRange creditCommitteeAmountRange = this.creditCommitteeAmountRangeService.findOne(id)
+        CreditCommitteeAmountRange creditCommitteeAmountRange = this.creditCommitteeAmountRangeService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Credit committee amount range not found (ID=%d).", id)));
         return this.creditCommitteeAmountRangeMapper.mapToDto(creditCommitteeAmountRange);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public CreditCommitteeAmountRangeDto put(@PathVariable long id, @RequestBody CreditCommitteeAmountRangeUpdateDto dto) throws Exception {
-        CreditCommitteeAmountRange oldRange = this.creditCommitteeAmountRangeService.findOne(id)
+        CreditCommitteeAmountRange oldRange = this.creditCommitteeAmountRangeService.findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Credit committee amount range not found (ID=%d).", id)));
         this.validator.validateOnUpdate(dto, oldRange);
         CreditCommitteeAmountRange creditCommitteeAmountRange = this.creditCommitteeAmountRangeMapper.zip(oldRange, dto);

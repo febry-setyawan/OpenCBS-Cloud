@@ -20,6 +20,6 @@ public class BondProductService {
     }
 
     public BondProduct findOne(Long productId){
-        return this.bondProductRepository.findOne(productId);
+        return this.bondProductRepository.findById(productId);
     }
 }

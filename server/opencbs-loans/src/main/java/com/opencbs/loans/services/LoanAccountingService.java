@@ -99,7 +99,7 @@ public class LoanAccountingService {
 
     public List<AccountingEntry> getPrincipalRepaymentAccountingEntry(BigDecimal amount, LoanEvent event) {
         List<LoanAccount> loanAccounts = loanAccountService.getAllByLoanId(event.getLoanId());
-        Loan loan = loanRepository.findOne(event.getLoanId());
+        Loan loan = loanRepository.findById(event.getLoanId());
 
         Account debitAccount = getCurrentAccountFromLoan(loan);
         Account creditAccount = getLoanAccountByAccountRuleType(loanAccounts, AccountRuleType.PRINCIPAL);
@@ -120,7 +120,7 @@ public class LoanAccountingService {
 
     public List<AccountingEntry> getInterestRepaymentAccountingEntry(BigDecimal amount, LoanEvent event) {
         List<LoanAccount> loanAccounts = loanAccountService.getAllByLoanId(event.getLoanId());
-        Loan loan = loanRepository.findOne(event.getLoanId());
+        Loan loan = loanRepository.findById(event.getLoanId());
         Account debitAccount = getCurrentAccountFromLoan(loan);
         Account creditAccount = getLoanAccountByAccountRuleType(loanAccounts, AccountRuleType.INTEREST_ACCRUAL);
 
@@ -150,7 +150,7 @@ public class LoanAccountingService {
     }
 
     public List<AccountingEntry> getPenaltyRepaymentAccountingEntry(@NonNull BigDecimal amount, @NonNull LoanEvent event, @NonNull LoanPenaltyAccount penaltyAccount) {
-        Loan loan = loanRepository.findOne(event.getLoanId());
+        Loan loan = loanRepository.findById(event.getLoanId());
 
         Account debitAccount = getCurrentAccountFromLoan(loan);
         Account creditAccount = penaltyAccount.getAccrualAccount();
@@ -171,7 +171,7 @@ public class LoanAccountingService {
 
     public List<AccountingEntry> getEarlyRepaymentFeeAccountingEntry(BigDecimal amount, LoanEvent event, Boolean isTotalRepayment) {
         List<LoanAccount> loanAccounts = loanAccountService.getAllByLoanId(event.getLoanId());
-        Loan loan = loanRepository.findOne(event.getLoanId());
+        Loan loan = loanRepository.findById(event.getLoanId());
         Account debitAccount = getCurrentAccountFromLoan(loan);
         Account creditAccount =  this.getLoanAccountByAccountRuleType(loanAccounts,
                 (isTotalRepayment)?AccountRuleType.EARLY_TOTAL_REPAYMENT_FEE_INCOME:AccountRuleType.EARLY_PARTIAL_REPAYMENT_FEE_INCOME);

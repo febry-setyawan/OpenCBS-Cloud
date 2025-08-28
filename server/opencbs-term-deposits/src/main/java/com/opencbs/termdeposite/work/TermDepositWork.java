@@ -149,7 +149,7 @@ public class TermDepositWork {
     }
 
     public Page<TermDeposit> findAllByProfileId(@NonNull Long profileId, @NonNull Pageable pageable) {
-        Optional<Profile> optionalProfile = this.profileService.findOne(profileId);
+        Optional<Profile> optionalProfile = this.profileService.findById(profileId).orElse(null);
         if (!optionalProfile.isPresent()) {
             throw new ResourceNotFoundException(String.format("Profile with ID=%d is not found", profileId));
         }

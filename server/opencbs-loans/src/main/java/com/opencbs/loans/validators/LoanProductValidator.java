@@ -73,8 +73,8 @@ public class LoanProductValidator {
         }
 
         for (Long id : loanProductDto.getFees()) {
-            Assert.isTrue(this.entryFeeService.findOne(id).isPresent(), String.format("Entry fee not found (ID=%d)", id));
-            EntryFee entryFee = this.entryFeeService.findOne(id).get();
+            Assert.isTrue(this.entryFeeService.findById(id).orElse(null).isPresent(), String.format("Entry fee not found (ID=%d)", id));
+            EntryFee entryFee = this.entryFeeService.findById(id).orElse(null).get();
             Account account = entryFee.getAccount();
             Currency entryFeeCurrency = account.getCurrency();
             if (entryFeeCurrency != null) {

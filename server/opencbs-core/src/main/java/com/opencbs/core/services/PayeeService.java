@@ -44,7 +44,7 @@ public class PayeeService {
     }
 
     public Optional<Payee> findOne(long id) {
-        return Optional.ofNullable(this.payeeRepository.findOne(id));
+        return this.payeeRepository.findById(id);
     }
 
     public Page<Payee> findAll(Pageable pageable) {

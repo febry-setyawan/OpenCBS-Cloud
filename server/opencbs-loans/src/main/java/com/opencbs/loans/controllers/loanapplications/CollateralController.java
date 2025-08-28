@@ -50,7 +50,7 @@ public class CollateralController {
 
     @RequestMapping(method = GET)
     public List<CollateralDto> get(@PathVariable long loanApplicationId) {
-        LoanApplication loanApplication = loanApplicationService.findOne(loanApplicationId)
+        LoanApplication loanApplication = loanApplicationService.findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceAccessException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
 
         return this.collateralService.findAll(loanApplicationId)
@@ -61,11 +61,11 @@ public class CollateralController {
 
     @RequestMapping(value = "/{id}", method = GET)
     public CollateralDetailDto getById(@PathVariable long loanApplicationId, @PathVariable long id) throws ResourceNotFoundException {
-        LoanApplication loanApplication = loanApplicationService.findOne(loanApplicationId)
+        LoanApplication loanApplication = loanApplicationService.findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceAccessException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
 
         Collateral collateral = this.collateralService
-                .findOne(id)
+                .findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Collateral not found (ID=%d).", id)));
 
         if(!loanApplication.getId().equals(collateral.getLoanApplication().getId()))
@@ -78,7 +78,7 @@ public class CollateralController {
     @PermissionRequired(name = "COLLATERAL", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
     public CollateralDetailDto post(@PathVariable long loanApplicationId,
                                     @RequestBody CollateralUpdateDto collateralUpdateDto) {
-        LoanApplication loanApplication = loanApplicationService.findOne(loanApplicationId)
+        LoanApplication loanApplication = loanApplicationService.findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceAccessException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
         this.collateralDtoValidator.validate(collateralUpdateDto);
 
@@ -94,10 +94,10 @@ public class CollateralController {
     @RequestMapping(value = "/{id}", method = PUT)
     @PermissionRequired(name = "COLLATERAL", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
     public CollateralDetailDto put(@PathVariable long loanApplicationId, @PathVariable long id, @RequestBody CollateralUpdateDto collateralUpdateDto) {
-        LoanApplication loanApplication = loanApplicationService.findOne(loanApplicationId)
+        LoanApplication loanApplication = loanApplicationService.findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new ResourceAccessException(String.format("Loan application not found (ID=%d).", loanApplicationId)));
         Collateral collateral = this.collateralService
-                .findOne(id)
+                .findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Collateral not found (ID=%d).", id)));
 
         if(!loanApplication.getId().equals(collateral.getLoanApplication().getId()))
@@ -114,7 +114,7 @@ public class CollateralController {
     @PermissionRequired(name = "COLLATERAL", moduleType = ModuleType.LOAN_APPLICATIONS, description = "")
     public void delete(@PathVariable long id) {
         Collateral collateral = this.collateralService
-                .findOne(id)
+                .findById(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Collateral not found (ID=%d).", id)));
         collateral.setClosedAt(DateHelper.getLocalDateTimeNow());
         collateral.setClosedBy(UserHelper.getCurrentUser());

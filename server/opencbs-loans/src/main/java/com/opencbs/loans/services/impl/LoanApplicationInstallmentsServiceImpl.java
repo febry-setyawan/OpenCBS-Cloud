@@ -47,7 +47,7 @@ public class LoanApplicationInstallmentsServiceImpl implements LoanApplicationIn
     @Override
     @Transactional
     public ScheduleDto preview(@NonNull Long loanApplicationId, @NonNull List<Installment> installments) {
-        LoanApplication loanApplication = loanApplicationService.findOne(loanApplicationId)
+        LoanApplication loanApplication = loanApplicationService.findById(loanApplicationId).orElse(null)
                 .orElseThrow(() -> new RuntimeException("Loan application not found: " + loanApplicationId));
 
         if (isScheduleNotChanged(loanApplication, installments)) {

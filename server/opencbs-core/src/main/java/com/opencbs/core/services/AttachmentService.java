@@ -95,7 +95,7 @@ public abstract class AttachmentService<Towner extends BaseEntity,
     }
 
     public Optional<Tattachment> findOne(Long id) {
-        return Optional.ofNullable(this.repository.findOne(id));
+        return this.repository.findById(id);
     }
 
     public List<Tattachment> findByOwnerId(Long id) {

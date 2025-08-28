@@ -49,17 +49,17 @@ public class LoanApplicationsPayeesService {
 
     @Transactional
     public LoanApplicationPayees update(LoanApplicationPayees loanApplicationPayees) {
-        return this.loanApplicationPayeeRepository.save(loanApplicationPayees);
+        return this.loanApplicationPayeeRepository.saveAll(loanApplicationPayees);
     }
 
     public Optional<LoanApplicationPayees> getById(long id) {
-        return Optional.ofNullable(this.loanApplicationPayeeRepository.findOne(id));
+        return this.loanApplicationPayeeRepository.findById(id);
     }
 
     @Transactional
     public void createLoanApplicationPayee(Long loanApplicationId, LoanApplicationPayeesDto loanApplicationPayeesDto, Long payeeId) throws Exception {
-        Payee payee = this.payeeService.findOne(payeeId).orElseThrow(() -> new Exception("Payee not found"));
-        LoanApplication loanApplication = this.loanApplicationRepository.findOne(loanApplicationId);
+        Payee payee = this.payeeService.findById(payeeId).orElse(null).orElseThrow(() -> new Exception("Payee not found"));
+        LoanApplication loanApplication = this.loanApplicationRepository.findById(loanApplicationId).orElse(null);
 
         LoanApplicationPayees loanApplicationPayee = this.loanApplicationPayeeMapper.mapToEntity(loanApplicationPayeesDto);
         loanApplicationPayee.setLoanApplication(loanApplication);

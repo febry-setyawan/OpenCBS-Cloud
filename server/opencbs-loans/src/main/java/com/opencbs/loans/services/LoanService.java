@@ -55,12 +55,12 @@ public class LoanService {
     }
 
     public Loan getLoanById(Long loanId) throws ResourceNotFoundException {
-        return this.findOne(loanId)
+        return this.findById(loanId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Loan not found (ID=%d).", loanId)));
     }
 
     public Optional<Loan> findOne(Long id) {
-        return Optional.ofNullable(this.loanRepository.findOne(id));
+        return this.loanRepository.findById(id);
     }
 
     public void save(Loan loan) {
@@ -90,7 +90,7 @@ public class LoanService {
     }
 
     public List<LoanInstallment> getInstallmentsByLoanAndEventGroupKeys(Long loanId, Collection<Long> eventGroupKeys) {
-        Loan loan = this.loanRepository.findOne(loanId);
+        Loan loan = this.loanRepository.findById(loanId).orElse(null);
         if (loan == null) {
             throw new NullPointerException(String.format("The loan is not found (ID = %d)", loanId));
         }
@@ -99,7 +99,7 @@ public class LoanService {
     }
 
     public List<LoanInstallment> getInstallmentsByLoan(Long loanId, LocalDateTime effectiveAt, boolean reschedule, boolean rollback) {
-        Loan loan = this.loanRepository.findOne(loanId);
+        Loan loan = this.loanRepository.findById(loanId).orElse(null);
         if (loan == null) {
             throw new NullPointerException(String.format("The loan is not found (ID = %d)", loanId));
         }
