@@ -143,8 +143,8 @@ public class PersonCustomFieldDocumentationTest extends BaseCustomFieldSectionDo
     }
 
     private PersonCustomField createCityCustomField() {
-        Optional<PersonCustomFieldSection> section = this.personCustomFieldSectionService.findOne(1L);
-        if (!section.isPresent()) {
+        PersonCustomFieldSection section = this.personCustomFieldSectionService.findOne(1L).orElse(null);
+        if (section == null) {
             throw new RuntimeException("Section is not found.");
         }
 
@@ -154,7 +154,7 @@ public class PersonCustomFieldDocumentationTest extends BaseCustomFieldSectionDo
         cityCustomField.setCaption("City");
         cityCustomField.setRequired(true);
         cityCustomField.setUnique(false);
-        cityCustomField.setSection(section.get());
+        cityCustomField.setSection(section);
         CustomFieldExtra extra = new CustomFieldExtra();
         extra.put("key", "locations");
         cityCustomField.setExtra(extra);

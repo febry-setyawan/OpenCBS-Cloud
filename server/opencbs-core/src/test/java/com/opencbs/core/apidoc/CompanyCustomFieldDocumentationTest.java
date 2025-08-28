@@ -137,8 +137,8 @@ public class CompanyCustomFieldDocumentationTest extends BaseCustomFieldSectionD
     }
 
     private CompanyCustomField createAddressCustomField() {
-        Optional<CompanyCustomFieldSection> section = this.companyCustomFieldSectionService.findOne(1L);
-        if (!section.isPresent()) {
+        CompanyCustomFieldSection section = this.companyCustomFieldSectionService.findOne(1L).orElse(null);
+        if (section == null) {
             throw new RuntimeException("Section is not found.");
         }
 
@@ -148,7 +148,7 @@ public class CompanyCustomFieldDocumentationTest extends BaseCustomFieldSectionD
         cityCustomField.setCaption("Address");
         cityCustomField.setRequired(true);
         cityCustomField.setUnique(false);
-        cityCustomField.setSection(section.get());
+        cityCustomField.setSection(section);
         return this.companyCustomFieldService.create(cityCustomField);
     }
 }

@@ -102,8 +102,8 @@ public class LoanApplicationRepositoryImpl extends BaseRepository<LoanApplicatio
         Order sortOrder = isAsc ? Order.asc(order) : Order.desc(order);
         criteria.addOrder(sortOrder);
 
-        criteria.setMaxResults(pageable(int).getPageSize());
-        criteria.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
+        criteria.setMaxResults(pageable.getPageSize());
+        criteria.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
 
         return new PageImpl<>(criteria.setResultTransformer(Transformers.aliasToBean(SimplifiedLoanApplication.class)).list(), pageable, total);
     }
