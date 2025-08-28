@@ -82,6 +82,7 @@ public class HolidayDocumentationTest extends BaseDocumentationTest {
         attributes.put("date", "2017-01-01");
         attributes.put("annual", true);
         HolidayDto holidayDto = this.mapToHolidayDto(attributes);
+        
         this.mockMvc.perform(
                 post(ENDPOINT)
                         .header("Authorization", this.authHeader)

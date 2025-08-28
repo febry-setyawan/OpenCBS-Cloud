@@ -64,6 +64,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
             <version>${flyway-core.version}</version>
@@ -244,8 +250,6 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-context</artifactId>
-            <version>5.1.7.RELEASE</version>
-            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -329,6 +333,21 @@
                             <version>1.18.28</version>
                         </path>
                     </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>2.22.2</version>
+                <configuration>
+                    <argLine>
+                        --add-opens java.base/java.lang=ALL-UNNAMED
+                        --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+                        --add-opens java.base/java.util=ALL-UNNAMED
+                        --add-opens java.base/java.text=ALL-UNNAMED
+                        --add-opens java.base/java.io=ALL-UNNAMED
+                        --add-opens java.xml/com.sun.xml.internal.bind.v2.runtime.reflect.opt=ALL-UNNAMED
+                    </argLine>
                 </configuration>
             </plugin>
         </plugins>

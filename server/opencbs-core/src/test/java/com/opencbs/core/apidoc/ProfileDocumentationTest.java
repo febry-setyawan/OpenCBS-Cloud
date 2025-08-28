@@ -21,6 +21,7 @@ import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import static org.springframework.restdocs.mockmvc.MockMvcRestDocumentation.document;
@@ -46,6 +47,9 @@ public class ProfileDocumentationTest extends BaseDocumentationTest {
 
     @Autowired
     private CompanyCustomFieldService companyCustomFieldService;
+    
+    @Autowired
+    private com.opencbs.core.services.BranchService branchService;
 
     @BeforeEach
     @Override
@@ -77,7 +81,7 @@ public class ProfileDocumentationTest extends BaseDocumentationTest {
         profile.setName("Microsoft");
         profile.setCreatedAt(DateHelper.getLocalDateTimeNow());
         profile.setCreatedBy(this.userService.findById(1L).get());
-
+        
         List<CompanyCustomFieldValue> customFieldValues = this.companyCustomFieldService.findAll()
                 .stream()
                 .map(cf -> {
@@ -89,8 +93,12 @@ public class ProfileDocumentationTest extends BaseDocumentationTest {
                 })
                 .collect(Collectors.toList());
         profile.setCustomFieldValues(customFieldValues);
+        
+        // The create method sets profile.setBranch(currentUser.getBranch()), so we need to set branch on the user
         User user = new User();
         user.setId(1L);
+        user.setBranch(this.branchService.findOne(1L).get()); // Set branch on user, not profile
+        
         this.companyService.create(profile, user, true);
     }
 

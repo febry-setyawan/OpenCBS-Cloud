@@ -147,6 +147,8 @@ public class CompanyCustomFieldSectionDocumentationTest extends BaseCustomFieldS
     private CompanyCustomFieldSection createFinancialInfoSection() {
         CompanyCustomFieldSection section = new CompanyCustomFieldSection();
         section.setCaption("Financial Info");
+        section.setCode("FINANCIAL_INFO");
+        section.setOrder(2);
         return this.companyCustomFieldSectionService.create(section);
     }
 }
