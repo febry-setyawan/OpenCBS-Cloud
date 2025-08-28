@@ -53,7 +53,7 @@ public class ProfessionController {
 
     @RequestMapping(value = "/{id}", method = GET)
     public TreeEntityDto get(@PathVariable long id) throws ResourceNotFoundException {
-        Profession profession = this.professionService.findById(id).orElse(null)
+        Profession profession = this.professionService.findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Profession not found (ID=%d)", id)));
         return this.professionMapper.map(profession, this.professionService.findAll());
     }
@@ -73,7 +73,7 @@ public class ProfessionController {
 
     @RequestMapping(value = "/{id}", method = PUT)
     public TreeEntityDto put(@PathVariable long id, @RequestBody UpdateTreeEntityDto updateProfessionDto) throws Exception {
-        Profession profession = this.professionService.findById(id).orElse(null)
+        Profession profession = this.professionService.findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Profession not found (ID=%d)", id)));
         updateProfessionDto.setId(id);
         this.professionDtoValidator.validate(updateProfessionDto);

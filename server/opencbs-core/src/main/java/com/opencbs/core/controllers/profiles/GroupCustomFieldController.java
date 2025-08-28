@@ -52,7 +52,7 @@ public class GroupCustomFieldController {
 
     @RequestMapping(path = "/{id}", method = PUT)
     public List<CustomFieldSectionDto> put(@PathVariable long id, @RequestBody CustomFieldDto customFieldDto) throws Exception {
-        GroupCustomField customField = this.groupCustomFieldService.findById(id).orElse(null)
+        GroupCustomField customField = this.groupCustomFieldService.findOne(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("CustomField is not found (ID=%d).", id)));
 
         customFieldDto.setId(id);
@@ -82,7 +82,7 @@ public class GroupCustomFieldController {
     }
 
     private GroupCustomFieldSection getSection(long id) {
-        return this.groupCustomFieldSectionService.findById(id).orElse(null)
+        return this.groupCustomFieldSectionService.findOne(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Section is not found (ID=%d).", id)));
     }
 
@@ -96,7 +96,7 @@ public class GroupCustomFieldController {
 
     @DeleteMapping(value = "/{fieldId}")
     public void deleteCustomField(@PathVariable @NonNull Long fieldId) {
-        CustomField customField = this.groupCustomFieldService.findById(fieldId).orElse(null)
+        CustomField customField = this.groupCustomFieldService.findOne(fieldId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Field not found (ID=%d).")));
 
         this.groupCustomFieldService.delete(customField);

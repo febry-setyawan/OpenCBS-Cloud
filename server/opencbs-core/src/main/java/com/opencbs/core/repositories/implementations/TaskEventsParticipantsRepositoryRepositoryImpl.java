@@ -34,8 +34,8 @@ public class TaskEventsParticipantsRepositoryRepositoryImpl extends BaseReposito
         }
 
         if (pageable!=null){
-            criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
-            criteria.setMaxResults(pageable(int).getPageSize());
+            criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+            criteria.setMaxResults(pageable.getPageSize());
         }
 
         return criteria.list();

@@ -75,7 +75,7 @@ public class ProfileDocumentationTest extends BaseDocumentationTest {
         profile.setAttachments(null);
         profile.setName("Microsoft");
         profile.setCreatedAt(DateHelper.getLocalDateTimeNow());
-        profile.setCreatedBy(this.userService.findById(1L).get());
+        profile.setCreatedBy(this.userService.findOne(1L).get());
 
         List<CompanyCustomFieldValue> customFieldValues = this.companyCustomFieldService.findAll()
                 .stream()

@@ -54,7 +54,7 @@ public class ProfileController {
     @PermissionRequired(name = "GET_PROFILES", moduleType = ModuleType.PROFILES, description = "")
     @GetMapping(value = "/{profiledId}/single")
     public ProfilesDto get(@PathVariable Long profiledId) {
-        Profile profile = this.profileService.findById(profiledId).orElse(null)
+        Profile profile = this.profileService.findOne(profiledId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Profile not found (ID=%d).", profiledId)));
         ModelMapper mapper = new ModelMapper();
         return mapper.map(profile, ProfilesDto.class);
@@ -75,7 +75,7 @@ public class ProfileController {
 
     @GetMapping(value = "/{id}/history")
     public List<HistoryDto> getHistory(@PathVariable Long id) throws Exception {
-        this.profileService.findById(id).orElse(null)
+        this.profileService.findOne(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Profile not found(ID=%d).", id)));
 
         return this.profileService.getAllRevisions(id);
@@ -83,7 +83,7 @@ public class ProfileController {
 
     @GetMapping(value = "/{id}/history/last_change")
     public HistoryDto getLastChange(@PathVariable Long id, @RequestParam(value = "dateTime") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateTime) throws Exception {
-        this.profileService.findById(id).orElse(null)
+        this.profileService.findOne(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Profile not found(ID=%d).", id)));
         return this.profileService.getRevisionByDate(id, dateTime);
     }

@@ -28,8 +28,8 @@ public class PayeeRepositoryImpl extends BaseRepository<Payee> implements PayeeR
 
         Query query = this.getEntityManager().createNativeQuery("select * " + queryString, Payee.class);
         query.setParameter("searchString", String.format("%%%s%%", searchString));
-        query.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
-        query.setMaxResults(pageable(int).getPageSize());
+        query.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+        query.setMaxResults(pageable.getPageSize());
 
         return new PageImpl<>(query.getResultList(), pageable, total.longValue());
     }

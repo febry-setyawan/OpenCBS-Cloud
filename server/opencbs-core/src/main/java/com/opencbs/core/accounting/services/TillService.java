@@ -305,7 +305,7 @@ public class TillService {
 
     private Page<Operation> getOperationsByCurrency(Till till, Long currencyId, Pageable pageable,
                                                     LocalDateTime fromDate, LocalDateTime toDate) throws ResourceNotFoundException {
-        Currency currency = this.currencyService.findById(currencyId).orElse(null)
+        Currency currency = this.currencyService.findOne(currencyId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Currency not found(ID=%d)", currencyId)));
 
         return this.tillRepository.getOperationsByCurrency(pageable, till, currency, fromDate, toDate);
@@ -318,7 +318,7 @@ public class TillService {
 
     private void transfer(TransferDto transferDto, User currentUser, TillOperation tillOperation) {
         Till till = this.findOne(transferDto.getTillId()).get();
-        Vault vault = this.vaultService.findById(transferDto.getVaultId()).get();
+        Vault vault = this.vaultService.findOne(transferDto.getVaultId()).get();
         List<AccountingEntry> accountingEntries = transferDto.getTransactions()
                 .stream()
                 .filter(x -> x.getAmount().doubleValue() > 0)
@@ -350,7 +350,7 @@ public class TillService {
     }
 
     private User getTeller(long tellerId) throws ResourceNotFoundException {
-        return this.userService.findById(tellerId).orElseThrow(() ->
+        return this.userService.findOne(tellerId).orElseThrow(() ->
                 new ResourceNotFoundException(String.format("Teller not found (ID=%d).", tellerId)));
     }
 
@@ -361,7 +361,7 @@ public class TillService {
     }
 
     public Account findAccount(long id) throws ResourceNotFoundException {
-        return this.accountService.findById(id).orElse(null)
+        return this.accountService.findOne(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Client's account not found (ID=%d).", id)));
     }
 

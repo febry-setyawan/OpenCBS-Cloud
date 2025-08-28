@@ -48,8 +48,8 @@ public class AuditEventsReport implements AuditReport {
             return new PageImpl(Collections.EMPTY_LIST, pageable, eventIds.size());
         }
 
-        int fromPosition = (eventIds.size() < (int)pageable(int).getOffset()) ? eventIds.size() : (int)pageable(int).getOffset();
-        int toPosition = (eventIds.size() > (int)pageable(int).getOffset() + pageable(int).getPageSize()) ? (int)pageable(int).getOffset() + pageable(int).getPageSize() : eventIds.size();
+        int fromPosition = (eventIds.size() < (int)pageable.getOffset()) ? eventIds.size() : (int)pageable.getOffset();
+        int toPosition = (eventIds.size() > (int)pageable.getOffset() + pageable.getPageSize()) ? (int)pageable.getOffset() + pageable.getPageSize() : eventIds.size();
         List<AuditEventIdentificator> auditEventIdentificators = eventIds.subList(fromPosition, toPosition);
 
         return new PageImpl(getRecordsByIds(auditEventIdentificators), pageable, eventIds.size());

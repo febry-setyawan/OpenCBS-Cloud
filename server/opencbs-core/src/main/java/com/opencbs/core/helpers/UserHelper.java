@@ -24,7 +24,7 @@ public class UserHelper {
     }
 
     public static User getSystemUser() {
-        return userService.findById(SYSTEM_USER_ID).orElseThrow(() -> new RuntimeException("System user was not found"));
+        return userService.findOne(SYSTEM_USER_ID).orElseThrow(() -> new RuntimeException("System user was not found"));
     }
 
     public static String getPrimaryCommitteePermission() {

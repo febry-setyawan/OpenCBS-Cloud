@@ -68,6 +68,6 @@ public class TillMapper {
     }
 
     private Set<Account> getAccounts(Set<Long> accountIds) {
-        return this.accountService.findByIds(accountIds);
+        return this.accountService.findOnes(accountIds);
     }
 }

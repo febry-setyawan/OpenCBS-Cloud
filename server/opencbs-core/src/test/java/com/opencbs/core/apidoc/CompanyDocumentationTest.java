@@ -165,7 +165,7 @@ public class CompanyDocumentationTest extends BaseDocumentationTest {
         company.setName(attributes.get("name"));
         company.setCreatedAt(DateHelper.getLocalDateTimeNow());
         //noinspection OptionalGetWithoutIsPresent
-        company.setCreatedBy(this.userService.findById(1L).get());
+        company.setCreatedBy(this.userService.findOne(1L).get());
 
         List<CompanyCustomFieldValue> customFieldValues = this.companyCustomFieldService.findAll()
                 .stream()

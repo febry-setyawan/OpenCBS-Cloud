@@ -47,8 +47,8 @@ public class TillRepositoryImpl extends BaseRepository<Till> implements TillRepo
 
         Query query = this.getEntityManager().createNativeQuery("select * " + queryString, Till.class);
         query.setParameter("searchString", String.format("%%%s%%", searchString));
-        query.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
-        query.setMaxResults(pageable(int).getPageSize());
+        query.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+        query.setMaxResults(pageable.getPageSize());
 
         return new PageImpl<>(query.getResultList(), pageable, total.longValue());
     }
@@ -70,8 +70,8 @@ public class TillRepositoryImpl extends BaseRepository<Till> implements TillRepo
 
         criteria.addOrder(Order.desc("o.effectiveAt"));
         criteria.setProjection(getProjection());
-        criteria.setMaxResults(pageable(int).getPageSize());
-        criteria.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
+        criteria.setMaxResults(pageable.getPageSize());
+        criteria.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
         List<Operation> operations = (List<Operation>)criteria.setResultTransformer(new AliasToBeanResultTransformer(Operation.class)).list();
 
         return new PageImpl<>(operations, pageable, total);
@@ -104,8 +104,8 @@ public class TillRepositoryImpl extends BaseRepository<Till> implements TillRepo
 
         Query query = this.getEntityManager().createNativeQuery("select distinct u.*" + queryString, User.class);
         query.setParameter("searchString", String.format("%%%s%%", searchString));
-        query.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
-        query.setMaxResults(pageable(int).getPageSize());
+        query.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+        query.setMaxResults(pageable.getPageSize());
 
         return new PageImpl<>(query.getResultList(), pageable, total.longValue());
     }

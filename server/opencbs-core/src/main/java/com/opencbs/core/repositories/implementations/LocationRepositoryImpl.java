@@ -46,8 +46,8 @@ public class LocationRepositoryImpl extends TreeEntityRepositoryImpl<Location> i
 
         Query query = this.getQuery(queryString);
         query.setParameter("searchString", searchString);
-        query.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
-        query.setMaxResults(pageable(int).getPageSize());
+        query.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+        query.setMaxResults(pageable.getPageSize());
 
         return new PageImpl<>(query.getResultList(), pageable, total.longValue());
     }

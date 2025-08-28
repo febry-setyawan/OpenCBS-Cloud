@@ -27,8 +27,8 @@ public class PaymentMethodRepositoryImpl extends TreeEntityRepositoryImpl<Paymen
         Criteria criteria = createCriteria("payment");
         criteria.add(Restrictions.ilike("payment.name", query, MatchMode.ANYWHERE));
 
-        criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
-        criteria.setMaxResults(pageable(int).getPageSize());
+        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        criteria.setMaxResults(pageable.getPageSize());
 
         List<PaymentMethod> paymentMethods = criteria.list();
 

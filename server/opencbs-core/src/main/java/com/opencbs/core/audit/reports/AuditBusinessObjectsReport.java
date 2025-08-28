@@ -47,8 +47,8 @@ public class AuditBusinessObjectsReport implements AuditReport {
         actionRequests = actionRequests.stream().filter(actionRequest -> !listOfEventRequests.contains(actionRequest.getRequestType())).collect(Collectors.toList());
         List<ActionRequest> pageActionRequest = actionRequests.stream()
                 .sorted(Comparator.comparing(ActionRequest::getActionAt).reversed())
-                .skip(pageable(int).getOffset())
-                .limit(pageable(int).getPageSize())
+                .skip(pageable.getOffset())
+                .limit(pageable.getPageSize())
                 .collect(Collectors.toList());
 
         List<Request> requests = this.requestService.getByIds(

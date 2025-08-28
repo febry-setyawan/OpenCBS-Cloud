@@ -38,7 +38,7 @@ public class PersonService extends ProfileBaseService<Person, PersonCustomFieldV
     }
 
     public Person getPerson(long id) throws ResourceNotFoundException {
-        return this.findById(id).orElse(null)
+        return this.findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Person not found (ID=%d).", id)));
     }
 }

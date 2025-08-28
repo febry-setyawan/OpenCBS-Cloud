@@ -112,7 +112,7 @@ public class AccountingEntryService {
         accountingEntryList.sort(Comparator.comparing(AccountingEntry::getEffectiveAt));
 
         List<AccountOperationDto> operationDtos = new ArrayList<>();
-        for (int i = 0; i < pageable.getPageNumber() * pageable(int).getPageSize() + pageable(int).getPageSize(); i++) {
+        for (int i = 0; i < pageable.getPageNumber() * pageable.getPageSize() + pageable.getPageSize(); i++) {
             if (i >= accountingEntryList.size())
                 break;
 
@@ -156,8 +156,8 @@ public class AccountingEntryService {
         }
 
         operationDtos = operationDtos.stream()
-                .skip(pageable.getPageNumber() * pageable(int).getPageSize())
-                .limit(pageable(int).getPageSize())
+                .skip(pageable.getPageNumber() * pageable.getPageSize())
+                .limit(pageable.getPageSize())
                 .sorted(Comparator.comparing(AccountOperationDto::getDate, Comparator.reverseOrder())
                         .thenComparing(AccountOperationDto::getId, Comparator.reverseOrder()))
                 .collect(Collectors.toList());

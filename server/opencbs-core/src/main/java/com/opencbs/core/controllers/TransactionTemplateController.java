@@ -36,7 +36,7 @@ public class TransactionTemplateController {
 
     @PutMapping(value = "/{id}")
     public TransactionTemplateDetailsDto update(@PathVariable Long id, @RequestBody TransactionTemplateDto transactionTemplateDto) {
-        this.transactionTemplateService.findById(id)
+        this.transactionTemplateService.findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Transaction Template not found(ID=%d).", id)));
         this.transactionTemplateValidator.validateOnUpdate(transactionTemplateDto, id);
         TransactionTemplate transactionTemplate = this.transactionTemplateMapper.mapToEntity(transactionTemplateDto);
@@ -46,7 +46,7 @@ public class TransactionTemplateController {
 
     @GetMapping(value = "/{id}")
     public TransactionTemplateDetailsDto get(@PathVariable Long id) {
-        TransactionTemplate transactionTemplate = this.transactionTemplateService.findById(id)
+        TransactionTemplate transactionTemplate = this.transactionTemplateService.findOne(id)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Transaction Template not found(ID=%d).", id)));
         return this.transactionTemplateMapper.mapToDto(transactionTemplate);
     }

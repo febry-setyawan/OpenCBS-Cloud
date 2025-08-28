@@ -69,7 +69,7 @@ public class GroupAttachmentController {
     @GetMapping(value = "/{attachmentId}")
     public ResponseEntity get(@PathVariable long attachmentId,
                               @RequestParam(value = "size", required = false) Integer size) throws Exception {
-        GroupAttachment attachment = this.groupAttachmentService.findById(attachmentId).orElse(null)
+        GroupAttachment attachment = this.groupAttachmentService.findOne(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         return this.groupAttachmentService.getResponseEntity(attachment, size);

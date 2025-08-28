@@ -26,12 +26,12 @@ public class CompanyValidator {
     }
 
     public void validateAddMembers(Long memberId, Company company) {
-        if(this.companyService.findById(memberId).orElse(null).isPresent()){
-            Assert.isTrue(this.companyService.findById(memberId).orElse(null).get().getType().equals(ProfileType.PERSON.toString()), String.format("Profile with (ID = %d) is company. You can add a person only.", memberId));
+        if(this.companyService.findOne(memberId).isPresent()){
+            Assert.isTrue(this.companyService.findOne(memberId).get().getType().equals(ProfileType.PERSON.toString()), String.format("Profile with (ID = %d) is company. You can add a person only.", memberId));
         }
 
-        if(this.groupService.findById(memberId).orElse(null).isPresent()) {
-            Assert.isTrue(this.groupService.findById(memberId).orElse(null).get().getType().equals(ProfileType.PERSON.toString()), String.format("Profile with (ID = %d) is group. You can add a person only.", memberId));
+        if(this.groupService.findOne(memberId).isPresent()) {
+            Assert.isTrue(this.groupService.findOne(memberId).get().getType().equals(ProfileType.PERSON.toString()), String.format("Profile with (ID = %d) is group. You can add a person only.", memberId));
         }
 
         Assert.isTrue(personService.exists(memberId), String.format("Person doesn't exist (ID = %d)", memberId));

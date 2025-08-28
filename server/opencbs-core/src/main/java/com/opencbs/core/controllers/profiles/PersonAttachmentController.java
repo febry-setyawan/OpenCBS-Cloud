@@ -77,7 +77,7 @@ public class PersonAttachmentController {
     @RequestMapping(value = "/{attachmentId}", method = RequestMethod.GET)
     @ResponseBody
     public ResponseEntity get(@PathVariable long attachmentId, @RequestParam(value = "size", required = false) Integer size) throws Exception {
-        PersonAttachment attachment = this.personAttachmentService.findById(attachmentId).orElse(null)
+        PersonAttachment attachment = this.personAttachmentService.findOne(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         return this.personAttachmentService.getResponseEntity(attachment, size);

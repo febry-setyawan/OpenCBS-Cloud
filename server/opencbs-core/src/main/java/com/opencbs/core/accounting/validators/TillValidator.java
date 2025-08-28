@@ -91,7 +91,7 @@ public class TillValidator {
                     String.format("Till does not have account for currency (CURRENCY_ID=%d).", x.getCurrencyId()));
         }
 
-        Optional<Vault> vault = this.vaultService.findById(dto.getVaultId());
+        Optional<Vault> vault = this.vaultService.findOne(dto.getVaultId());
         Assert.isTrue(vault.isPresent(), String.format("Vault not found (ID=%d).", till.get().getId()));
         for (TillTransactionDto x : dto.getTransactions()) {
             Assert.notNull(this.tillService.findAccount(x.getCurrencyId(), vault.get().getAccounts()).isPresent(),
@@ -141,7 +141,7 @@ public class TillValidator {
         Assert.notEmpty(dto.getAccounts(), "Accounts is required.");
 
         for (Long accountId : dto.getAccounts()) {
-            this.accountService.findById(accountId).orElse(null)
+            this.accountService.findOne(accountId).orElse(null)
                     .orElseThrow(() -> new ResourceNotFoundException(String.format("Account not found (ID=%d).", accountId)));
             Assert.isTrue(this.tillService
                             .findAll()
@@ -159,7 +159,7 @@ public class TillValidator {
         if (currencyId == null) {
             return;
         }
-        Currency currency = this.currencyService.findById(currencyId).orElse(null)
+        Currency currency = this.currencyService.findOne(currencyId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Currency not found(ID=%d)", currencyId)));
         Assert.isTrue(till.getAccounts()
                 .stream()

@@ -104,8 +104,8 @@ public class AccountingEntryRepositoryImpl extends BaseRepository<AccountingEntr
 
         criteria.add(criterion);
         long total = (long) criteria.setProjection(Projections.rowCount()).uniqueResult();
-        criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
-        criteria.setMaxResults(pageable(int).getPageSize());
+        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        criteria.setMaxResults(pageable.getPageSize());
         criteria.addOrder(Order.desc("effectiveAt"));
         criteria.addOrder(Order.asc("id"));
 

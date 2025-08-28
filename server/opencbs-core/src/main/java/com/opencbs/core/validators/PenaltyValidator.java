@@ -30,6 +30,6 @@ public class PenaltyValidator {
 
     private void validateAccount(Long accountId, String errorMessage){
         Assert.notNull(accountId, errorMessage);
-        Assert.isTrue(this.accountService.findById(accountId).orElse(null).isPresent(), errorMessage);
+        Assert.isTrue(this.accountService.findOne(accountId).isPresent(), errorMessage);
     }
 }

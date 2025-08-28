@@ -69,7 +69,7 @@ public class CompanyAttachmentController {
     @GetMapping(value = "/{attachmentId}")
     public ResponseEntity get(@PathVariable long attachmentId,
                               @RequestParam(value = "size", required = false) Integer size) throws Exception {
-        CompanyAttachment attachment = this.companyAttachmentsService.findById(attachmentId).orElse(null)
+        CompanyAttachment attachment = this.companyAttachmentsService.findOne(attachmentId).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Attachment not found (ID=%d).", attachmentId)));
 
         return this.companyAttachmentsService.getResponseEntity(attachment, size);

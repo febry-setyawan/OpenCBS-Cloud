@@ -51,7 +51,7 @@ public class RequestEditUserHandler implements RequestHandler {
 
     private User createEntity(Request request) throws IOException {
         UserDto dto = this.mapper.readValue(request.getContent().get("value").toString(), UserDto.class);
-        User user = this.userService.findById(dto.getId())
+        User user = this.userService.findOne(dto.getId())
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("User not found (ID=%d).", dto.getId())));
         return this.userMapper.zip(user, dto);
     }

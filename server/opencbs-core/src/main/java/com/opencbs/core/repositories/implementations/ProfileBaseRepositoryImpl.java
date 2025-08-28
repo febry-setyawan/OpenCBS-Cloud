@@ -54,8 +54,8 @@ public abstract class ProfileBaseRepositoryImpl<T extends Profile> extends BaseR
 
         TypedQuery<T> query = this.getEntityManager().createQuery("select distinct p " + queryString + " order by p.createdAt desc", clazz);
         this.setSearchParams(query, searchParams);
-        query.setFirstResult(pageable(int).getPageSize() * pageable.getPageNumber());
-        query.setMaxResults(pageable(int).getPageSize());
+        query.setFirstResult(pageable.getPageSize() * pageable.getPageNumber());
+        query.setMaxResults(pageable.getPageSize());
 
         return new PageImpl<>(query.getResultList(), pageable, total);
     }

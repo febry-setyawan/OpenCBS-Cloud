@@ -45,7 +45,7 @@ public class TaskEventController {
     @RequestMapping(value = "/{userId}/{taskEventId}", method = RequestMethod.GET)
     public TaskEventDetailsDto getById(@PathVariable long userId,
                                        @PathVariable long taskEventId) throws ResourceNotFoundException {
-        TaskEvent taskEvent = this.taskEventService.findById(userId, taskEventId)
+        TaskEvent taskEvent = this.taskEventService.findOne(userId, taskEventId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Task event not found (ID=%d).", taskEventId)));
         return this.taskEventService.convertToDto(taskEvent);
     }
@@ -62,7 +62,7 @@ public class TaskEventController {
     public TaskEventDetailsDto update(@PathVariable long userId,
                                       @PathVariable long taskEventId,
                                       @RequestBody TaskEventDto dto) throws ResourceNotFoundException {
-        TaskEvent taskEvent = this.taskEventService.findById(userId, taskEventId)
+        TaskEvent taskEvent = this.taskEventService.findOne(userId, taskEventId)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Task not found (ID=%d).", taskEventId)));
         TaskEvent updatedTaskEvent = this.taskEventService.update(taskEvent, dto, userId);
         return this.taskEventService.convertToDto(updatedTaskEvent);

@@ -44,8 +44,8 @@ public class AccountRepositoryImpl extends BaseRepository<Account> implements Ac
         Criteria criteria = createCriteria("a");
         criteria.add(Restrictions.eq("a.parent", account));
         criteria.addOrder(Order.asc("a.id"));
-        criteria.setMaxResults(pageable(int).getPageSize());
-        criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
+        criteria.setMaxResults(pageable.getPageSize());
+        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
         return criteria.list();
     }
 
@@ -55,8 +55,8 @@ public class AccountRepositoryImpl extends BaseRepository<Account> implements Ac
         criteria.add(Restrictions.eq("a.parent", account));
         criteria.add(Restrictions.eq("a.branch", branch));
         criteria.addOrder(Order.asc("a.id"));
-        criteria.setMaxResults(pageable(int).getPageSize());
-        criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
+        criteria.setMaxResults(pageable.getPageSize());
+        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
         return criteria.list();
     }
 
@@ -81,8 +81,8 @@ public class AccountRepositoryImpl extends BaseRepository<Account> implements Ac
             criteria.add(Restrictions.eq("a.isDebit", (AccountRequest.TypeOfAccount.DEBIT.equals(typeOfAccount))));
         }
 
-        criteria.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
-        criteria.setMaxResults(pageable(int).getPageSize());
+        criteria.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        criteria.setMaxResults(pageable.getPageSize());
 
         List<Account> accounts = criteria.list();
 
@@ -103,8 +103,8 @@ public class AccountRepositoryImpl extends BaseRepository<Account> implements Ac
         accountTag.add(Restrictions.eq("account.type", accountType));
         accountTag.add(Restrictions.eq("aet.accountTag.id", accountTagId));
 
-        accountTag.setFirstResult(pageable.getPageNumber() * pageable(int).getPageSize());
-        accountTag.setMaxResults(pageable(int).getPageSize());
+        accountTag.setFirstResult(pageable.getPageNumber() * pageable.getPageSize());
+        accountTag.setMaxResults(pageable.getPageSize());
 
         List<Account> accounts = new ArrayList<>();
         List<AccountExtendedTag> accountExtendedTags = accountTag.list();

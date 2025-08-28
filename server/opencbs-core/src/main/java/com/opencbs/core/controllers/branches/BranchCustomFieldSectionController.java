@@ -37,7 +37,7 @@ public class BranchCustomFieldSectionController extends BaseController {
 
     @RequestMapping(path = "/{id}", method = GET)
     public CustomFieldSectionDto get(@PathVariable long id) throws ResourceNotFoundException {
-        return this.branchCustomFieldSectionService.findById(id).orElse(null)
+        return this.branchCustomFieldSectionService.findOne(id).orElse(null)
                 .map(this.branchCustomFieldSectionMapper::map)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Custom field section not found (ID=%d).", id)));
     }
@@ -53,7 +53,7 @@ public class BranchCustomFieldSectionController extends BaseController {
 
     @RequestMapping(path = "/{id}", method = PUT)
     public List<CustomFieldSectionDto> put(@PathVariable long id, @RequestBody UpdateCustomFieldSectionDto sectionDto) throws ResourceNotFoundException {
-        BranchCustomFieldSection section = this.branchCustomFieldSectionService.findById(id).orElse(null)
+        BranchCustomFieldSection section = this.branchCustomFieldSectionService.findOne(id).orElse(null)
                 .orElseThrow(() -> new ResourceNotFoundException(String.format("Section not found (ID=%d).", id)));
 
         this.customFieldSectionDtoValidator.validate(sectionDto);
