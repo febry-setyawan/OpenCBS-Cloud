@@ -4,15 +4,16 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.opencbs.core.domain.trees.Profession;
 import com.opencbs.core.dto.UpdateTreeEntityDto;
 import com.opencbs.core.services.ProfessionService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +28,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @ActiveProfiles("test")
 public class ProfessionDocumentationTest extends BaseDocumentationTest {
@@ -39,10 +40,10 @@ public class ProfessionDocumentationTest extends BaseDocumentationTest {
     @Autowired
     private ProfessionService professionService;
 
-    @Before
+    @BeforeEach
     @Override
-    public void setup() throws Exception {
-        super.setup();
+    public void setup(RestDocumentationContextProvider restDocumentation) throws Exception {
+        super.setup(restDocumentation);
         this.authHeader = this.login();
     }
 

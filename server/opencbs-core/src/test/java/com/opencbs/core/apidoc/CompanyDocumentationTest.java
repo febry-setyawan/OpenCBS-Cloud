@@ -11,15 +11,16 @@ import com.opencbs.core.helpers.DateHelper;
 import com.opencbs.core.services.customFields.CompanyCustomFieldService;
 import com.opencbs.core.services.CompanyService;
 import com.opencbs.core.services.UserService;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.restdocs.payload.FieldDescriptor;
+import org.springframework.restdocs.RestDocumentationContextProvider;
 import org.springframework.test.context.ActiveProfiles;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -36,7 +37,7 @@ import static org.springframework.restdocs.payload.PayloadDocumentation.requestF
 import static org.springframework.restdocs.payload.PayloadDocumentation.responseFields;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-@RunWith(SpringJUnit4ClassRunner.class)
+@ExtendWith(SpringExtension.class)
 @SpringBootTest
 @ActiveProfiles("test")
 public class CompanyDocumentationTest extends BaseDocumentationTest {
@@ -54,10 +55,10 @@ public class CompanyDocumentationTest extends BaseDocumentationTest {
     @Autowired
     private UserService userService;
 
-    @Before
+    @BeforeEach
     @Override
-    public void setup() throws Exception {
-        super.setup();
+    public void setup(RestDocumentationContextProvider restDocumentation) throws Exception {
+        super.setup(restDocumentation);
         this.authHeader = this.login();
     }
 

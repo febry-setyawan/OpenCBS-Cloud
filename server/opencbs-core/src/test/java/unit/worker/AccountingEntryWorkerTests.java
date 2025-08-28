@@ -9,17 +9,17 @@ import com.opencbs.core.officedocuments.services.PrintingFormService;
 import com.opencbs.core.workers.AccountingEntryWorker;
 import com.opencbs.core.workers.impl.AccountingEntryWorkerImpl;
 import fixtues.AccountingEntryFixtures;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.math.BigDecimal;
 
 import static org.mockito.Mockito.when;
 
-@RunWith(MockitoJUnitRunner.class)
+@ExtendWith(MockitoExtension.class)
 public class AccountingEntryWorkerTests {
 
     private AccountingEntryWorker accountingEntryWorker;
@@ -33,7 +33,7 @@ public class AccountingEntryWorkerTests {
     @Mock
     private PrintingFormService printingFormService;
 
-    @Before
+    @BeforeEach
     public void init() {
         accountingEntryWorker = new AccountingEntryWorkerImpl(
                 accountingEntryService, accountService, printingFormService
