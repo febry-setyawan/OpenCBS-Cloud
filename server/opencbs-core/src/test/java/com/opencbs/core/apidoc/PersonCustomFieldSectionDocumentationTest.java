@@ -144,6 +144,8 @@ public class PersonCustomFieldSectionDocumentationTest extends BaseCustomFieldSe
     private PersonCustomFieldSection createContactInfoSection() {
         PersonCustomFieldSection section = new PersonCustomFieldSection();
         section.setCaption("Contact Info");
+        section.setCode("CONTACT_INFO");
+        section.setOrder(2);
         return this.personCustomFieldSectionService.create(section);
     }
 }

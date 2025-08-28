@@ -152,8 +152,10 @@ public class PersonCustomFieldDocumentationTest extends BaseCustomFieldSectionDo
         cityCustomField.setFieldType(CustomFieldType.LOOKUP);
         cityCustomField.setName("city");
         cityCustomField.setCaption("City");
+        cityCustomField.setDescription("City lookup field");
         cityCustomField.setRequired(true);
         cityCustomField.setUnique(false);
+        cityCustomField.setOrder(1);
         cityCustomField.setSection(section);
         CustomFieldExtra extra = new CustomFieldExtra();
         extra.put("key", "locations");
