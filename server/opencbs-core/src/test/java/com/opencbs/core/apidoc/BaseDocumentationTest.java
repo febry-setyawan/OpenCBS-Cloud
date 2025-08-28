@@ -5,9 +5,11 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.opencbs.core.dto.requests.LoginRequest;
 import com.opencbs.core.helpers.DateHelper;
+import com.opencbs.core.officedocuments.services.JasperReportService;
 import org.flywaydb.core.Flyway;
 import org.junit.jupiter.api.extension.RegisterExtension;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 import org.springframework.restdocs.RestDocumentationContextProvider;
@@ -38,6 +40,30 @@ public abstract class BaseDocumentationTest {
 
     @Autowired
     private Flyway flyway;
+
+    /**
+     * Mock JasperReportService to avoid initialization issues in tests
+     */
+    @MockBean
+    private JasperReportService jasperReportService;
+
+    /**
+     * Mock PrintingFormService to avoid initialization issues in tests
+     */
+    @MockBean
+    private com.opencbs.core.officedocuments.services.PrintingFormService printingFormService;
+
+    /**
+     * Mock JavaMailSender to avoid mail configuration issues in tests
+     */
+    @MockBean
+    private org.springframework.mail.javamail.JavaMailSender javaMailSender;
+
+    /**
+     * Mock ExcelReportService to avoid initialization issues in tests
+     */
+    @MockBean
+    private com.opencbs.core.officedocuments.services.ExcelReportService excelReportService;
 
     protected void setup(RestDocumentationContextProvider restDocumentation) throws Exception {
         this.mockMvc = MockMvcBuilders
