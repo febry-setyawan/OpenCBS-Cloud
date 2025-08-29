@@ -1,7 +1,7 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 alter table loan_products add availability integer not null default(3);
 
-drop table availabilities;
+drop table if exists availabilities;
 
 insert into currencies (name) values ('USD');
 

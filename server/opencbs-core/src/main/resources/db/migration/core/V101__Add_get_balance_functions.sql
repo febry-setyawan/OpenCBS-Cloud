@@ -1,4 +1,6 @@
 -- noinspection SqlNoDataSourceInspectionForFile
+drop function if exists get_balance(integer, timestamp);
+
 create function get_balance(integer, timestamp)
   returns numeric
   language sql

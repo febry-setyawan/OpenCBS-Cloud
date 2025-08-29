@@ -1,2 +1,2 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-drop table people_pictures;
+drop table if exists people_pictures;

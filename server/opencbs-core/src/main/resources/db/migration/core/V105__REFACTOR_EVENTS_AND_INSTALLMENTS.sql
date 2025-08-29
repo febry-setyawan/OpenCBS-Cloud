@@ -34,4 +34,4 @@ alter table loan_installments rename to loans_installments;
 create index on loans_installments (loan_id);
 
 alter table events rename to loans_events;
-drop table transactions;
+drop table if exists transactions;

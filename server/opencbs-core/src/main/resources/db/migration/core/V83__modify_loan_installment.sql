@@ -1,7 +1,7 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 alter table loans_installments_history
   rename to loan_installment_logs;
-drop table loans_installments;
+drop table if exists loans_installments;
 
 alter table events
   add column deleted boolean not null default false;

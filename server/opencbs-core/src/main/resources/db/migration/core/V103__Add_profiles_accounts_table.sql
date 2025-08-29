@@ -23,5 +23,5 @@ insert into accounts (number, "name", is_debit, parent_id, start_date, close_dat
 insert into global_settings("name", "type", "value")
   values ('DEFAULT_CURRENT_ACCOUNT_GROUP', 'TEXT', '2100');
 
-drop table current_accounts;
+drop table if exists current_accounts;
 
