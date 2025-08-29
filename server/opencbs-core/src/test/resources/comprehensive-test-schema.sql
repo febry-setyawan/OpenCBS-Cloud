@@ -146,8 +146,90 @@ CREATE TABLE IF NOT EXISTS people_custom_fields_sections (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255) NOT NULL,
     caption VARCHAR(255),
-    order_number INTEGER DEFAULT 0
+    "order" INTEGER DEFAULT 0,
+    code TEXT NOT NULL DEFAULT ''
 );
+
+-- Create people_custom_fields table
+CREATE TABLE IF NOT EXISTS people_custom_fields (
+  id bigserial primary key,
+  section_id bigint not null,
+  name varchar(255) not null,
+  field_type varchar(31) not null,
+  caption varchar(255) not null,
+  description varchar(255) not null default '',
+  is_unique boolean not null default false,
+  is_required boolean not null default false,
+  "order" int not null default(0),
+  extra text null,
+  deleted boolean not null default false
+);
+
+alter table people_custom_fields
+add constraint people_custom_fields_section_id_fkey
+foreign key (section_id)
+references people_custom_fields_sections(id);
+
+CREATE TABLE IF NOT EXISTS people_custom_fields_values (
+  id bigserial primary key,
+  owner_id bigint not null,
+  field_id bigint not null,
+  value text null
+);
+
+alter table people_custom_fields_values
+add constraint people_custom_fields_values_owner_id_fkey
+foreign key (owner_id)
+references profiles(id);
+
+alter table people_custom_fields_values
+add constraint people_custom_fields_values_field_id_fkey
+foreign key (field_id)
+references people_custom_fields(id);
+
+-- Create companies_custom_fields_sections table
+CREATE TABLE IF NOT EXISTS companies_custom_fields_sections (
+  id bigserial primary key,
+  caption varchar(255) not null,
+  "order" int not null default(0),
+  code text not null default('')
+);
+
+CREATE TABLE IF NOT EXISTS companies_custom_fields (
+  id bigserial primary key,
+  section_id bigint not null,
+  name varchar(255) not null,
+  field_type varchar(31) not null,
+  caption varchar(255) not null,
+  description varchar(255) not null default '',
+  is_unique boolean not null default false,
+  is_required boolean not null default false,
+  "order" int not null default(0),
+  extra text null,
+  deleted boolean not null default false
+);
+
+alter table companies_custom_fields
+add constraint companies_custom_fields_section_id_fkey
+foreign key (section_id)
+references companies_custom_fields_sections(id);
+
+CREATE TABLE IF NOT EXISTS companies_custom_fields_values (
+  id bigserial primary key,
+  owner_id bigint not null,
+  field_id bigint not null,
+  value text null
+);
+
+alter table companies_custom_fields_values
+add constraint companies_custom_fields_values_owner_id_fkey
+foreign key (owner_id)
+references profiles(id);
+
+alter table companies_custom_fields_values
+add constraint companies_custom_fields_values_field_id_fkey
+foreign key (field_id)
+references companies_custom_fields(id);
 
 -- Add foreign key constraints with proper naming
 ALTER TABLE users 
@@ -244,8 +326,8 @@ VALUES
 ON CONFLICT (name) DO NOTHING;
 
 -- Insert admin user
-INSERT INTO users (first_name, last_name, username, password_hash, role_id, branch_id, address, enabled) 
-SELECT 'Admin', 'User', 'admin', '$2a$10$XmtWixcSIQVNuX.j3SY7ZegiojYcKp.yE1MtqgF7VAy6e1GclZITm', r.id, b.id, 'Admin Address', true
+INSERT INTO users (first_name, last_name, username, password_hash, role_id, branch_id, address, enabled, password_expire_date) 
+SELECT 'Admin', 'User', 'admin', '$2b$12$IN4J2IrYtdH3Qd18u5ogOu1cO.FBK5HvtiFxm8IhwfFL5Ung4D81q', r.id, b.id, 'Admin Address', true, CURRENT_DATE + INTERVAL '1 year'
 FROM roles r, branches b 
 WHERE r.name = 'ADMIN' AND b.code = 'MAIN'
 ON CONFLICT (username) DO NOTHING;
@@ -293,10 +375,10 @@ VALUES
 ON CONFLICT DO NOTHING;
 
 -- Insert test custom field sections
-INSERT INTO people_custom_fields_sections (name, caption, order_number)
+INSERT INTO people_custom_fields_sections (name, caption, "order", code)
 VALUES 
-    ('Personal Information', 'Personal Info', 1),
-    ('Contact Information', 'Contact Info', 2)
+    ('Personal Information', 'Personal Info', 1, 'personal'),
+    ('Contact Information', 'Contact Info', 2, 'contact')
 ON CONFLICT DO NOTHING;
 
 -- Insert account tags (matching the AccountTagType enum exactly with correct IDs)
@@ -322,3 +404,103 @@ CREATE INDEX IF NOT EXISTS idx_accounts_number ON accounts(number);
 CREATE INDEX IF NOT EXISTS idx_profiles_type ON profiles(type);
 CREATE INDEX IF NOT EXISTS idx_events_created_at ON events(created_at);
 CREATE INDEX IF NOT EXISTS idx_transactions_event_id ON transactions(event_id);
+
+-- Branch Custom Fields (from V309)
+CREATE TABLE IF NOT EXISTS branch_custom_fields_sections (
+  id bigserial primary key,
+  caption varchar(255) not null,
+  "order" int not null default(0),
+  code text not null default('')
+);
+
+CREATE TABLE IF NOT EXISTS branch_custom_fields (
+  id bigserial primary key,
+  section_id bigint not null,
+  name varchar(255) not null,
+  field_type varchar(31) not null,
+  caption varchar(255) not null,
+  description varchar(255) not null default '',
+  is_unique boolean not null default false,
+  is_required boolean not null default false,
+  "order" int not null default(0),
+  extra text null,
+  deleted boolean not null default false
+);
+
+alter table branch_custom_fields
+add constraint branch_custom_fields_sections_id_fkey
+foreign key (section_id)
+references branch_custom_fields_sections(id);
+
+CREATE TABLE IF NOT EXISTS branch_custom_fields_values (
+  id bigserial primary key,
+  owner_id bigint not null,
+  field_id bigint not null,
+  value text null,
+  created_by_id  bigint not null,
+  created_at timestamp not null,
+  verified_by_id bigint not null,
+  verified_at timestamp not null,
+  status varchar(255)
+);
+
+alter table branch_custom_fields_values
+add constraint branch_custom_fields_values_owner_id_fkey
+foreign key (owner_id)
+references branches(id);
+
+alter table branch_custom_fields_values
+add constraint branch_custom_fields_values_field_id_fkey
+foreign key (field_id)
+references branch_custom_fields(id);
+
+alter table branch_custom_fields_values
+add constraint branch_custom_fields_values_created_by_id_fkey
+foreign key (created_by_id)
+references users(id);
+
+alter table branch_custom_fields_values
+add constraint branch_custom_fields_values_verified_by_id_fkey
+foreign key (verified_by_id)
+references users(id);
+
+-- Create audit schema for Hibernate Envers
+CREATE SCHEMA IF NOT EXISTS audit;
+
+CREATE SEQUENCE IF NOT EXISTS audit.hibernate_sequence START 1;
+
+CREATE TABLE IF NOT EXISTS audit.revinfo (
+    rev INTEGER NOT NULL PRIMARY KEY,
+    revtstmp BIGINT,
+    username VARCHAR(255) NOT NULL
+);
+
+-- Create audit history tables for custom fields
+CREATE TABLE IF NOT EXISTS audit.people_custom_fields_history (
+    id BIGINT NOT NULL,
+    rev INTEGER NOT NULL,
+    revtype SMALLINT,
+    section_id BIGINT,
+    name VARCHAR(255),
+    field_type VARCHAR(31),
+    caption VARCHAR(255),
+    description VARCHAR(255),
+    is_unique BOOLEAN,
+    is_required BOOLEAN,
+    "order" INTEGER,
+    extra TEXT,
+    deleted BOOLEAN,
+    CONSTRAINT people_custom_fields_history_pkey PRIMARY KEY (id, rev),
+    CONSTRAINT fk_people_custom_fields_rev FOREIGN KEY (rev) REFERENCES audit.revinfo(rev)
+);
+
+CREATE TABLE IF NOT EXISTS audit.people_custom_fields_values_history (
+    id BIGINT NOT NULL,
+    rev INTEGER NOT NULL,
+    revtype SMALLINT,
+    owner_id BIGINT,
+    field_id BIGINT,
+    value TEXT,
+    CONSTRAINT people_custom_fields_values_history_pkey PRIMARY KEY (id, rev),
+    CONSTRAINT fk_people_custom_fields_values_rev FOREIGN KEY (rev) REFERENCES audit.revinfo(rev)
+);
