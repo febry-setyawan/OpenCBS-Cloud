@@ -1,1 +1,1 @@
-alter table loan_products add column has_payees boolean not null;
+ALTER TABLE loan_products ADD COLUMN IF NOT EXISTS has_payees boolean not null;

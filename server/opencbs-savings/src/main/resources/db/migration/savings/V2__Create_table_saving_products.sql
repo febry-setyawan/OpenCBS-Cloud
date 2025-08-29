@@ -1,4 +1,4 @@
-create table saving_products (
+CREATE TABLE IF NOT EXISTS saving_products (
   id                         bigserial      primary key,
   name                       varchar(200)   not null unique,
   code                       varchar(32)    not null unique,
@@ -44,7 +44,7 @@ create table saving_products (
   close_fee_flat_max         decimal(14, 2)
 );
 
-create table saving_product_accounts (
+CREATE TABLE IF NOT EXISTS saving_product_accounts (
   id                bigserial   primary key,
   type              varchar(50) not null,
   saving_product_id int         not null  references saving_products (id),

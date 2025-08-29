@@ -1,4 +1,4 @@
-create table current_accounts (
+CREATE TABLE IF NOT EXISTS current_accounts (
   id            serial primary key,
   code          varchar(19) not null,
   profile_id    integer     not null,
@@ -12,8 +12,7 @@ alter table current_accounts
 alter table current_accounts
   add constraint current_accounts_created_by_id_fkey foreign key (created_by_id) references users (id);
 
-alter table currencies
-  add column code varchar(3);
+ALTER TABLE currencies ADD COLUMN IF NOT EXISTS code varchar(3);
 update currencies
 set code = '001';
 alter table currencies

@@ -1,8 +1,6 @@
-alter table credit_committee_amount_range
-  add column created_at timestamp not null default now();
+ALTER TABLE credit_committee_amount_range ADD COLUMN IF NOT EXISTS created_at timestamp not null default now();
 
-alter table credit_committee_amount_range
-  add column created_by_id integer;
+ALTER TABLE credit_committee_amount_range ADD COLUMN IF NOT EXISTS created_by_id integer;
 
 update credit_committee_amount_range
 set created_by_id = 1;

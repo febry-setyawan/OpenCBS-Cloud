@@ -1,1 +1,1 @@
-alter table term_deposit_products add column status varchar(10) default 'ACTIVE';
+ALTER TABLE term_deposit_products ADD COLUMN IF NOT EXISTS status varchar(10) default 'ACTIVE';

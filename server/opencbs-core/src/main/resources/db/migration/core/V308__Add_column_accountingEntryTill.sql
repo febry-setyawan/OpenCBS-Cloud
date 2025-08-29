@@ -1,2 +1,1 @@
-alter table accounting_entries_tills
-add column initiator varchar(255);
+ALTER TABLE accounting_entries_tills ADD COLUMN IF NOT EXISTS initiator varchar(255);

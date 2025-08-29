@@ -8,8 +8,7 @@ alter table loan_products
 
 -- Extend loan loan applications
 
-alter table loan_applications
-  add column currency_id bigint references currencies;
+ALTER TABLE loan_applications ADD COLUMN IF NOT EXISTS currency_id bigint references currencies;
 
 update loan_applications
 set currency_id = p.currency_id
@@ -25,8 +24,7 @@ alter table loan_applications
 
 -- Extend loans
 
-alter table loans
-  add column currency_id bigint references currencies;
+ALTER TABLE loans ADD COLUMN IF NOT EXISTS currency_id bigint references currencies;
 
 update loans
 set currency_id = lp.currency_id

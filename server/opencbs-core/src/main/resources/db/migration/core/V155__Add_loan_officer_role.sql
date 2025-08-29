@@ -1,8 +1,7 @@
 insert into roles (name)
 values ('Loan Officer');
 
-alter table loan_applications
-  add column loan_officer_id int null;
+ALTER TABLE loan_applications ADD COLUMN IF NOT EXISTS loan_officer_id int null;
 
 update loan_applications
 set loan_officer_id = 2;
@@ -13,8 +12,7 @@ alter table loan_applications
 alter table loan_applications
   add constraint loan_applications_loan_officer_id_fkey foreign key (loan_officer_id) references users (id);
 
-alter table loans
-  add column loan_officer_id int null;
+ALTER TABLE loans ADD COLUMN IF NOT EXISTS loan_officer_id int null;
 
 update loans
 set loan_officer_id = 2;

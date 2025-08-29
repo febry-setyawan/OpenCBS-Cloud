@@ -2,6 +2,7 @@
 
 drop function if exists get_loan_schedule(bigint, timestamp without time zone);
 
+DROP function IF EXISTS get_loan_schedule;
 create function get_loan_schedule(bigint, timestamp without time zone)
   returns table (
     id bigint

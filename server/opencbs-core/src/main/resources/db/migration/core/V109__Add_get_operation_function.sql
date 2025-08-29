@@ -1,6 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-alter table accounting_entries
-  add column extra jsonb;
+ALTER TABLE accounting_entries ADD COLUMN IF NOT EXISTS extra jsonb;
 
 create or replace function get_operations(bigint,
     bigint, timestamp without time zone, timestamp without time zone)

@@ -1,9 +1,9 @@
-create table roles (
+CREATE TABLE IF NOT EXISTS roles (
   id   bigserial primary key,
   name varchar(255) unique
 );
 
-create table roles_permissions (
+CREATE TABLE IF NOT EXISTS roles_permissions (
   role_id    integer      not null,
   permission varchar(250) not null
 );

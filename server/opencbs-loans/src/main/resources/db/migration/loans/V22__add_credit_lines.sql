@@ -36,8 +36,7 @@ alter table credit_lines_penalties
 alter table credit_lines_penalties
     add constraint credit_lines_penalties_penalty_id_fkey foreign key (penalty_id) references penalties (id) match full;
 
-alter table loan_applications
-    add column credit_line_id bigint;
+ALTER TABLE loan_applications ADD COLUMN IF NOT EXISTS credit_line_id bigint;
 
 alter table loan_applications
     add constraint loan_applications_credit_line_id_fkey foreign key (credit_line_id) references credit_lines (id) match full;

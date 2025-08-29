@@ -1,2 +1,1 @@
-alter table loan_specific_provisions
-    add column is_rate boolean default true;
+ALTER TABLE loan_specific_provisions ADD COLUMN IF NOT EXISTS is_rate boolean default true;

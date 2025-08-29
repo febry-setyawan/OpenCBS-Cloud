@@ -1,5 +1,4 @@
-alter table task_events
-  add column content varchar(255) not null;
+ALTER TABLE task_events ADD COLUMN IF NOT EXISTS content varchar(255) not null;
 
 alter table event_participants
   rename to task_events_participants;

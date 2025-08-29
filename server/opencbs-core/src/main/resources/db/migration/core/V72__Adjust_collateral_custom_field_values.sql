@@ -1,6 +1,4 @@
-alter table collaterals_custom_fields_values
-  add column created_by_id int,
-  add column created_at timestamp without time zone not null default now(),
+ALTER TABLE collaterals_custom_fields_values ADD COLUMN IF NOT EXISTS created_by_id int, ADD COLUMN IF NOT EXISTS created_at timestamp without time zone not null default now(),
   add column verified_by_id int,
   add column verified_at timestamp without time zone,
   add column status varchar(250);

@@ -1,4 +1,4 @@
-create table borrowing_accounts (
+CREATE TABLE IF NOT EXISTS borrowing_accounts (
   id                bigserial    primary key,
   type              varchar(255) not null,
   borrowing_id      integer      not null references borrowings (id),

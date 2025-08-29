@@ -4,5 +4,4 @@ alter table groups_members
 alter table groups_members
     add left_date timestamp;
 
-alter table groups_members
-    add column id bigserial primary key;
+ALTER TABLE groups_members ADD COLUMN IF NOT EXISTS id bigserial primary key;

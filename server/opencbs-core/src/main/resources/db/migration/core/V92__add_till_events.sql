@@ -1,4 +1,4 @@
-create table till_events (
+CREATE TABLE IF NOT EXISTS till_events (
   id            bigserial primary key,
   event_type    varchar(40),
   till_id       bigint not null,

@@ -1,3 +1,3 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-drop table branch_payment_methods;
-drop table payment_methods;
+drop table if exists branch_payment_methods;
+drop table if exists payment_methods;

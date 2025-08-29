@@ -1,4 +1,4 @@
-create table vaults (
+CREATE TABLE IF NOT EXISTS vaults (
   id bigserial primary key,
   name varchar(255) not null,
   currency_id integer not null,

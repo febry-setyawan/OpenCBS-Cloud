@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table entry_fees (
+CREATE TABLE IF NOT EXISTS entry_fees (
   id            bigserial primary key,
   name          varchar(255)   not null,
   max_value     decimal(8, 4) not null,

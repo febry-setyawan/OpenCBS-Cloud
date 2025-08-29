@@ -1,5 +1,5 @@
-alter table roles add column status varchar(10) not null default 'ACTIVE';
-alter table audit.roles_history add column status varchar(10);
+ALTER TABLE roles ADD COLUMN IF NOT EXISTS status varchar(10) not null default 'ACTIVE';
+ALTER TABLE audit.roles_history ADD COLUMN IF NOT EXISTS status varchar(10);
 
-alter table users add column status varchar(10) not null default 'ACTIVE';
-alter table audit.users_history add column status varchar(10);
+ALTER TABLE users ADD COLUMN IF NOT EXISTS status varchar(10) not null default 'ACTIVE';
+ALTER TABLE audit.users_history ADD COLUMN IF NOT EXISTS status varchar(10);

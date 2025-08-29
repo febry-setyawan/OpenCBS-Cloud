@@ -1,4 +1,4 @@
-create table group_loan_applications (
+CREATE TABLE IF NOT EXISTS group_loan_applications (
   id                  bigserial      primary key,
   group_id            bigint         not null references profiles,
   member_id           bigint         not null references profiles,
@@ -8,5 +8,4 @@ create table group_loan_applications (
   unique (member_id, loan_application_id)
 );
 
-alter table loans
-  add column profile_id bigint references profiles;
+ALTER TABLE loans ADD COLUMN IF NOT EXISTS profile_id bigint references profiles;

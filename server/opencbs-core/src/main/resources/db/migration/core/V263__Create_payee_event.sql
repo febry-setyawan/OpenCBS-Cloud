@@ -1,5 +1,5 @@
 drop table if exists payees_events;
-create table payees_events
+CREATE TABLE IF NOT EXISTS payees_events
 (
     id                         bigserial primary key,
     event_type                 varchar(255)             not null,

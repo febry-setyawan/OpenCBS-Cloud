@@ -1,4 +1,4 @@
-CREATE TABLE loans
+CREATE TABLE IF NOT EXISTS loans
 (
   id                      bigserial primary key,
   amount                  decimal(14, 4) not null,

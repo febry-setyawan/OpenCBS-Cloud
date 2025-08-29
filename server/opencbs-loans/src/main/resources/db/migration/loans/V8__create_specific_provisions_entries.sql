@@ -1,4 +1,4 @@
-create table loan_specific_provisions (
+CREATE TABLE IF NOT EXISTS loan_specific_provisions (
   id bigserial primary key,
   loan_id bigint references loans(id),
   provision_type varchar(50) null,

@@ -1,6 +1,6 @@
 set search_path to audit;
 
-create table audit.saving_product_accounts_history
+CREATE TABLE IF NOT EXISTS audit.saving_product_accounts_history
 (
   id                bigint  not null,
   rev               integer not null references revinfo,
@@ -10,7 +10,7 @@ create table audit.saving_product_accounts_history
   primary key (id, rev)
 );
 
-create table audit.saving_products_history
+CREATE TABLE IF NOT EXISTS audit.saving_products_history
 (
   id                         bigint  not null,
   rev                        integer not null references revinfo,

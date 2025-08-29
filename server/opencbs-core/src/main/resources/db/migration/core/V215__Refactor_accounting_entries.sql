@@ -1,4 +1,4 @@
-create table accounting_entries_tills (
+CREATE TABLE IF NOT EXISTS accounting_entries_tills (
     id                    bigserial primary key,
     accounting_entries_id bigint      not null references accounting_entries unique,
     operation_type        varchar(50) not null,
@@ -17,7 +17,7 @@ insert into accounting_entries_tills(accounting_entries_id, operation_type, init
     where
         (entry.extra ->> 'type' = 'DEPOSIT' or entry.extra ->> 'type' = 'WITHDRAW');
 
-drop function get_operations(bigint, bigint, timestamp without time zone, timestamp without time zone);
+drop function if exists get_operations(bigint, bigint, timestamp without time zone, timestamp without time zone);
 
 create or replace function get_operations(bigint, bigint, timestamp without time zone, timestamp without time zone)
     returns TABLE(id bigint, created_at timestamp without time zone, profile_id bigint, profile_name character varying, vault_name character varying, amount numeric, operation_type character varying, created_by_id bigint, currency_id bigint, description character varying)

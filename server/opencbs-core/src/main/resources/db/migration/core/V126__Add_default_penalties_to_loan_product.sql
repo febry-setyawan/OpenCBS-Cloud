@@ -1,19 +1,16 @@
 alter table loan_products
   drop column penalty_type;
-alter table loan_products
-  add column loan_amount decimal,
+ALTER TABLE loan_products ADD COLUMN IF NOT EXISTS loan_amount decimal,
   add column olb decimal,
   add column overdue_principal decimal,
   add column overdue_interest decimal;
 
-alter table loans
-  add column loan_amount decimal,
+ALTER TABLE loans ADD COLUMN IF NOT EXISTS loan_amount decimal,
   add column olb decimal,
   add column overdue_principal decimal,
   add column overdue_interest decimal;
 
-alter table loan_applications
-  add column loan_amount decimal,
+ALTER TABLE loan_applications ADD COLUMN IF NOT EXISTS loan_amount decimal,
   add column olb decimal,
   add column overdue_principal decimal,
   add column overdue_interest decimal;

@@ -1,3 +1,3 @@
 
-ALTER TABLE savings_accounting_entries ADD COLUMN id BIGSERIAL PRIMARY KEY;
+ALTER TABLE savings_accounting_entries ADD COLUMN IF NOT EXISTS id BIGSERIAL PRIMARY KEY;
 

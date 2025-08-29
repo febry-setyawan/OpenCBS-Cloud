@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table loan_applications (
+CREATE TABLE IF NOT EXISTS loan_applications (
   id              bigserial primary key,
   amount          decimal(14, 4)              not null,
   grace_period    integer                     not null default 0,

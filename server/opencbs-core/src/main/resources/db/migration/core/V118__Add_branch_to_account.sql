@@ -4,8 +4,7 @@ insert into branches(id, name, code, address)
 
 select setval('branches_id_seq', (select max(id) from branches));
 
-alter table accounts
-  add column branch_id integer default 1;
+ALTER TABLE accounts ADD COLUMN IF NOT EXISTS branch_id integer default 1;
 alter table accounts
   add constraint accounts_branch_id_fkey foreign key (branch_id) references branches (id);
 alter table accounts alter column branch_id set not null;

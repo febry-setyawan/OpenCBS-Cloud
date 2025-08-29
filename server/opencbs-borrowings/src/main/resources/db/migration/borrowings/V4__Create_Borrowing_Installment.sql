@@ -1,4 +1,4 @@
-create table borrowings_installments (
+create table if not exists borrowings_installments (
   id                           bigserial             primary key,
   borrowing_id                 bigint                   not null,
   number                       integer                  not null,
@@ -20,7 +20,7 @@ create table borrowings_installments (
 create index borrowings_installments_borrowing_id_idx
   on borrowings_installments (borrowing_id);
 
-alter table borrowings add column borrowing_product_id integer not null;
+ALTER TABLE borrowings ADD COLUMN IF NOT EXISTS borrowing_product_id integer not null;
 
 alter table borrowings
   add constraint borrowing_product_id_fkey
@@ -29,4 +29,5 @@ foreign key (borrowing_product_id)
 
 insert into global_settings
   (name, type, value)
-values ('BORROWING_CODE_PATTERN', 'TEXT', '"Borrowing" + borrowing_id')
+select 'BORROWING_CODE_PATTERN', 'TEXT', '"Borrowing" + borrowing_id'
+where not exists (select 1 from global_settings where name = 'BORROWING_CODE_PATTERN');

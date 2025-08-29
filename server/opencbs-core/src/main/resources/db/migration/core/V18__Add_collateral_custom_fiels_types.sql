@@ -1,12 +1,12 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table collaterals_custom_fields_types (
+CREATE TABLE IF NOT EXISTS collaterals_custom_fields_types (
   id            bigserial primary key,
   caption       varchar(255) not null,
   collateral_id bigint       not null,
   "order"       int          not null default (0)
 );
 
-create table collaterals_custom_fields (
+CREATE TABLE IF NOT EXISTS collaterals_custom_fields (
   id          bigserial primary key,
   section_id  bigint       not null,
   name        varchar(255) not null,
@@ -21,7 +21,7 @@ create table collaterals_custom_fields (
 alter table collaterals_custom_fields
   add constraint collaterals_custom_fields_types_id_fkey foreign key (section_id) references collaterals_custom_fields_types (id);
 
-create table collaterals_custom_fields_values (
+CREATE TABLE IF NOT EXISTS collaterals_custom_fields_values (
   id       bigserial primary key,
   owner_id bigint not null,
   field_id bigint not null,

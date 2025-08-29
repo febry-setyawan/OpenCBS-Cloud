@@ -1,5 +1,4 @@
-alter table profiles
-  add column version integer;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS version integer;
 
 alter table companies_custom_fields_values
   drop constraint companies_custom_fields_values_version_key;

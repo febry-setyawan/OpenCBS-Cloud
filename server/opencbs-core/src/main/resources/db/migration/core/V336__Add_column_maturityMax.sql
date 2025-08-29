@@ -1,5 +1,3 @@
-alter table loan_products
-add column maturity_date_max date;
+ALTER TABLE loan_products ADD COLUMN IF NOT EXISTS maturity_date_max date;
 
-alter table audit.loan_products_history
-add column maturity_date_max date;
+ALTER TABLE audit.loan_products_history ADD COLUMN IF NOT EXISTS maturity_date_max date;

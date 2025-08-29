@@ -1,4 +1,5 @@
-drop function get_operations( bigint, bigint, timestamp without time zone, timestamp without time zone );
+drop function if exists get_operations( bigint, bigint, timestamp without time zone, timestamp without time zone );
+DROP function IF EXISTS get_operations;
 create function get_operations(bigint, bigint, timestamp without time zone, timestamp without time zone)
   returns table(id bigint, created_at timestamp without time zone, profile_id integer, profile_name character varying, vault_name character varying, amount numeric, operation_type character varying, created_by_id integer, currency_id integer, description character varying)
 language sql

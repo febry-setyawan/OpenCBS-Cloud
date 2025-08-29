@@ -1,4 +1,4 @@
-create table tills (
+CREATE TABLE IF NOT EXISTS tills (
   id        bigserial primary key,
   name      varchar(255) not null,
   branch_id bigint       not null,

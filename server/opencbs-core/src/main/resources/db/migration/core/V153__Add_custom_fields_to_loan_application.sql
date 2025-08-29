@@ -1,11 +1,11 @@
-create table loan_application_custom_fields_sections
+CREATE TABLE IF NOT EXISTS loan_application_custom_fields_sections
 (
   id      bigserial primary key,
   caption varchar(255)      not null,
   "order" integer default 0 not null
 );
 
-create table loan_application_custom_fields
+CREATE TABLE IF NOT EXISTS loan_application_custom_fields
 (
   id          bigserial primary key,
   section_id  bigint                not null,
@@ -22,7 +22,7 @@ alter table loan_application_custom_fields
   add constraint loan_application_custom_fields_section_id_fkey
 foreign key (section_id) references loan_application_custom_fields_sections (id);
 
-create table loan_application_custom_fields_values
+CREATE TABLE IF NOT EXISTS loan_application_custom_fields_values
 (
   id             bigserial primary key,
   owner_id       bigint                  not null,

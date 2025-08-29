@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table custom_fields (
+CREATE TABLE IF NOT EXISTS custom_fields (
   id bigserial primary key,
   owner_type varchar(20) not null,
   field_type varchar(20) not null,
@@ -10,7 +10,7 @@ create table custom_fields (
   extra text null
 );
 
-create table custom_field_values (
+CREATE TABLE IF NOT EXISTS custom_field_values (
   id bigserial primary key,
   owner_type varchar(20) not null,
   "value" text null,

@@ -1,4 +1,4 @@
-create table other_fees (
+CREATE TABLE IF NOT EXISTS other_fees (
   id          bigserial primary key,
   name        varchar(255) not null,
   description varchar(255),

@@ -1,4 +1,4 @@
-create table borrowing_events (
+CREATE TABLE IF NOT EXISTS borrowing_events (
     id                 bigserial primary key,
     event_type         varchar(200)             not null,
     created_at         timestamp                not null,

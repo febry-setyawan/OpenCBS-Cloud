@@ -1,5 +1,4 @@
-alter table accounting_entries_tills
-    add column document_number varchar(30) default null;
+ALTER TABLE accounting_entries_tills ADD COLUMN IF NOT EXISTS document_number varchar(30) default null;
 
 drop view view_operation;
 

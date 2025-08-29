@@ -1,5 +1,4 @@
-alter table permissions
-  add column module_type varchar(255) null;
+ALTER TABLE permissions ADD COLUMN IF NOT EXISTS module_type varchar(255) null;
 
 update permissions
 set module_type = 'PROFILES' where name in ('MAKER_FOR_PROFILE', 'CHECKER_FOR_PROFILE');
@@ -18,11 +17,9 @@ alter table permissions
 
 alter table permissions rename "group" to description;
 
-alter table roles_permissions
-  add column id serial primary key;
+ALTER TABLE roles_permissions ADD COLUMN IF NOT EXISTS id serial primary key;
 
-alter table permissions
-  add column permanent boolean not null default false;
+ALTER TABLE permissions ADD COLUMN IF NOT EXISTS permanent boolean not null default false;
 
 alter table permissions
   add constraint name_unique unique (name);

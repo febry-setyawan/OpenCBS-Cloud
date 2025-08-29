@@ -1,5 +1,4 @@
-alter table profiles
-  add column status varchar(250);
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS status varchar(250);
 
 update profiles
 set status = 'LIVE';

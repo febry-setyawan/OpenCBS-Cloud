@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table people_attachments (
+CREATE TABLE IF NOT EXISTS people_attachments (
   id bigserial primary key,
   person_id bigint not null,
   filename varchar(255) not null,

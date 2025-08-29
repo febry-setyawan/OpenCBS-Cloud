@@ -1,4 +1,4 @@
-create table loans_penalties_events (
+CREATE TABLE IF NOT EXISTS loans_penalties_events (
   id bigserial not null primary key,
   event_type varchar(200) not null,
   created_at timestamp not null,
@@ -35,7 +35,7 @@ create index loans_penalties_events_loan_id_event_type_index
 ;
 
 
-create table loans_penalty_events_accounting_entries (
+CREATE TABLE IF NOT EXISTS loans_penalty_events_accounting_entries (
   loan_penalty_event_id bigint not null
     constraint loans_penalty_events_accounting_entries_penalty_event_fkey
     references loans_penalties_events,

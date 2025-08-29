@@ -1,4 +1,4 @@
-create table task_events (
+CREATE TABLE IF NOT EXISTS task_events (
   id         bigserial primary key,
   title      varchar(255) not null,
   start_date timestamp    not null,
@@ -12,7 +12,7 @@ alter table task_events
   add constraint event_created_by_fkey foreign key (created_by) references users (id);
 
 
-create table event_participants (
+CREATE TABLE IF NOT EXISTS event_participants (
   id             bigserial primary key,
   task_events_id integer      not null,
   type           varchar(255) not null,

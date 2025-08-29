@@ -1,2 +1,1 @@
-alter table request
-  add column approved_at timestamp;
+ALTER TABLE request ADD COLUMN IF NOT EXISTS approved_at timestamp;

@@ -1,4 +1,4 @@
-alter table currencies add column is_main boolean default false not null;
+ALTER TABLE currencies ADD COLUMN IF NOT EXISTS is_main boolean default false not null;
 
 update currencies
 set is_main = true

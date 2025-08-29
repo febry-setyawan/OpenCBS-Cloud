@@ -1,5 +1,4 @@
-alter table branches
-add column location_id bigint references locations,
+ALTER TABLE branches ADD COLUMN IF NOT EXISTS location_id bigint references locations,
 add column category varchar(255),
 add column license_date date,
 add column open_date date,

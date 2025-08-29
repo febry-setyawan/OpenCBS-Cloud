@@ -8,13 +8,13 @@ drop column open_date,
 drop column close_date,
 drop column status;
 
-create table branch_custom_fields_sections (
+CREATE TABLE IF NOT EXISTS branch_custom_fields_sections (
   id bigserial primary key,
   caption varchar(255) not null,
   "order" int not null default(0)
 );
 
-create table branch_custom_fields (
+CREATE TABLE IF NOT EXISTS branch_custom_fields (
   id bigserial primary key,
   section_id bigint not null,
   name varchar(255) not null,
@@ -31,7 +31,7 @@ add constraint branch_custom_fields_sections_id_fkey
 foreign key (section_id)
 references branch_custom_fields_sections(id);
 
-create table branch_custom_fields_values (
+CREATE TABLE IF NOT EXISTS branch_custom_fields_values (
   id bigserial primary key,
   owner_id bigint not null,
   field_id bigint not null,
@@ -63,7 +63,7 @@ add constraint branch_custom_fields_values_verified_by_id_fkey
 foreign key (verified_by_id)
 references users(id);
 
-create table audit.branch_custom_fields_history
+CREATE TABLE IF NOT EXISTS audit.branch_custom_fields_history
 (
   id bigint not null,
   rev integer not null
@@ -76,7 +76,7 @@ create table audit.branch_custom_fields_history
 
 alter table audit.branch_custom_fields_history owner to postgres;
 
-create table audit.branch_custom_fields_values_history
+CREATE TABLE IF NOT EXISTS audit.branch_custom_fields_values_history
 (
   id bigint not null,
   rev integer not null

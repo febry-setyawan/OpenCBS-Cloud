@@ -1,2 +1,1 @@
-alter table loans_events
-    add column system boolean default false;
+ALTER TABLE loans_events ADD COLUMN IF NOT EXISTS system boolean default false;

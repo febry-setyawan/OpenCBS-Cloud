@@ -1,28 +1,25 @@
-alter table audit.groups_attachments_history add column owner_id bigint;
-alter table audit.people_attachments_history add column owner_id bigint;
+ALTER TABLE audit.groups_attachments_history ADD COLUMN IF NOT EXISTS owner_id bigint;
+ALTER TABLE audit.people_attachments_history ADD COLUMN IF NOT EXISTS owner_id bigint;
 
-alter table audit.people_custom_fields_values_history
-  add column status varchar(255),
+ALTER TABLE audit.people_custom_fields_values_history ADD COLUMN IF NOT EXISTS status varchar(255),
   add column value varchar(255),
   add column verified_at timestamp,
   add column field_id bigint,
   add column verified_by_id bigint;
 
-alter table audit.groups_custom_fields_values_history
-  add column status varchar(255),
+ALTER TABLE audit.groups_custom_fields_values_history ADD COLUMN IF NOT EXISTS status varchar(255),
   add column value varchar(255),
   add column verified_at timestamp,
   add column field_id bigint,
   add column verified_by_id bigint;
 
-alter table audit.companies_custom_fields_values_history
-  add column status varchar(255),
+ALTER TABLE audit.companies_custom_fields_values_history ADD COLUMN IF NOT EXISTS status varchar(255),
   add column value varchar(255),
   add column verified_at timestamp,
   add column field_id bigint,
   add column verified_by_id bigint;
 
-create table audit.groups_custom_fields_history
+CREATE TABLE IF NOT EXISTS audit.groups_custom_fields_history
 (
   id bigint not null,
   rev integer not null references audit.revinfo,
@@ -31,7 +28,7 @@ create table audit.groups_custom_fields_history
   primary key (id, rev)
 );
 
-create table audit.people_custom_fields_history
+CREATE TABLE IF NOT EXISTS audit.people_custom_fields_history
 (
   id bigint not null,
   rev integer not null references audit.revinfo,
@@ -40,7 +37,7 @@ create table audit.people_custom_fields_history
   primary key (id, rev)
 );
 
-create table audit.companies_custom_fields_history
+CREATE TABLE IF NOT EXISTS audit.companies_custom_fields_history
 (
   id bigint not null,
   rev integer not null references audit.revinfo,
@@ -49,4 +46,4 @@ create table audit.companies_custom_fields_history
   primary key (id, rev)
 );
 
-alter table audit.users_history add column role_id bigint;
+ALTER TABLE audit.users_history ADD COLUMN IF NOT EXISTS role_id bigint;

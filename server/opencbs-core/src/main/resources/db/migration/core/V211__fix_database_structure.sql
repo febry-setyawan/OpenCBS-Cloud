@@ -222,8 +222,7 @@ ALTER TABLE loans_history
 ALTER TABLE loans_installments
   ALTER COLUMN event_group_key TYPE BIGINT;
 
-ALTER TABLE loans_installments
-    ADD COLUMN accrual_start_date DATE,
+ALTER TABLE loans_installments ADD COLUMN IF NOT EXISTS accrual_start_date DATE,
     ADD COLUMN accrued_interest NUMERIC (12,2),
     ADD COLUMN paid_penalty NUMERIC (12,2),
     ADD COLUMN penalty NUMERIC (12,2),

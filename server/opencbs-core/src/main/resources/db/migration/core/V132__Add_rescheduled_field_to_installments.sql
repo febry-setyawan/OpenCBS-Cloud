@@ -1,1 +1,1 @@
-alter table loans_installments add column rescheduled boolean default false;
+ALTER TABLE loans_installments ADD COLUMN IF NOT EXISTS rescheduled boolean default false;

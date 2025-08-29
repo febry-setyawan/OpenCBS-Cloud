@@ -1,2 +1,2 @@
-alter table day_closures add column day date not null default to_timestamp(0);
+ALTER TABLE day_closures ADD COLUMN IF NOT EXISTS day date not null default to_timestamp(0);
 

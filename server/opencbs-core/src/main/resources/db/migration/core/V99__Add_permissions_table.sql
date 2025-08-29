@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table permissions (
+CREATE TABLE IF NOT EXISTS permissions (
   id    bigserial primary key,
   name  varchar(31)  not null,
   "group" varchar(355) not null

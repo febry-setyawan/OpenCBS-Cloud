@@ -1,4 +1,4 @@
-CREATE TABLE term_deposit_products
+CREATE TABLE IF NOT EXISTS term_deposit_products
 (
   id                         BIGSERIAL      NOT NULL PRIMARY KEY,
   name                       VARCHAR(200)   NOT NULL UNIQUE,
@@ -14,7 +14,7 @@ CREATE TABLE term_deposit_products
   interest_accrual_frequency VARCHAR(32)    NOT NULL
 );
 
-CREATE TABLE term_deposit_product_accounts
+CREATE TABLE IF NOT EXISTS term_deposit_product_accounts
 (
   id                      BIGSERIAL   NOT NULL PRIMARY KEY,
   type                    VARCHAR(50) NOT NULL,

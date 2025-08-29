@@ -1,2 +1,2 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-alter table profile_attachments add column pinned boolean not null default false
+ALTER TABLE profile_attachments ADD COLUMN IF NOT EXISTS pinned boolean not null default false

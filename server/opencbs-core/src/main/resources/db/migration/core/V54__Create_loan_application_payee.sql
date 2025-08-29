@@ -1,4 +1,4 @@
-create table loan_applications_payees (
+CREATE TABLE IF NOT EXISTS loan_applications_payees (
   id bigserial primary key,
   amount decimal(16, 4) not null,
   description varchar(255),

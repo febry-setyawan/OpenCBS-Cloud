@@ -1,4 +1,4 @@
-create table bonds_events (
+CREATE TABLE IF NOT EXISTS bonds_events (
     id                    bigserial                 primary key,
     event_type            varchar(200)              not null,
     created_at            timestamp                 not null,
@@ -19,7 +19,7 @@ create table bonds_events (
     foreign key (rolled_back_by_id) references users (id)
 );
 
-create table bonds_events_accounting_entries (
+CREATE TABLE IF NOT EXISTS bonds_events_accounting_entries (
     id                    bigserial      primary key,
     bond_event_id         bigint         not null,
     accounting_entry_id   bigint         not null,

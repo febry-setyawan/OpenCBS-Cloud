@@ -15,7 +15,7 @@ create sequence if not exists hibernate_sequence;
 create sequence if not exists audit.hibernate_sequence;
 
 set search_path to audit;
-create table audit.revinfo
+CREATE TABLE IF NOT EXISTS audit.revinfo
 (
   rev      serial
     constraint revinfo_pkey
@@ -24,7 +24,7 @@ create table audit.revinfo
   username varchar(255)
 );
 
-create table audit.loan_products_history
+CREATE TABLE IF NOT EXISTS audit.loan_products_history
 (
   id                           bigint  not null,
   rev                          integer not null references revinfo,
@@ -53,7 +53,7 @@ create table audit.loan_products_history
   primary key (id, rev)
 );
 
-create table audit.branches_history
+CREATE TABLE IF NOT EXISTS audit.branches_history
 (
   id          bigint  not null,
   rev         integer not null
@@ -68,7 +68,7 @@ create table audit.branches_history
   primary key (id, rev)
 );
 
-create table audit.loan_products_entry_fees_history
+CREATE TABLE IF NOT EXISTS audit.loan_products_entry_fees_history
 (
   rev             integer not null references revinfo,
   loan_product_id bigint  not null,
@@ -78,7 +78,7 @@ create table audit.loan_products_entry_fees_history
   primary key (rev, loan_product_id, entry_fee_id)
 );
 
-create table audit.users_history
+CREATE TABLE IF NOT EXISTS audit.users_history
 (
   id             bigint  not null,
   rev            integer not null references revinfo,
@@ -99,7 +99,7 @@ create table audit.users_history
   primary key (id, rev)
 );
 
-create table audit.roles_history
+CREATE TABLE IF NOT EXISTS audit.roles_history
 (
   id      bigint  not null,
   rev     integer not null references revinfo,
@@ -109,7 +109,7 @@ create table audit.roles_history
   primary key (id, rev)
 );
 
-create table audit.roles_permissions_history
+CREATE TABLE IF NOT EXISTS audit.roles_permissions_history
 (
   rev           integer not null references revinfo,
   role_id       bigint  not null,
@@ -119,7 +119,7 @@ create table audit.roles_permissions_history
   primary key (rev, role_id, permission_id)
 );
 
-create table audit.accounts_history
+CREATE TABLE IF NOT EXISTS audit.accounts_history
 (
   id                         bigint  not null,
   rev                        integer not null references revinfo,

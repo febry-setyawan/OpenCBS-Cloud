@@ -22,8 +22,7 @@ values ((select id from permissions where name = 'CHECKER_FOR_LOAN_PRODUCT'), 'L
        ((select id from permissions where name = 'CHECKER_FOR_USER'), 'USER_CREATE'),
        ((select id from permissions where name = 'CHECKER_FOR_USER'), 'USER_EDIT');
 
-alter table system_settings
-  add column section varchar(255);
+ALTER TABLE system_settings ADD COLUMN IF NOT EXISTS section varchar(255);
 
 update system_settings
 set value = 60

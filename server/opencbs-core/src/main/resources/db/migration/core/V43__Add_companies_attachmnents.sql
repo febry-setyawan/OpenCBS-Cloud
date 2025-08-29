@@ -1,4 +1,4 @@
-create table companies_attachments (
+CREATE TABLE IF NOT EXISTS companies_attachments (
   id bigserial primary key,
   company_id bigint not null,
   filename varchar (255) not null,

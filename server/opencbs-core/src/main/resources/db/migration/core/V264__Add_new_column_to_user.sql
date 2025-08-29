@@ -1,5 +1,4 @@
-alter table users
-  add column last_entry_time timestamp default (now() - interval '1 year');
+ALTER TABLE users ADD COLUMN IF NOT EXISTS last_entry_time timestamp default (now() - interval '1 year');
 update users
 set last_entry_time = (now() - interval '1 year');
 

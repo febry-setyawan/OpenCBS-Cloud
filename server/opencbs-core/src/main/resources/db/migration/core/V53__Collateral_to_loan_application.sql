@@ -1,6 +1,6 @@
 alter table types_of_collateral rename to collaterals;
-alter table collaterals add column loan_application_id integer;
-alter table collaterals add column amount decimal(14, 4);
+ALTER TABLE collaterals ADD COLUMN IF NOT EXISTS loan_application_id integer;
+ALTER TABLE collaterals ADD COLUMN IF NOT EXISTS amount decimal(14, 4);
 alter table collaterals add constraint collaterals_loan_application_id_fkey foreign key(loan_application_id) references loan_applications (id) match full;
 alter table collaterals rename constraint types_of_collateral_pkey to collaterals_pkey;
 alter table collaterals rename constraint types_of_collateral_name_key to collaterals_name_key;
