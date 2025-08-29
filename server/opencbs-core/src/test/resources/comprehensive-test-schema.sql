@@ -16,6 +16,12 @@ CREATE TABLE IF NOT EXISTS users (
     phone_number VARCHAR(255),
     id_number VARCHAR(255),
     address VARCHAR(255),
+    position VARCHAR(255),
+    password_expire_date DATE,
+    first_login BOOLEAN DEFAULT true,
+    is_system_user BOOLEAN DEFAULT false,
+    last_entry_time TIMESTAMP,
+    status VARCHAR(50) NOT NULL DEFAULT 'ACTIVE',
     enabled BOOLEAN DEFAULT true,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by_id BIGINT
@@ -35,7 +41,11 @@ CREATE TABLE IF NOT EXISTS branches (
 CREATE TABLE IF NOT EXISTS roles (
     id BIGSERIAL PRIMARY KEY,
     name VARCHAR(255) UNIQUE NOT NULL,
-    description VARCHAR(500)
+    description VARCHAR(500),
+    status VARCHAR(50) NOT NULL DEFAULT 'ACTIVE',
+    is_system BOOLEAN NOT NULL DEFAULT false,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
 );
 
 -- Create permissions table
@@ -218,11 +228,11 @@ INSERT INTO branches (name, code, address)
 VALUES ('Main Branch', 'MAIN', 'Test Address 123')
 ON CONFLICT DO NOTHING;
 
-INSERT INTO roles (name, description)
+INSERT INTO roles (name, description, status, is_system)
 VALUES 
-    ('ADMIN', 'System Administrator'),
-    ('USER', 'Regular User'),
-    ('TELLER', 'Bank Teller')
+    ('ADMIN', 'System Administrator', 'ACTIVE', false),
+    ('USER', 'Regular User', 'ACTIVE', false),
+    ('TELLER', 'Bank Teller', 'ACTIVE', false)
 ON CONFLICT (name) DO NOTHING;
 
 INSERT INTO permissions (name, description, module_type, permanent)
