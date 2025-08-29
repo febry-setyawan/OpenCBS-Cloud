@@ -6,92 +6,382 @@ DROP VIEW IF EXISTS searchable_profiles;
 --============================
 -- Fix database structure
 -- ===========================
-ALTER TABLE account_balances
-  ALTER COLUMN account_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'account_balances' 
+          AND column_name = 'account_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE account_balances ALTER COLUMN account_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE accounting_entries
-  ALTER COLUMN branch_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'accounting_entries' 
+          AND column_name = 'branch_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE accounting_entries ALTER COLUMN branch_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE accounting_entries
-  ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'accounting_entries' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE accounting_entries ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE accounting_entries
-  ALTER COLUMN event_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'accounting_entries' 
+          AND column_name = 'event_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE accounting_entries ALTER COLUMN event_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE accounting_entries
-  ALTER COLUMN branch_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'accounting_entries' 
+          AND column_name = 'branch_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE accounting_entries ALTER COLUMN branch_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE accounts
-  ALTER COLUMN branch_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'accounts' 
+          AND column_name = 'branch_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE accounts ALTER COLUMN branch_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE accounts
-  ALTER COLUMN currency_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'accounts' 
+          AND column_name = 'currency_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE accounts ALTER COLUMN currency_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE accounts
-  ALTER COLUMN parent_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'accounts' 
+          AND column_name = 'parent_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE accounts ALTER COLUMN parent_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE analytics_active_loans
-  ALTER COLUMN calculated_date TYPE TIMESTAMP;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'analytics_active_loans' 
+          AND column_name = 'calculated_date'
+          AND data_type != 'timestamp without time zone'
+    ) THEN
+        ALTER TABLE analytics_active_loans ALTER COLUMN calculated_date TYPE TIMESTAMP;
+    END IF;
+END $$;
 
-ALTER TABLE analytics_active_loans
-  ALTER COLUMN disbursement_date TYPE TIMESTAMP;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'analytics_active_loans' 
+          AND column_name = 'disbursement_date'
+          AND data_type != 'timestamp without time zone'
+    ) THEN
+        ALTER TABLE analytics_active_loans ALTER COLUMN disbursement_date TYPE TIMESTAMP;
+    END IF;
+END $$;
 
-ALTER TABLE analytics_active_loans
-  ALTER COLUMN loan_officer_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'analytics_active_loans' 
+          AND column_name = 'loan_officer_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE analytics_active_loans ALTER COLUMN loan_officer_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE analytics_active_loans
-  ALTER COLUMN loan_product_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'analytics_active_loans' 
+          AND column_name = 'loan_product_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE analytics_active_loans ALTER COLUMN loan_product_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE analytics_active_loans
-  ALTER COLUMN loan_products_currency_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'analytics_active_loans' 
+          AND column_name = 'loan_products_currency_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE analytics_active_loans ALTER COLUMN loan_products_currency_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE analytics_active_loans
-  ALTER COLUMN loan_purpose_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'analytics_active_loans' 
+          AND column_name = 'loan_purpose_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE analytics_active_loans ALTER COLUMN loan_purpose_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE analytics_active_loans
-  ALTER COLUMN planned_close_date TYPE TIMESTAMP;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'analytics_active_loans' 
+          AND column_name = 'planned_close_date'
+          AND data_type != 'timestamp without time zone'
+    ) THEN
+        ALTER TABLE analytics_active_loans ALTER COLUMN planned_close_date TYPE TIMESTAMP;
+    END IF;
+END $$;
 
-ALTER TABLE analytics_active_loans
-  ALTER COLUMN profile_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'analytics_active_loans' 
+          AND column_name = 'profile_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE analytics_active_loans ALTER COLUMN profile_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE business_sectors
-  ALTER COLUMN parent_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'business_sectors' 
+          AND column_name = 'parent_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE business_sectors ALTER COLUMN parent_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE collaterals
-    ALTER COLUMN loan_application_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'collaterals' 
+          AND column_name = 'loan_application_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE collaterals ALTER COLUMN loan_application_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE collaterals
-  ALTER COLUMN type_of_collateral_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'collaterals' 
+          AND column_name = 'type_of_collateral_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE collaterals ALTER COLUMN type_of_collateral_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE collaterals_custom_fields_values
-  ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'collaterals_custom_fields_values' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE collaterals_custom_fields_values ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE collaterals_custom_fields_values
-  ALTER COLUMN verified_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'collaterals_custom_fields_values' 
+          AND column_name = 'verified_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE collaterals_custom_fields_values ALTER COLUMN verified_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE companies_custom_fields_values
-  ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'companies_custom_fields_values' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE companies_custom_fields_values ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE companies_custom_fields_values
-  ALTER COLUMN verified_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'companies_custom_fields_values' 
+          AND column_name = 'verified_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE companies_custom_fields_values ALTER COLUMN verified_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE credit_committee_amount_range
- ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'credit_committee_amount_range' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE credit_committee_amount_range ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE credit_committee_roles
-  ALTER COLUMN credit_committee_amount_range_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'credit_committee_roles' 
+          AND column_name = 'credit_committee_amount_range_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE credit_committee_roles ALTER COLUMN credit_committee_amount_range_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE credit_committee_roles
-  ALTER COLUMN role_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'credit_committee_roles' 
+          AND column_name = 'role_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE credit_committee_roles ALTER COLUMN role_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE credit_committee_votes
-    ALTER COLUMN changed_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'credit_committee_votes' 
+          AND column_name = 'changed_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE credit_committee_votes ALTER COLUMN changed_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE credit_committee_votes
-  ALTER COLUMN loan_application_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'credit_committee_votes' 
+          AND column_name = 'loan_application_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE credit_committee_votes ALTER COLUMN loan_application_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE credit_committee_votes
-  ALTER COLUMN role_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'credit_committee_votes' 
+          AND column_name = 'role_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE credit_committee_votes ALTER COLUMN role_id TYPE BIGINT;
+    END IF;
+END $$;
 
 ALTER TABLE  credit_committee_votes_history
   ALTER COLUMN changed_by_id TYPE BIGINT;
@@ -111,68 +401,278 @@ ALTER TABLE  exchange_rates
 ALTER TABLE  exchange_rates
   ALTER COLUMN to_currency_id TYPE BIGINT;
 
-ALTER TABLE groups_custom_fields_values
-  ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'groups_custom_fields_values' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE groups_custom_fields_values ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE groups_custom_fields_values
-  ALTER COLUMN verified_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'groups_custom_fields_values' 
+          AND column_name = 'verified_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE groups_custom_fields_values ALTER COLUMN verified_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE groups_members
-  ALTER COLUMN group_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'groups_members' 
+          AND column_name = 'group_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE groups_members ALTER COLUMN group_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE groups_members
-  ALTER COLUMN member_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'groups_members' 
+          AND column_name = 'member_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE groups_members ALTER COLUMN member_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE guarantors
-  ALTER COLUMN loan_application_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'guarantors' 
+          AND column_name = 'loan_application_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE guarantors ALTER COLUMN loan_application_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE guarantors
-  ALTER COLUMN profile_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'guarantors' 
+          AND column_name = 'profile_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE guarantors ALTER COLUMN profile_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE guarantors
-  ALTER COLUMN relationship_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'guarantors' 
+          AND column_name = 'relationship_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE guarantors ALTER COLUMN relationship_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_accounts
-  ALTER COLUMN account_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_accounts' 
+          AND column_name = 'account_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_accounts ALTER COLUMN account_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_accounts
-  ALTER COLUMN loan_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_accounts' 
+          AND column_name = 'loan_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_accounts ALTER COLUMN loan_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_application_custom_fields_values
-  ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_application_custom_fields_values' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_application_custom_fields_values ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_application_custom_fields_values
-  ALTER COLUMN verified_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_application_custom_fields_values' 
+          AND column_name = 'verified_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_application_custom_fields_values ALTER COLUMN verified_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_applications
-  ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_applications' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_applications ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_applications
-  ALTER COLUMN loan_officer_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_applications' 
+          AND column_name = 'loan_officer_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_applications ALTER COLUMN loan_officer_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_applications
-  ALTER COLUMN loan_product_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_applications' 
+          AND column_name = 'loan_product_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_applications ALTER COLUMN loan_product_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_applications
-  ALTER COLUMN profile_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_applications' 
+          AND column_name = 'profile_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_applications ALTER COLUMN profile_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_applications_entry_fees
-  ALTER COLUMN entry_fee_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_applications_entry_fees' 
+          AND column_name = 'entry_fee_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_applications_entry_fees ALTER COLUMN entry_fee_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_applications_entry_fees
-  ALTER COLUMN loan_application_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_applications_entry_fees' 
+          AND column_name = 'loan_application_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_applications_entry_fees ALTER COLUMN loan_application_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_applications_installments
-  ALTER COLUMN number TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_applications_installments' 
+          AND column_name = 'number'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_applications_installments ALTER COLUMN number TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_applications_installments
-  ALTER COLUMN loan_application_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_applications_installments' 
+          AND column_name = 'loan_application_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_applications_installments ALTER COLUMN loan_application_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_products
-  ALTER COLUMN currency_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_products' 
+          AND column_name = 'currency_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_products ALTER COLUMN currency_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loan_applications_payees
-  ALTER COLUMN loan_application_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_applications_payees' 
+          AND column_name = 'loan_application_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_applications_payees ALTER COLUMN loan_application_id TYPE BIGINT;
+    END IF;
+END $$;
 
 ALTER TABLE  loan_applications_payees
   ALTER COLUMN payee_id TYPE BIGINT;
@@ -189,38 +689,148 @@ ALTER TABLE  loan_products_entry_fees
 ALTER TABLE  loan_products_entry_fees
   ALTER COLUMN entry_fee_id TYPE BIGINT;
 
-ALTER TABLE loan_purposes
-  ALTER COLUMN parent_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loan_purposes' 
+          AND column_name = 'parent_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loan_purposes ALTER COLUMN parent_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loans
-  ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loans' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loans ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loans
-  ALTER COLUMN loan_application_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loans' 
+          AND column_name = 'loan_application_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loans ALTER COLUMN loan_application_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loans
-  ALTER COLUMN loan_officer_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loans' 
+          AND column_name = 'loan_officer_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loans ALTER COLUMN loan_officer_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loans_events
-  ALTER COLUMN loan_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loans_events' 
+          AND column_name = 'loan_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loans_events ALTER COLUMN loan_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loans_events
-  ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loans_events' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loans_events ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loans_events
-  ALTER COLUMN rolled_back_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loans_events' 
+          AND column_name = 'rolled_back_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loans_events ALTER COLUMN rolled_back_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loans_events
-  ALTER COLUMN other_fee_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loans_events' 
+          AND column_name = 'other_fee_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loans_events ALTER COLUMN other_fee_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loans_history
-  ALTER COLUMN loan_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loans_history' 
+          AND column_name = 'loan_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loans_history ALTER COLUMN loan_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loans_history
-  ALTER COLUMN event_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loans_history' 
+          AND column_name = 'event_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loans_history ALTER COLUMN event_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE loans_installments
-  ALTER COLUMN event_group_key TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'loans_installments' 
+          AND column_name = 'event_group_key'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE loans_installments ALTER COLUMN event_group_key TYPE BIGINT;
+    END IF;
+END $$;
 
 ALTER TABLE loans_installments ADD COLUMN IF NOT EXISTS accrual_start_date DATE,
     ADD COLUMN accrued_interest NUMERIC (12,2),
@@ -228,95 +838,395 @@ ALTER TABLE loans_installments ADD COLUMN IF NOT EXISTS accrual_start_date DATE,
     ADD COLUMN penalty NUMERIC (12,2),
     ADD COLUMN start_date DATE;
 
-ALTER TABLE locations
-  ALTER COLUMN parent_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'locations' 
+          AND column_name = 'parent_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE locations ALTER COLUMN parent_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE locations
-  ALTER COLUMN parent_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'locations' 
+          AND column_name = 'parent_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE locations ALTER COLUMN parent_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE other_fees
-  ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'other_fees' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE other_fees ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE other_fees
-  ALTER COLUMN charge_account_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'other_fees' 
+          AND column_name = 'charge_account_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE other_fees ALTER COLUMN charge_account_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE other_fees
-  ALTER COLUMN expense_account_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'other_fees' 
+          AND column_name = 'expense_account_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE other_fees ALTER COLUMN expense_account_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE other_fees
-  ALTER COLUMN income_account_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'other_fees' 
+          AND column_name = 'income_account_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE other_fees ALTER COLUMN income_account_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE payees_accounts
-  ALTER COLUMN payee_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'payees_accounts' 
+          AND column_name = 'payee_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE payees_accounts ALTER COLUMN payee_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE payees_accounts
-  ALTER COLUMN account_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'payees_accounts' 
+          AND column_name = 'account_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE payees_accounts ALTER COLUMN account_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE people_custom_fields_values
-  ALTER COLUMN created_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'people_custom_fields_values' 
+          AND column_name = 'created_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE people_custom_fields_values ALTER COLUMN created_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE people_custom_fields_values
-  ALTER COLUMN verified_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'people_custom_fields_values' 
+          AND column_name = 'verified_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE people_custom_fields_values ALTER COLUMN verified_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE professions
-  ALTER COLUMN parent_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'professions' 
+          AND column_name = 'parent_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE professions ALTER COLUMN parent_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE profiles
-  ALTER COLUMN branch_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'profiles' 
+          AND column_name = 'branch_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE profiles ALTER COLUMN branch_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE profiles_accounts
-  ALTER COLUMN profile_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'profiles_accounts' 
+          AND column_name = 'profile_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE profiles_accounts ALTER COLUMN profile_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE profiles_accounts
-  ALTER COLUMN account_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'profiles_accounts' 
+          AND column_name = 'account_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE profiles_accounts ALTER COLUMN account_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE roles_permissions
-  ALTER COLUMN id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'roles_permissions' 
+          AND column_name = 'id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE roles_permissions ALTER COLUMN id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE roles_permissions
-  ALTER COLUMN permission_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'roles_permissions' 
+          AND column_name = 'permission_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE roles_permissions ALTER COLUMN permission_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE roles_permissions
-  ALTER COLUMN role_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'roles_permissions' 
+          AND column_name = 'role_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE roles_permissions ALTER COLUMN role_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE task_events
-  ALTER COLUMN created_by TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'task_events' 
+          AND column_name = 'created_by'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE task_events ALTER COLUMN created_by TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE task_events_participants
-  ALTER COLUMN task_events_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'task_events_participants' 
+          AND column_name = 'task_events_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE task_events_participants ALTER COLUMN task_events_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE task_events_participants
-  ALTER COLUMN reference_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'task_events_participants' 
+          AND column_name = 'reference_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE task_events_participants ALTER COLUMN reference_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE tills
-  ALTER COLUMN last_changed_by_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'tills' 
+          AND column_name = 'last_changed_by_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE tills ALTER COLUMN last_changed_by_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE tills
-  ALTER COLUMN branch_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'tills' 
+          AND column_name = 'branch_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE tills ALTER COLUMN branch_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE tills_accounts
-  ALTER COLUMN till_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'tills_accounts' 
+          AND column_name = 'till_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE tills_accounts ALTER COLUMN till_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE tills_accounts
-  ALTER COLUMN account_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'tills_accounts' 
+          AND column_name = 'account_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE tills_accounts ALTER COLUMN account_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE users
-  ALTER COLUMN password_hash TYPE VARCHAR;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'users' 
+          AND column_name = 'password_hash'
+          AND data_type != 'character varying'
+    ) THEN
+        ALTER TABLE users ALTER COLUMN password_hash TYPE VARCHAR;
+    END IF;
+END $$;
 
-ALTER TABLE users
-  ALTER COLUMN branch_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'users' 
+          AND column_name = 'branch_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE users ALTER COLUMN branch_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE users
-  ALTER COLUMN role_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'users' 
+          AND column_name = 'role_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE users ALTER COLUMN role_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE vaults
-  ALTER COLUMN branch_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'vaults' 
+          AND column_name = 'branch_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE vaults ALTER COLUMN branch_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE vaults_accounts
-  ALTER COLUMN vault_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'vaults_accounts' 
+          AND column_name = 'vault_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE vaults_accounts ALTER COLUMN vault_id TYPE BIGINT;
+    END IF;
+END $$;
 
-ALTER TABLE vaults_accounts
-  ALTER COLUMN account_id TYPE BIGINT;
+DO $$ 
+BEGIN
+    IF EXISTS (
+        SELECT 1 
+        FROM information_schema.columns 
+        WHERE table_name = 'vaults_accounts' 
+          AND column_name = 'account_id'
+          AND data_type != 'bigint'
+    ) THEN
+        ALTER TABLE vaults_accounts ALTER COLUMN account_id TYPE BIGINT;
+    END IF;
+END $$;
 
 -- =================================
 -- Recreate view
