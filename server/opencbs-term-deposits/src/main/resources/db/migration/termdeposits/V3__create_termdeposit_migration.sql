@@ -35,4 +35,5 @@ CREATE TABLE IF NOT EXISTS term_deposit_accounting_entries (
 
 INSERT INTO global_settings
 (name, type, value)
-VALUES ('TERM_DEPOSIT_CODE_PATTERN', 'TEXT', '"TERM_DEPOSIT" + term_deposit_id')
+SELECT 'TERM_DEPOSIT_CODE_PATTERN', 'TEXT', '"TERM_DEPOSIT" + term_deposit_id'
+WHERE NOT EXISTS (SELECT 1 FROM global_settings WHERE name = 'TERM_DEPOSIT_CODE_PATTERN')

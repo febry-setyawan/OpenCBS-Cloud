@@ -7,13 +7,13 @@ CREATE TABLE IF NOT EXISTS roles_permissions (
 );
 
 alter table roles_permissions
-  add constraint roles_permissions_roles_id_fkey foreign key (role_id) references roles (id);
+  add constraint IF NOT EXISTS roles_permissions_roles_id_fkey foreign key (role_id) references roles (id);
 
 alter table roles_permissions
-  add constraint roles_permissions_permission_id_fkey foreign key (permission_id) references permissions (id);
+  add constraint IF NOT EXISTS roles_permissions_permission_id_fkey foreign key (permission_id) references permissions (id);
 
 alter table roles_permissions
-  add constraint roles_permissions_role_id_permission_id_key unique (role_id, permission_id);
+  add constraint IF NOT EXISTS roles_permissions_role_id_permission_id_key unique (role_id, permission_id);
 
 INSERT INTO roles_permissions (role_id, permission_id)
 SELECT 1, 1 WHERE NOT EXISTS (SELECT 1 FROM roles_permissions WHERE role_id = 1 AND permission_id = 1)

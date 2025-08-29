@@ -6,12 +6,12 @@ CREATE TABLE IF NOT EXISTS profiles_accounts (
 );
 
 alter table profiles_accounts
-  add constraint profiles_accounts_profile_id_fkey foreign key (profile_id) references profiles (id);
+  add constraint IF NOT EXISTS profiles_accounts_profile_id_fkey foreign key (profile_id) references profiles (id);
 alter table profiles_accounts
-  add constraint profiles_accounts_account_id_fkey foreign key (account_id) references accounts (id);
+  add constraint IF NOT EXISTS profiles_accounts_account_id_fkey foreign key (account_id) references accounts (id);
 
 --alter table accounts drop constraint accounts_currency_id_fkey;
-alter table accounts add constraint accounts_number_key unique(number);
+alter table accounts add constraint IF NOT EXISTS accounts_number_key unique(number);
 
 INSERT INTO accounts (number, "name", is_debit, parent_id, start_date, close_date, "type", lft, rgt, currency_id)
   SELECT '2000', 'Liability Accounts', false , null, '2017-01-01', null, 1, 0, 0, null

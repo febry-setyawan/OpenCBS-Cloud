@@ -1,5 +1,5 @@
 ALTER TABLE tills
-  DROP COLUMN status,
-  DROP COLUMN changed_by_id,
-  DROP COLUMN open_date,
-  DROP COLUMN close_date;
+  DROP COLUMN IF EXISTS status,
+  DROP COLUMN IF EXISTS changed_by_id,
+  DROP COLUMN IF EXISTS open_date,
+  DROP COLUMN IF EXISTS close_date;

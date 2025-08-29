@@ -5,7 +5,7 @@ CREATE TABLE IF NOT EXISTS events (
   created_by_id INTEGER      NOT NULL
 );
 ALTER TABLE events
-  ADD CONSTRAINT events_created_by_id_fkey FOREIGN KEY (created_by_id) REFERENCES users (id) MATCH FULL;
+  ADD CONSTRAINT IF NOT EXISTS events_created_by_id_fkey FOREIGN KEY (created_by_id) REFERENCES users (id) MATCH FULL;
 
 CREATE TABLE IF NOT EXISTS transactions (
   id               BIGSERIAL PRIMARY KEY,
@@ -14,4 +14,4 @@ CREATE TABLE IF NOT EXISTS transactions (
   amount           DECIMAL(12, 4)
 );
 ALTER TABLE transactions
-  ADD CONSTRAINT transactions_event_id_fkey FOREIGN KEY (event_id) REFERENCES events (id) MATCH FULL;
+  ADD CONSTRAINT IF NOT EXISTS transactions_event_id_fkey FOREIGN KEY (event_id) REFERENCES events (id) MATCH FULL;
