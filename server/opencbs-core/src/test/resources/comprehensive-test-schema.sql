@@ -70,9 +70,13 @@ CREATE TABLE IF NOT EXISTS profiles (
     id BIGSERIAL PRIMARY KEY,
     type VARCHAR(50) NOT NULL,
     name VARCHAR(255) NOT NULL,
+    status VARCHAR(50) NOT NULL DEFAULT 'LIVE',
+    version INTEGER DEFAULT 1,
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by_id BIGINT,
-    branch_id BIGINT
+    branch_id BIGINT,
+    CONSTRAINT fk_profiles_branch FOREIGN KEY (branch_id) REFERENCES branches(id),
+    CONSTRAINT fk_profiles_created_by FOREIGN KEY (created_by_id) REFERENCES users(id)
 );
 
 -- Create accounts table (for financial operations)
@@ -503,4 +507,407 @@ CREATE TABLE IF NOT EXISTS audit.people_custom_fields_values_history (
     value TEXT,
     CONSTRAINT people_custom_fields_values_history_pkey PRIMARY KEY (id, rev),
     CONSTRAINT fk_people_custom_fields_values_rev FOREIGN KEY (rev) REFERENCES audit.revinfo(rev)
+);
+
+-- Additional core tables needed for tests
+
+-- Business Sectors table (tree-like structure)
+CREATE TABLE IF NOT EXISTS business_sectors (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    parent_id BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_business_sectors_parent FOREIGN KEY (parent_id) REFERENCES business_sectors(id)
+);
+
+-- Locations table (tree-like structure)
+CREATE TABLE IF NOT EXISTS locations (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    parent_id BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_locations_parent FOREIGN KEY (parent_id) REFERENCES locations(id)
+);
+
+-- Holidays table
+CREATE TABLE IF NOT EXISTS holidays (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    date DATE NOT NULL,
+    annual BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+-- Global Settings table
+CREATE TABLE IF NOT EXISTS global_settings (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    type VARCHAR(50) NOT NULL,
+    value TEXT,
+    description VARCHAR(500),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+-- User Sessions table
+CREATE TABLE IF NOT EXISTS user_sessions (
+    id BIGSERIAL PRIMARY KEY,
+    user_id BIGINT NOT NULL,
+    session_id VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    expires_at TIMESTAMP,
+    active BOOLEAN DEFAULT true,
+    ip_address VARCHAR(45),
+    user_agent TEXT,
+    CONSTRAINT fk_user_sessions_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Payment Methods table
+CREATE TABLE IF NOT EXISTS payment_methods (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    parent_id BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_payment_methods_parent FOREIGN KEY (parent_id) REFERENCES payment_methods(id)
+);
+
+-- Relationships table
+CREATE TABLE IF NOT EXISTS relationships (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+-- Accounting entries table
+CREATE TABLE IF NOT EXISTS accounting_entries (
+    id BIGSERIAL PRIMARY KEY,
+    number BIGINT UNIQUE NOT NULL,
+    amount DECIMAL(19,2) NOT NULL,
+    description VARCHAR(500),
+    created_date DATE NOT NULL,
+    effective_date DATE NOT NULL,
+    created_by_id BIGINT NOT NULL,
+    branch_id BIGINT,
+    deleted BOOLEAN DEFAULT false,
+    CONSTRAINT fk_accounting_entries_user FOREIGN KEY (created_by_id) REFERENCES users(id),
+    CONSTRAINT fk_accounting_entries_branch FOREIGN KEY (branch_id) REFERENCES branches(id)
+);
+
+-- Account balances table
+CREATE TABLE IF NOT EXISTS account_balances (
+    id BIGSERIAL PRIMARY KEY,
+    account_id BIGINT NOT NULL,
+    date DATE NOT NULL,
+    balance DECIMAL(19,2) NOT NULL DEFAULT 0,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_account_balances_account FOREIGN KEY (account_id) REFERENCES accounts(id),
+    UNIQUE(account_id, date)
+);
+
+-- Till/vault related tables
+CREATE TABLE IF NOT EXISTS vaults (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    branch_id BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_vaults_branch FOREIGN KEY (branch_id) REFERENCES branches(id)
+);
+
+CREATE TABLE IF NOT EXISTS tills (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    vault_id BIGINT,
+    branch_id BIGINT,
+    user_id BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_tills_vault FOREIGN KEY (vault_id) REFERENCES vaults(id),
+    CONSTRAINT fk_tills_branch FOREIGN KEY (branch_id) REFERENCES branches(id),
+    CONSTRAINT fk_tills_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Till events table
+CREATE TABLE IF NOT EXISTS till_events (
+    id BIGSERIAL PRIMARY KEY,
+    till_id BIGINT NOT NULL,
+    event_type VARCHAR(100) NOT NULL,
+    amount DECIMAL(19,2),
+    description TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_till_events_till FOREIGN KEY (till_id) REFERENCES tills(id)
+);
+
+-- System settings table
+CREATE TABLE IF NOT EXISTS system_settings (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) UNIQUE NOT NULL,
+    value TEXT,
+    description VARCHAR(500),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+-- Other fees table
+CREATE TABLE IF NOT EXISTS other_fees (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    percentage DECIMAL(5,2),
+    min_value DECIMAL(19,2),
+    max_value DECIMAL(19,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+-- Entry fees table
+CREATE TABLE IF NOT EXISTS entry_fees (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    amount DECIMAL(19,2),
+    percentage DECIMAL(5,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+-- Penalties table
+CREATE TABLE IF NOT EXISTS penalties (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    penalty_type VARCHAR(50),
+    amount DECIMAL(19,2),
+    percentage DECIMAL(5,2),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+-- Exchange rates table
+CREATE TABLE IF NOT EXISTS exchange_rates (
+    id BIGSERIAL PRIMARY KEY,
+    currency_id BIGINT NOT NULL,
+    buy_rate DECIMAL(10,4),
+    sell_rate DECIMAL(10,4),
+    date DATE NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_exchange_rates_currency FOREIGN KEY (currency_id) REFERENCES currencies(id)
+);
+
+-- Day closures table
+CREATE TABLE IF NOT EXISTS day_closures (
+    id BIGSERIAL PRIMARY KEY,
+    date DATE UNIQUE NOT NULL,
+    closed BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+-- Task events table
+CREATE TABLE IF NOT EXISTS task_events (
+    id BIGSERIAL PRIMARY KEY,
+    event_type VARCHAR(100) NOT NULL,
+    description TEXT,
+    installment_datetime TIMESTAMP,
+    grouped BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+-- Task events participants table  
+CREATE TABLE IF NOT EXISTS task_events_participants (
+    id BIGSERIAL PRIMARY KEY,
+    task_event_id BIGINT NOT NULL,
+    user_id BIGINT,
+    type VARCHAR(50),
+    CONSTRAINT fk_task_events_participants_task FOREIGN KEY (task_event_id) REFERENCES task_events(id),
+    CONSTRAINT fk_task_events_participants_user FOREIGN KEY (user_id) REFERENCES users(id)
+);
+
+-- Messages table
+CREATE TABLE IF NOT EXISTS messages (
+    id BIGSERIAL PRIMARY KEY,
+    subject VARCHAR(255),
+    content TEXT,
+    sender_id BIGINT,
+    recipient_id BIGINT,
+    read BOOLEAN DEFAULT false,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_messages_sender FOREIGN KEY (sender_id) REFERENCES users(id),
+    CONSTRAINT fk_messages_recipient FOREIGN KEY (recipient_id) REFERENCES users(id)
+);
+
+-- Profiles accounts mapping table
+CREATE TABLE IF NOT EXISTS profiles_accounts (
+    profile_id BIGINT NOT NULL,
+    account_id BIGINT NOT NULL,
+    PRIMARY KEY (profile_id, account_id),
+    CONSTRAINT fk_profiles_accounts_profile FOREIGN KEY (profile_id) REFERENCES profiles(id),
+    CONSTRAINT fk_profiles_accounts_account FOREIGN KEY (account_id) REFERENCES accounts(id)
+);
+
+-- Transaction templates table
+CREATE TABLE IF NOT EXISTS transaction_template (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    description VARCHAR(500),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+-- Transaction template accounts table
+CREATE TABLE IF NOT EXISTS transaction_template_accounts (
+    id BIGSERIAL PRIMARY KEY,
+    template_id BIGINT NOT NULL,
+    account_id BIGINT NOT NULL,
+    is_debit BOOLEAN NOT NULL,
+    CONSTRAINT fk_template_accounts_template FOREIGN KEY (template_id) REFERENCES transaction_template(id),
+    CONSTRAINT fk_template_accounts_account FOREIGN KEY (account_id) REFERENCES accounts(id)
+);
+
+-- Checker request table (for approval workflows)
+CREATE TABLE IF NOT EXISTS checker_request (
+    id BIGSERIAL PRIMARY KEY,
+    action VARCHAR(100) NOT NULL,
+    content TEXT,
+    status VARCHAR(50) DEFAULT 'PENDING',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    reviewed_at TIMESTAMP,
+    reviewed_by_id BIGINT,
+    CONSTRAINT fk_checker_request_creator FOREIGN KEY (created_by_id) REFERENCES users(id),
+    CONSTRAINT fk_checker_request_reviewer FOREIGN KEY (reviewed_by_id) REFERENCES users(id)
+);
+
+-- Request table (general requests)
+CREATE TABLE IF NOT EXISTS request (
+    id BIGSERIAL PRIMARY KEY,
+    type VARCHAR(100) NOT NULL,
+    content TEXT,
+    status VARCHAR(50) DEFAULT 'PENDING',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_request_creator FOREIGN KEY (created_by_id) REFERENCES users(id)
+);
+
+-- Searchable profiles table
+CREATE TABLE IF NOT EXISTS searchable_profiles (
+    id BIGSERIAL PRIMARY KEY,
+    profile_id BIGINT NOT NULL,
+    search_text TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_searchable_profiles_profile FOREIGN KEY (profile_id) REFERENCES profiles(id)
+);
+
+-- Company/Group member tables  
+CREATE TABLE IF NOT EXISTS companies_members (
+    id BIGSERIAL PRIMARY KEY,
+    company_id BIGINT NOT NULL,
+    person_id BIGINT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_companies_members_company FOREIGN KEY (company_id) REFERENCES profiles(id),
+    CONSTRAINT fk_companies_members_person FOREIGN KEY (person_id) REFERENCES profiles(id)
+);
+
+CREATE TABLE IF NOT EXISTS groups_members (
+    id BIGSERIAL PRIMARY KEY,
+    group_id BIGINT NOT NULL,
+    person_id BIGINT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT fk_groups_members_group FOREIGN KEY (group_id) REFERENCES profiles(id),
+    CONSTRAINT fk_groups_members_person FOREIGN KEY (person_id) REFERENCES profiles(id)
+);
+
+-- Attachment tables
+CREATE TABLE IF NOT EXISTS people_attachments (
+    id BIGSERIAL PRIMARY KEY,
+    owner_id BIGINT NOT NULL,
+    filename VARCHAR(255) NOT NULL,
+    content_type VARCHAR(100),
+    file_size BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_people_attachments_owner FOREIGN KEY (owner_id) REFERENCES profiles(id)
+);
+
+CREATE TABLE IF NOT EXISTS companies_attachments (
+    id BIGSERIAL PRIMARY KEY,
+    owner_id BIGINT NOT NULL,
+    filename VARCHAR(255) NOT NULL,
+    content_type VARCHAR(100),
+    file_size BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_companies_attachments_owner FOREIGN KEY (owner_id) REFERENCES profiles(id)
+);
+
+CREATE TABLE IF NOT EXISTS groups_attachments (
+    id BIGSERIAL PRIMARY KEY,
+    owner_id BIGINT NOT NULL,
+    filename VARCHAR(255) NOT NULL,
+    content_type VARCHAR(100),
+    file_size BIGINT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_groups_attachments_owner FOREIGN KEY (owner_id) REFERENCES profiles(id)
+);
+
+-- Group custom fields (similar to people and companies)
+CREATE TABLE IF NOT EXISTS groups_custom_fields_sections (
+    id BIGSERIAL PRIMARY KEY,
+    caption VARCHAR(255) NOT NULL,
+    "order" INTEGER,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT
+);
+
+CREATE TABLE IF NOT EXISTS groups_custom_fields (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    caption VARCHAR(255) NOT NULL,
+    field_type VARCHAR(50) NOT NULL,
+    section_id BIGINT,
+    "order" INTEGER,
+    required BOOLEAN DEFAULT false,
+    unique_constraint BOOLEAN DEFAULT false,
+    extra TEXT,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    created_by_id BIGINT,
+    CONSTRAINT fk_groups_custom_fields_section FOREIGN KEY (section_id) REFERENCES groups_custom_fields_sections(id)
+);
+
+CREATE TABLE IF NOT EXISTS groups_custom_fields_values (
+    id BIGSERIAL PRIMARY KEY,
+    owner_id BIGINT NOT NULL,
+    field_id BIGINT NOT NULL,
+    value TEXT,
+    CONSTRAINT fk_groups_custom_fields_values_owner FOREIGN KEY (owner_id) REFERENCES profiles(id),
+    CONSTRAINT fk_groups_custom_fields_values_field FOREIGN KEY (field_id) REFERENCES groups_custom_fields(id)
+);
+
+-- Views for compatibility
+CREATE OR REPLACE VIEW view_operation AS
+SELECT 
+    id,
+    'TILL' as type,
+    amount,
+    created_at as datetime,
+    created_by_id as user_id
+FROM till_events;
+
+CREATE OR REPLACE VIEW view_task_event_participants AS
+SELECT 
+    tep.id,
+    tep.task_event_id,
+    tep.user_id,
+    tep.type,
+    u.username,
+    u.first_name,
+    u.last_name
+FROM task_events_participants tep
+LEFT JOIN users u ON u.id = tep.user_id
 );
