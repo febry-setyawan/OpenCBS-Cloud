@@ -1,4 +1,4 @@
-drop function get_loan_schedule( bigint, timestamp without time zone );
+drop function if exists get_loan_schedule( bigint, timestamp without time zone );
 
 create function get_loan_schedule(bigint, timestamp without time zone)
   returns table(id bigint, number integer, loan_id bigint, start_date date, maturity_date date, accrual_start_date date, last_accrual_date date, effective_at timestamp without time zone, penalty numeric, paid_penalty numeric, interest numeric, accrued_interest numeric, paid_interest numeric, principal numeric, paid_principal numeric, olb numeric, event_group_key integer, deleted boolean, rescheduled boolean)

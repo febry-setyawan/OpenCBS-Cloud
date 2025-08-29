@@ -1,14 +1,37 @@
 begin;
 
-delete from accounting_entries;
-alter sequence accounting_entries_id_seq restart;
+-- WARNING: This migration was originally destructive and deleted all accounting data.
+-- Now made idempotent with proper existence checks.
+-- Only delete data if this is a fresh installation (no existing accounting entries with meaningful data)
 
-delete from profiles_accounts;
-delete from tills_accounts;
-delete from vaults_accounts;
-
-delete from accounts;
-alter sequence accounts_id_seq restart;
+-- Check if this appears to be a fresh installation
+DO $$
+DECLARE
+    entry_count integer;
+    account_count integer;
+BEGIN
+    SELECT COUNT(*) INTO entry_count FROM accounting_entries;
+    SELECT COUNT(*) INTO account_count FROM accounts WHERE number NOT LIKE 'TEMP%';
+    
+    -- Only proceed with cleanup if this looks like a test/development environment
+    -- with minimal or test data (less than 100 entries and no production accounts)
+    IF entry_count < 100 AND account_count < 10 THEN
+        DELETE FROM accounting_entries;
+        ALTER SEQUENCE accounting_entries_id_seq RESTART;
+        
+        DELETE FROM profiles_accounts;
+        DELETE FROM tills_accounts WHERE EXISTS (SELECT 1 FROM tills_accounts);
+        DELETE FROM vaults_accounts WHERE EXISTS (SELECT 1 FROM vaults_accounts);
+        
+        DELETE FROM accounts;
+        ALTER SEQUENCE accounts_id_seq RESTART;
+        
+        RAISE NOTICE 'Chart of accounts reset completed - appeared to be development environment';
+    ELSE
+        RAISE NOTICE 'Skipping destructive operations - production data detected. Entry count: %, Account count: %', entry_count, account_count;
+    END IF;
+END
+$$;
 
 update
 	global_settings
