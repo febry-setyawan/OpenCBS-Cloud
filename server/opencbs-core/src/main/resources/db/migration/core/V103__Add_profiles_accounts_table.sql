@@ -5,13 +5,44 @@ CREATE TABLE IF NOT EXISTS profiles_accounts (
   account_id int not null
 );
 
-alter table profiles_accounts
-  add constraint IF NOT EXISTS profiles_accounts_profile_id_fkey foreign key (profile_id) references profiles (id);
-alter table profiles_accounts
-  add constraint IF NOT EXISTS profiles_accounts_account_id_fkey foreign key (account_id) references accounts (id);
+-- Use DO blocks to conditionally add constraints if they don't exist
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.table_constraints 
+        WHERE constraint_name = 'profiles_accounts_profile_id_fkey'
+        AND table_name = 'profiles_accounts'
+    ) THEN
+        ALTER TABLE profiles_accounts 
+        ADD CONSTRAINT profiles_accounts_profile_id_fkey 
+        FOREIGN KEY (profile_id) REFERENCES profiles (id);
+    END IF;
+END $$;
+
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.table_constraints 
+        WHERE constraint_name = 'profiles_accounts_account_id_fkey'
+        AND table_name = 'profiles_accounts'
+    ) THEN
+        ALTER TABLE profiles_accounts 
+        ADD CONSTRAINT profiles_accounts_account_id_fkey 
+        FOREIGN KEY (account_id) REFERENCES accounts (id);
+    END IF;
+END $$;
 
 --alter table accounts drop constraint accounts_currency_id_fkey;
-alter table accounts add constraint IF NOT EXISTS accounts_number_key unique(number);
+DO $$
+BEGIN
+    IF NOT EXISTS (
+        SELECT 1 FROM information_schema.table_constraints 
+        WHERE constraint_name = 'accounts_number_key'
+        AND table_name = 'accounts'
+    ) THEN
+        ALTER TABLE accounts ADD CONSTRAINT accounts_number_key UNIQUE(number);
+    END IF;
+END $$;
 
 INSERT INTO accounts (number, "name", is_debit, parent_id, start_date, close_date, "type", lft, rgt, currency_id)
   SELECT '2000', 'Liability Accounts', false , null, '2017-01-01', null, 1, 0, 0, null

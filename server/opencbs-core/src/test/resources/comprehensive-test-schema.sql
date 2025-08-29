@@ -468,46 +468,38 @@ add constraint branch_custom_fields_values_verified_by_id_fkey
 foreign key (verified_by_id)
 references users(id);
 
--- Create audit schema for Hibernate Envers
-CREATE SCHEMA IF NOT EXISTS audit;
+-- Audit schema is disabled for tests to avoid PostgreSQL compatibility issues
+-- CREATE SCHEMA IF NOT EXISTS audit;
 
-CREATE SEQUENCE IF NOT EXISTS audit.hibernate_sequence START 1;
+-- Audit tables disabled for tests
+-- CREATE TABLE IF NOT EXISTS audit.people_custom_fields_history (
+--     id BIGINT NOT NULL,
+--     rev INTEGER NOT NULL,
+--     revtype SMALLINT,
+--     section_id BIGINT,
+--     name VARCHAR(255),
+--     field_type VARCHAR(31),
+--     caption VARCHAR(255),
+--     description VARCHAR(255),
+--     is_unique BOOLEAN,
+--     is_required BOOLEAN,
+--     "order" INTEGER,
+--     extra TEXT,
+--     deleted BOOLEAN,
+--     CONSTRAINT people_custom_fields_history_pkey PRIMARY KEY (id, rev),
+--     CONSTRAINT fk_people_custom_fields_rev FOREIGN KEY (rev) REFERENCES audit.revinfo(rev)
+-- );
 
-CREATE TABLE IF NOT EXISTS audit.revinfo (
-    rev INTEGER NOT NULL PRIMARY KEY,
-    revtstmp BIGINT,
-    username VARCHAR(255) NOT NULL
-);
-
--- Create audit history tables for custom fields
-CREATE TABLE IF NOT EXISTS audit.people_custom_fields_history (
-    id BIGINT NOT NULL,
-    rev INTEGER NOT NULL,
-    revtype SMALLINT,
-    section_id BIGINT,
-    name VARCHAR(255),
-    field_type VARCHAR(31),
-    caption VARCHAR(255),
-    description VARCHAR(255),
-    is_unique BOOLEAN,
-    is_required BOOLEAN,
-    "order" INTEGER,
-    extra TEXT,
-    deleted BOOLEAN,
-    CONSTRAINT people_custom_fields_history_pkey PRIMARY KEY (id, rev),
-    CONSTRAINT fk_people_custom_fields_rev FOREIGN KEY (rev) REFERENCES audit.revinfo(rev)
-);
-
-CREATE TABLE IF NOT EXISTS audit.people_custom_fields_values_history (
-    id BIGINT NOT NULL,
-    rev INTEGER NOT NULL,
-    revtype SMALLINT,
-    owner_id BIGINT,
-    field_id BIGINT,
-    value TEXT,
-    CONSTRAINT people_custom_fields_values_history_pkey PRIMARY KEY (id, rev),
-    CONSTRAINT fk_people_custom_fields_values_rev FOREIGN KEY (rev) REFERENCES audit.revinfo(rev)
-);
+-- CREATE TABLE IF NOT EXISTS audit.people_custom_fields_values_history (
+--     id BIGINT NOT NULL,
+--     rev INTEGER NOT NULL,
+--     revtype SMALLINT,
+--     owner_id BIGINT,
+--     field_id BIGINT,
+--     value TEXT,
+--     CONSTRAINT people_custom_fields_values_history_pkey PRIMARY KEY (id, rev),
+--     CONSTRAINT fk_people_custom_fields_values_rev FOREIGN KEY (rev) REFERENCES audit.revinfo(rev)
+-- );
 
 -- Additional core tables needed for tests
 
