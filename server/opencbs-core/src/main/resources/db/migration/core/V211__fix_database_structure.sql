@@ -321,7 +321,7 @@ ALTER TABLE vaults_accounts
 -- =================================
 -- Recreate view
 -- =================================
-create view searchable_profiles as
+CREATE OR REPLACE VIEW searchable_profiles AS
    SELECT p.id,
     p.name,
     p.type,
