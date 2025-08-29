@@ -1,4 +1,4 @@
-create table borrowings (
+create table if not exists borrowings (
   id                           bigserial            primary key,
   code                         varchar(100)            not null,
   amount                       numeric(12, 2)          not null,

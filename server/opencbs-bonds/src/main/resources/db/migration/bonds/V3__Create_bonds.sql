@@ -1,4 +1,4 @@
-create table bonds (
+create table if not exists bonds (
   id                  bigserial           primary key,
   isin                varchar(32)         not null unique,
   number              integer             not null,

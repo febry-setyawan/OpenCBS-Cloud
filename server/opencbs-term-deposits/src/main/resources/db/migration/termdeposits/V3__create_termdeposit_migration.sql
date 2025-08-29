@@ -1,4 +1,4 @@
-CREATE TABLE term_deposits (
+CREATE TABLE if not exists term_deposits (
   id                         BIGSERIAL PRIMARY KEY,
   code                       VARCHAR(32)   NOT NULL,
   profile_id                 BIGINT        NOT NULL REFERENCES profiles (id),

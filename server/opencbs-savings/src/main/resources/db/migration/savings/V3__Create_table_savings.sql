@@ -1,4 +1,4 @@
-create table savings (
+create table if not exists savings (
     id                         bigserial primary key,
     code                       varchar(32)    not null,
     profile_id                 int            not null references profiles (id),

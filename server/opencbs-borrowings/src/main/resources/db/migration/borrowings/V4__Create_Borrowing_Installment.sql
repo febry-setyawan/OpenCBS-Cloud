@@ -1,4 +1,4 @@
-create table borrowings_installments (
+create table if not exists borrowings_installments (
   id                           bigserial             primary key,
   borrowing_id                 bigint                   not null,
   number                       integer                  not null,
@@ -29,4 +29,5 @@ foreign key (borrowing_product_id)
 
 insert into global_settings
   (name, type, value)
-values ('BORROWING_CODE_PATTERN', 'TEXT', '"Borrowing" + borrowing_id')
+select 'BORROWING_CODE_PATTERN', 'TEXT', '"Borrowing" + borrowing_id'
+where not exists (select 1 from global_settings where name = 'BORROWING_CODE_PATTERN');

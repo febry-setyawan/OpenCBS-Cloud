@@ -1,4 +1,4 @@
-create table loans_events_accounting_entries (
+create table if not exists loans_events_accounting_entries (
   id                    bigserial      primary key,
   loan_event_id         bigint         not null,
   accounting_entry_id   bigint         not null,
