@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table business_sectors (
+CREATE TABLE IF NOT EXISTS business_sectors (
   id bigserial primary key,
   name varchar(255) not null,
   parent_id int null

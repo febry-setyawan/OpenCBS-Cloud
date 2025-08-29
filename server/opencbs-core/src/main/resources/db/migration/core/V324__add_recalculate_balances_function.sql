@@ -4,7 +4,7 @@ declare
 begin
     RAISE NOTICE 'Recalculate date: %', _date_time;
     drop table if exists etalon_balances;
-    create table etalon_balances as (
+    CREATE TABLE IF NOT EXISTS etalon_balances as (
         select a.id account_id, b balance from accounts a,
                                                lateral get_balance( a.id, _date_time ) b
     );

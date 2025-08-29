@@ -1,4 +1,4 @@
-create table credit_committee_roles (
+CREATE TABLE IF NOT EXISTS credit_committee_roles (
     id bigserial primary key,
     credit_committee_amount_range_id integer not null,
     role_id integer not null

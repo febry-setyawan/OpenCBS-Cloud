@@ -1,1 +1,1 @@
-alter table request add column contract_type varchar(255);
+ALTER TABLE request ADD COLUMN IF NOT EXISTS contract_type varchar(255);

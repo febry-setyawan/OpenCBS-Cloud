@@ -1,4 +1,4 @@
-create table bonds_installments (
+CREATE TABLE IF NOT EXISTS bonds_installments (
   id                           bigserial             primary key,
   bonds_id                     bigint                   not null,
   number                       integer                  not null,
@@ -17,6 +17,6 @@ create table bonds_installments (
   foreign key (bonds_id)   references bonds(id)
 );
 
-insert into global_settings
-(name, type, value)
-values ('BONDS_CODE_PATTERN', 'TEXT', '"Bonds" + bonds_id')
+INSERT INTO global_settings (name, type, value)
+SELECT 'BONDS_CODE_PATTERN', 'TEXT', '"Bonds" + bonds_id'
+WHERE NOT EXISTS (SELECT 1 FROM global_settings WHERE name = 'BONDS_CODE_PATTERN')

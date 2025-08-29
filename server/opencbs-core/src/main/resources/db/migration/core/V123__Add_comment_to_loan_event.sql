@@ -1,2 +1,1 @@
-alter table loans_events
-    add column comment varchar(255);
+ALTER TABLE loans_events ADD COLUMN IF NOT EXISTS comment varchar(255);

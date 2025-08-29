@@ -1,4 +1,4 @@
-create table payment_methods (
+CREATE TABLE IF NOT EXISTS payment_methods (
     id          bigserial         primary key,
     name        varchar(255)      not null,
     parent_id   bigint            null

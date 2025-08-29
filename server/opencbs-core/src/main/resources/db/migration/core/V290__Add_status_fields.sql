@@ -1,2 +1,2 @@
-alter table loan_products add column status varchar(10) default 'ACTIVE';
-alter table audit.loan_products_history add column status varchar(10) default 'ACTIVE'
+ALTER TABLE loan_products ADD COLUMN IF NOT EXISTS status varchar(10) default 'ACTIVE';
+ALTER TABLE audit.loan_products_history ADD COLUMN IF NOT EXISTS status varchar(10) default 'ACTIVE'

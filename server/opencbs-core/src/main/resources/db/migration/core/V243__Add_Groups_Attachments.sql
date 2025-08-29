@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table groups_attachments (
+CREATE TABLE IF NOT EXISTS groups_attachments (
   id                bigserial       primary key,
   owner_id          bigint          not null,
   filename          varchar (255)   not null,

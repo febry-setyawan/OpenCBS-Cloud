@@ -1,5 +1,4 @@
-alter table transactions
-  add column installment_number integer;
+ALTER TABLE transactions ADD COLUMN IF NOT EXISTS installment_number integer;
 
 alter table loan_applications
   alter column amount type decimal(12, 2);

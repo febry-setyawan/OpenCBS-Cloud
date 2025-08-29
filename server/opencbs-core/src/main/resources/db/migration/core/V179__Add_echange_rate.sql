@@ -1,4 +1,4 @@
-create table exchange_rates (
+CREATE TABLE IF NOT EXISTS exchange_rates (
   id bigserial primary key,
   rate decimal(14,4),
   from_currency_id int not null,

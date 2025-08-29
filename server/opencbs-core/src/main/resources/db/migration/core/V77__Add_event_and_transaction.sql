@@ -1,4 +1,4 @@
-CREATE TABLE events (
+CREATE TABLE IF NOT EXISTS events (
   id            BIGSERIAL PRIMARY KEY,
   event_type    VARCHAR(200) NOT NULL,
   created_at    TIMESTAMP    NOT NULL,
@@ -7,7 +7,7 @@ CREATE TABLE events (
 ALTER TABLE events
   ADD CONSTRAINT events_created_by_id_fkey FOREIGN KEY (created_by_id) REFERENCES users (id) MATCH FULL;
 
-CREATE TABLE transactions (
+CREATE TABLE IF NOT EXISTS transactions (
   id               BIGSERIAL PRIMARY KEY,
   event_id         INTEGER      NOT NULL,
   transaction_type VARCHAR(200) NOT NULL,

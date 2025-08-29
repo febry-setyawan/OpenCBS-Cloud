@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table collaterals (
+CREATE TABLE IF NOT EXISTS collaterals (
   id            bigserial primary key,
   name          varchar(255) not null,
   created_by_id bigint       not null

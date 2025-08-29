@@ -1,4 +1,4 @@
-create table accounting_entries_logs (
+CREATE TABLE IF NOT EXISTS accounting_entries_logs (
   id                  bigserial primary key,
   accounting_entry_id bigint    not null references accounting_entries(id),
   effective_date      TIMESTAMP not null,

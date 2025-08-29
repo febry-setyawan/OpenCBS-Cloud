@@ -1,4 +1,4 @@
-create table loan_products (
+CREATE TABLE IF NOT EXISTS loan_products (
   id bigserial primary key,
   name varchar(200) not null unique,
   currency_id integer not null,
@@ -14,7 +14,7 @@ create table loan_products (
   penalty_type varchar(255) not null
 );
 
-create table availabilities (
+CREATE TABLE IF NOT EXISTS availabilities (
   availability_id integer not null,
   availability varchar(250) not null
 );

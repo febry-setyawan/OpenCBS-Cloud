@@ -1,12 +1,10 @@
-alter table bonds_product
-add column penalty_rate_min decimal(16, 4),
-add column penalty_rate_max decimal(16, 4);
+ALTER TABLE bonds_product ADD COLUMN IF NOT EXISTS penalty_rate_min decimal(16, 4), ADD COLUMN IF NOT EXISTS penalty_rate_max decimal(16, 4);
 
 update bonds_product
 set penalty_rate_min = 1, penalty_rate_max = 100
 where id = 1;
 
-alter table bonds add column penalty_rate decimal(16, 4) not null default 0;
+ALTER TABLE bonds ADD COLUMN IF NOT EXISTS penalty_rate decimal(16, 4) not null default 0;
 
 update bonds
 set penalty_rate = 10

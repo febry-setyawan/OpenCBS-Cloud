@@ -1,17 +1,16 @@
-alter table loans_events
-    add column roled_back_by_id integer,
+ALTER TABLE loans_events ADD COLUMN IF NOT EXISTS roled_back_by_id integer,
     add column rolled_back_date timestamp;
 alter table loans_events
   add constraint loans_events_roled_back_by_id_fkey foreign key (roled_back_by_id) references users (id);
 
-alter table loans_installments
-    add column deleted boolean;
+ALTER TABLE loans_installments ADD COLUMN IF NOT EXISTS deleted boolean;
 
 
 -- noinspection SqlNoDataSourceInspectionForFile
 
 drop function if exists get_loan_schedule(bigint, timestamp without time zone);
 
+DROP function IF EXISTS get_loan_schedule;
 create function get_loan_schedule(bigint, timestamp without time zone)
   returns table (
     id bigint

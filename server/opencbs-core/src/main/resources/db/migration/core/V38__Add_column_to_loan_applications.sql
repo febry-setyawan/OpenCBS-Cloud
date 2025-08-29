@@ -1,2 +1,2 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-alter table loan_applications add column interest_rate decimal(8, 4) not null;
+ALTER TABLE loan_applications ADD COLUMN IF NOT EXISTS interest_rate decimal(8, 4) not null;

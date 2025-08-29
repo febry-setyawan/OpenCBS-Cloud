@@ -1,7 +1,6 @@
 drop function get_active_loan(bigint, timestamp without time zone);
 
-alter table analytics_active_loans
-  add column next_repayment_id bigint;
+ALTER TABLE analytics_active_loans ADD COLUMN IF NOT EXISTS next_repayment_id bigint;
 
 create or replace function get_active_loan(bigint, timestamp without time zone) returns TABLE(loan_id bigint, disbursement_date date, planned_close_date date, close_date timestamp without time zone, profile_id integer, profile_name character varying, profile_type character varying, loan_product_id integer, loan_product_name character varying, loan_products_currency_id integer, loan_products_currency_name character varying, loan_purpose_id integer, loan_purpose_name character varying, loan_officer_id integer, loan_officer_name character varying, branch_id bigint, branch_name character varying, branch_code character varying, address text, interest_rate numeric, interest numeric, principal numeric, olb numeric, late_principal numeric, late_interest numeric, interest_due numeric, penalty_due numeric, late_days integer, next_repayment_id bigint)
 language sql

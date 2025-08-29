@@ -1,7 +1,7 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 drop table if exists roles_permissions;
 
-create table roles_permissions (
+CREATE TABLE IF NOT EXISTS roles_permissions (
   role_id       int not null,
   permission_id int not null
 );
@@ -15,9 +15,11 @@ alter table roles_permissions
 alter table roles_permissions
   add constraint roles_permissions_role_id_permission_id_key unique (role_id, permission_id);
 
-insert into roles_permissions (role_id, permission_id)
-values
-  (1, 1),
-  (1, 2),
-  (1, 3),
-  (1, 4);
+INSERT INTO roles_permissions (role_id, permission_id)
+SELECT 1, 1 WHERE NOT EXISTS (SELECT 1 FROM roles_permissions WHERE role_id = 1 AND permission_id = 1)
+UNION ALL
+SELECT 1, 2 WHERE NOT EXISTS (SELECT 1 FROM roles_permissions WHERE role_id = 1 AND permission_id = 2)
+UNION ALL
+SELECT 1, 3 WHERE NOT EXISTS (SELECT 1 FROM roles_permissions WHERE role_id = 1 AND permission_id = 3)
+UNION ALL
+SELECT 1, 4 WHERE NOT EXISTS (SELECT 1 FROM roles_permissions WHERE role_id = 1 AND permission_id = 4);

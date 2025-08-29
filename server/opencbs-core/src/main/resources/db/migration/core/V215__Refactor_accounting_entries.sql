@@ -1,4 +1,4 @@
-create table accounting_entries_tills (
+CREATE TABLE IF NOT EXISTS accounting_entries_tills (
     id                    bigserial primary key,
     accounting_entries_id bigint      not null references accounting_entries unique,
     operation_type        varchar(50) not null,

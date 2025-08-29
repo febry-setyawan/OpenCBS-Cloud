@@ -1,4 +1,4 @@
-create table professions (
+CREATE TABLE IF NOT EXISTS professions (
   id        bigserial primary key,
   name      varchar(255) not null,
   parent_id int          null

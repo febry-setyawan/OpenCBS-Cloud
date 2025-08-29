@@ -1,1 +1,1 @@
-alter table loan_applications add column status varchar (200) not null;
+ALTER TABLE loan_applications ADD COLUMN IF NOT EXISTS status varchar (200) not null;

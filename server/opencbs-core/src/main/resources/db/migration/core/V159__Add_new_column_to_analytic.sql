@@ -1,5 +1,4 @@
-alter table analytics_active_loans
-  add column total_interest numeric(12, 2);
+ALTER TABLE analytics_active_loans ADD COLUMN IF NOT EXISTS total_interest numeric(12, 2);
 
 update analytics_active_loans
 set total_interest = t.interest

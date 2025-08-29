@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table vaults_accounts (
+CREATE TABLE IF NOT EXISTS vaults_accounts (
   vault_id   int not null,
   account_id int not null
 );

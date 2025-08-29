@@ -1,2 +1,1 @@
-alter table loans_installments
-  add column paid_principal decimal(14, 4), add column paid_interest decimal(14, 4);
+ALTER TABLE loans_installments ADD COLUMN IF NOT EXISTS paid_principal decimal(14, 4), ADD COLUMN IF NOT EXISTS paid_interest decimal(14, 4);

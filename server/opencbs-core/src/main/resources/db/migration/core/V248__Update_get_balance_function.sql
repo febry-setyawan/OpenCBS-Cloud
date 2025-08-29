@@ -1,5 +1,6 @@
 drop function if exists get_balance( bigint, timestamp without time zone );
 
+DROP function IF EXISTS get_balance;
 create function get_balance(bigint, timestamp without time zone) returns numeric
 language sql
 as $$

@@ -1,2 +1,2 @@
 alter table end_of_days rename to day_closures;
-alter table day_closures add column id bigserial primary key;
+ALTER TABLE day_closures ADD COLUMN IF NOT EXISTS id bigserial primary key;

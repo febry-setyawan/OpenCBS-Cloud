@@ -1,4 +1,4 @@
-create table borrowing_products (
+CREATE TABLE IF NOT EXISTS borrowing_products (
   id                bigserial primary key,
   name              varchar(200)   not null unique,
   code              varchar(32)    not null unique,

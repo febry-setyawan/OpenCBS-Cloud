@@ -1,4 +1,4 @@
-create table global_settings(
+CREATE TABLE IF NOT EXISTS global_settings(
   name varchar(200) primary key,
   type varchar(50) not null,
   value text not null

@@ -1,2 +1,1 @@
-alter table branches
-    add column description text;
+ALTER TABLE branches ADD COLUMN IF NOT EXISTS description text;

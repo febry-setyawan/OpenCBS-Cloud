@@ -43,14 +43,14 @@ create table if not exists savings (
     saving_officer_id          int            not null
 );
 
-create table savings_accounts (
+CREATE TABLE IF NOT EXISTS savings_accounts (
     id         bigserial primary key,
     type       varchar(50) not null,
     saving_id  int         not null  references savings (id),
     account_id int         not null  references accounts (id)
 );
 
-create table savings_accounting_entries (
+CREATE TABLE IF NOT EXISTS savings_accounting_entries (
     saving_id           int not null references savings (id),
     accounting_entry_id int not null references accounting_entries (id)
 );

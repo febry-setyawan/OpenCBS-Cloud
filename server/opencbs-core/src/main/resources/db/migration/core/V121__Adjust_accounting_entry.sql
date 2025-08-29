@@ -1,2 +1,1 @@
-alter table accounting_entries
-    add column deleted boolean;
+ALTER TABLE accounting_entries ADD COLUMN IF NOT EXISTS deleted boolean;

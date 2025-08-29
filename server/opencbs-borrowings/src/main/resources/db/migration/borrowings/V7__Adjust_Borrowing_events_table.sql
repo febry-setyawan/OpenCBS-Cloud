@@ -1,2 +1,1 @@
-alter table borrowing_events
-    add column system boolean default false;
+ALTER TABLE borrowing_events ADD COLUMN IF NOT EXISTS system boolean default false;

@@ -1,4 +1,4 @@
-create table bonds_product (
+CREATE TABLE IF NOT EXISTS bonds_product (
   id                 bigserial      primary key,
   name               varchar(200)   not null unique,
   code               varchar(32)    not null unique,
@@ -14,17 +14,17 @@ create table bonds_product (
   currency_id        bigint         not null references currencies (id)
 );
 
-create table bonds_product_accounts (
+CREATE TABLE IF NOT EXISTS bonds_product_accounts (
   id                bigserial   primary key,
   type              varchar(50) not null,
   bonds_product_id  bigint     not null references bonds_product (id),
   account_id        bigint     not null references accounts (id)
 );
 
-insert into bonds_product
+INSERT INTO bonds_product
 (name, code, amount, number_min, number_max, interest_rate_min, interest_rate_max, maturity_min, maturity_max
   , coupon_frequency, interest_scheme, currency_id)
-values
-  ('Bond Product', 'BP', 125000, 1, 1000, 1, 100, 1, 100, 'QUARTERLY', 'BALOON'
-    ,(select cast(value as bigint) from global_settings where name = 'PIVOT_CURRENCY_ID'));
+SELECT 'Bond Product', 'BP', 125000, 1, 1000, 1, 100, 1, 100, 'QUARTERLY', 'BALOON'
+    ,(SELECT cast(value as bigint) FROM global_settings WHERE name = 'PIVOT_CURRENCY_ID')
+WHERE NOT EXISTS (SELECT 1 FROM bonds_product WHERE code = 'BP');
 

@@ -1,4 +1,4 @@
-create table import_payment_history
+CREATE TABLE IF NOT EXISTS import_payment_history
 (
 
     id               bigserial               not null

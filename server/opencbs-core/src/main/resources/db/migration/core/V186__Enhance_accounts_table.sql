@@ -1,5 +1,4 @@
-alter table accounts
-  add column locked                     boolean not null default false,
+ALTER TABLE accounts ADD COLUMN IF NOT EXISTS locked                     boolean not null default false,
   add column allowed_transfer_from      boolean not null default true,
   add column allowed_transfer_to        boolean not null default true,
   add column allowed_cash_deposit       boolean not null default true,

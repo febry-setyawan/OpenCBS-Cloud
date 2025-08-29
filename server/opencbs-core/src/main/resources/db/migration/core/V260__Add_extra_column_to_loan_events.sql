@@ -1,2 +1,1 @@
-alter table loans_events
-add column extra jsonb default null;
+ALTER TABLE loans_events ADD COLUMN IF NOT EXISTS extra jsonb default null;

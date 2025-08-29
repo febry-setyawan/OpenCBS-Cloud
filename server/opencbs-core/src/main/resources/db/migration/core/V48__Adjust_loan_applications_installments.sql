@@ -1,3 +1,2 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-alter table loan_applications_installments
-  add column last_accrual_date date;
+ALTER TABLE loan_applications_installments ADD COLUMN IF NOT EXISTS last_accrual_date date;

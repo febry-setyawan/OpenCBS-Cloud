@@ -1,5 +1,4 @@
-alter table profiles
-add column branch_id integer not null default 1;
+ALTER TABLE profiles ADD COLUMN IF NOT EXISTS branch_id integer not null default 1;
 
 alter table profiles
 add constraint profiles_branch_id_key foreign key (branch_id) references branches (id);

@@ -1,6 +1,6 @@
-alter table people_custom_fields add column description varchar(255);
-alter table companies_custom_fields add column description varchar(255);
-alter table groups_custom_fields add column description varchar(255);
-alter table loan_application_custom_fields add column description varchar(255);
-alter table branch_custom_fields add column description varchar(255);
-alter table types_of_collateral_custom_fields add column description varchar(255);
+ALTER TABLE people_custom_fields ADD COLUMN IF NOT EXISTS description varchar(255);
+ALTER TABLE companies_custom_fields ADD COLUMN IF NOT EXISTS description varchar(255);
+ALTER TABLE groups_custom_fields ADD COLUMN IF NOT EXISTS description varchar(255);
+ALTER TABLE loan_application_custom_fields ADD COLUMN IF NOT EXISTS description varchar(255);
+ALTER TABLE branch_custom_fields ADD COLUMN IF NOT EXISTS description varchar(255);
+ALTER TABLE types_of_collateral_custom_fields ADD COLUMN IF NOT EXISTS description varchar(255);

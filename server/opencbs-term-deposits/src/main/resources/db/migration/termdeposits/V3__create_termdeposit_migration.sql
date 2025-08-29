@@ -21,14 +21,14 @@ CREATE TABLE if not exists term_deposits (
   service_officer_id         BIGINT        NOT NULL
 );
 
-CREATE TABLE term_deposit_accounts (
+CREATE TABLE IF NOT EXISTS term_deposit_accounts (
   id              BIGSERIAL PRIMARY KEY,
   type            VARCHAR(50) NOT NULL,
   term_deposit_id BIGINT      NOT NULL  REFERENCES term_deposits (id),
   account_id      BIGINT      NOT NULL  REFERENCES accounts (id)
 );
 
-CREATE TABLE term_deposit_accounting_entries (
+CREATE TABLE IF NOT EXISTS term_deposit_accounting_entries (
   term_deposit_id     BIGINT NOT NULL REFERENCES term_deposits (id),
   accounting_entry_id BIGINT NOT NULL REFERENCES accounting_entries (id)
 );

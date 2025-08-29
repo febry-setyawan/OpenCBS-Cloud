@@ -1,4 +1,4 @@
-create table guarantors (
+CREATE TABLE IF NOT EXISTS guarantors (
   id bigserial primary key,
   profile_id integer not null,
   relationship_id integer not null,

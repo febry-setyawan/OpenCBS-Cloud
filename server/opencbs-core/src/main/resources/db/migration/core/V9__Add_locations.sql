@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table locations (
+CREATE TABLE IF NOT EXISTS locations (
   id bigserial primary key,
   name varchar(255) not null,
   parent_id int null

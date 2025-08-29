@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table loan_products_entry_fees (
+CREATE TABLE IF NOT EXISTS loan_products_entry_fees (
   loan_product_id integer not null,
   entry_fee_id    integer not null
 );

@@ -1,4 +1,4 @@
-create table branches (
+CREATE TABLE IF NOT EXISTS branches (
   id bigserial primary key,
   name varchar(255) not null,
   code varchar(15) not null,

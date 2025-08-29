@@ -1,4 +1,4 @@
-alter table entry_fees add column account_id integer references accounts(id);
+ALTER TABLE entry_fees ADD COLUMN IF NOT EXISTS account_id integer references accounts(id);
 
 update entry_fees set account_id = 32;
 

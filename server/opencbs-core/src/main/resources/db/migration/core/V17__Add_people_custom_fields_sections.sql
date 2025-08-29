@@ -1,13 +1,13 @@
 -- noinspection SqlNoDataSourceInspectionForFile
 
 -- Create tables related to custom fields with regards to personal profiles
-create table people_custom_fields_sections (
+CREATE TABLE IF NOT EXISTS people_custom_fields_sections (
   id bigserial primary key,
   caption varchar(255) not null,
   "order" int not null default(0)
 );
 
-create table people_custom_fields (
+CREATE TABLE IF NOT EXISTS people_custom_fields (
   id bigserial primary key,
   section_id bigint not null,
   name varchar(255) not null,
@@ -24,7 +24,7 @@ add constraint people_custom_fields_section_id_fkey
 foreign key (section_id)
 references people_custom_fields_sections(id);
 
-create table people_custom_fields_values (
+CREATE TABLE IF NOT EXISTS people_custom_fields_values (
   id bigserial primary key,
   owner_id bigint not null,
   field_id bigint not null,
@@ -64,13 +64,13 @@ where
   owner_type = 'PERSON';
 
 -- Create tables related to custom fields with regards to company profiles
-create table companies_custom_fields_sections (
+CREATE TABLE IF NOT EXISTS companies_custom_fields_sections (
   id bigserial primary key,
   caption varchar(255) not null,
   "order" int not null default(0)
 );
 
-create table companies_custom_fields (
+CREATE TABLE IF NOT EXISTS companies_custom_fields (
   id bigserial primary key,
   section_id bigint not null,
   name varchar(255) not null,
@@ -87,7 +87,7 @@ add constraint companies_custom_fields_section_id_fkey
 foreign key (section_id)
 references companies_custom_fields_sections(id);
 
-create table companies_custom_fields_values (
+CREATE TABLE IF NOT EXISTS companies_custom_fields_values (
   id bigserial primary key,
   owner_id bigint not null,
   field_id bigint not null,

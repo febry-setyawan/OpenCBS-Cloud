@@ -1,4 +1,4 @@
-create table companies_members (
+CREATE TABLE IF NOT EXISTS companies_members (
   id          bigserial   primary key,
   company_id  bigint      not null references profiles(id),
   member_id   bigint      not null references profiles(id),

@@ -1,2 +1,2 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-alter table  payees add column description varchar(255) not null;
+ALTER TABLE payees ADD COLUMN IF NOT EXISTS description varchar(255) not null;

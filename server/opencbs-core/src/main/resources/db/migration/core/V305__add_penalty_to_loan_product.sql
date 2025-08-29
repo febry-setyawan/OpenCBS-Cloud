@@ -1,4 +1,4 @@
-create table loan_products_penalties (
+CREATE TABLE IF NOT EXISTS loan_products_penalties (
   loan_product_id bigint not null references loan_products (id),
   penalty_id    bigint not null references penalties(id)
 );

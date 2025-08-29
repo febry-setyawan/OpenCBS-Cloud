@@ -1,2 +1,1 @@
-ALTER TABLE term_deposit_accounting_entries
-  ADD COLUMN id BIGSERIAL;
+ALTER TABLE term_deposit_accounting_entries ADD COLUMN IF NOT EXISTS id BIGSERIAL;

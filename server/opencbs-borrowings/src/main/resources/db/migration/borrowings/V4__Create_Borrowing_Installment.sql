@@ -20,7 +20,7 @@ create table if not exists borrowings_installments (
 create index borrowings_installments_borrowing_id_idx
   on borrowings_installments (borrowing_id);
 
-alter table borrowings add column borrowing_product_id integer not null;
+ALTER TABLE borrowings ADD COLUMN IF NOT EXISTS borrowing_product_id integer not null;
 
 alter table borrowings
   add constraint borrowing_product_id_fkey

@@ -1,4 +1,4 @@
-create table loan_product_provisions (
+CREATE TABLE IF NOT EXISTS loan_product_provisions (
   id bigserial primary key,
   loan_product_id bigint
   references loan_products(id),

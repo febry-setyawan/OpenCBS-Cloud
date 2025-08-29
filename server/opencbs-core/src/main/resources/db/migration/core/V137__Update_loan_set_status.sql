@@ -1,5 +1,4 @@
-alter table loans
-  add column status varchar(100);
+ALTER TABLE loans ADD COLUMN IF NOT EXISTS status varchar(100);
 
 update loans
 set status = 'ACTIVE';

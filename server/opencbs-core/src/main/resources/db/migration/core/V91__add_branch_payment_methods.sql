@@ -1,4 +1,4 @@
-create table branch_payment_methods (
+CREATE TABLE IF NOT EXISTS branch_payment_methods (
   branch_id         bigint not null,
   payment_method_id bigint not null,
   primary key (branch_id, payment_method_id)

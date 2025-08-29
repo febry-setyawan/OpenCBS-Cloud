@@ -1,4 +1,4 @@
-create table day_closure_entities
+CREATE TABLE IF NOT EXISTS day_closure_entities
 (
   id                         bigserial primary key,
   entity_id                  bigint       not null,

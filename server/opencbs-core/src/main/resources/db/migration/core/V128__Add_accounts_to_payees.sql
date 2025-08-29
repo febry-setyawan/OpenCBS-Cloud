@@ -1,4 +1,4 @@
-create table payees_accounts (
+CREATE TABLE IF NOT EXISTS payees_accounts (
   id         bigserial primary key,
   payee_id int not null,
   account_id int not null

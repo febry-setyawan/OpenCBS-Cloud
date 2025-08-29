@@ -1,2 +1,1 @@
-ALTER TABLE loan_application_penalties
-ADD COLUMN name VARCHAR(255) NOT NULL;
+ALTER TABLE loan_application_penalties ADD COLUMN IF NOT EXISTS name VARCHAR(255) NOT NULL;

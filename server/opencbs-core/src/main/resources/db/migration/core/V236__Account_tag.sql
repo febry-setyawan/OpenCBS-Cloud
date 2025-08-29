@@ -1,4 +1,4 @@
-create table account_tags (
+CREATE TABLE IF NOT EXISTS account_tags (
   id   bigint       primary key,
   name varchar(255) not null,
   unique (name)
@@ -17,7 +17,7 @@ values
   (10, 'GAIN_ACCOUNT'),
   (11, 'LOSS_ACCOUNT');
 
-create table accounts_account_tags (
+CREATE TABLE IF NOT EXISTS accounts_account_tags (
   id              bigserial primary key,
   account_id      bigint not null references accounts (id),
   account_tag_id  bigint not null references account_tags (id),

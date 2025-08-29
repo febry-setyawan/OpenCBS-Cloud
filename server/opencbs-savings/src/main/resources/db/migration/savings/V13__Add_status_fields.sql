@@ -1,2 +1,2 @@
-alter table saving_products add column status varchar(10) default 'ACTIVE';
-alter table audit.saving_products_history add column status varchar(10) default 'ACTIVE'
+ALTER TABLE saving_products ADD COLUMN IF NOT EXISTS status varchar(10) default 'ACTIVE';
+ALTER TABLE audit.saving_products_history ADD COLUMN IF NOT EXISTS status varchar(10) default 'ACTIVE'

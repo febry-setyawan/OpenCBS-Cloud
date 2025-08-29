@@ -4,4 +4,4 @@ alter table if exists import_payment_history
 alter table if exists import_payment_history
     drop column if exists is_uploaded;
 
-alter table if exists import_payment_history ADD COLUMN uploading_date timestamp;
+ALTER TABLE if exists import_payment_history ADD COLUMN IF NOT EXISTS uploading_date timestamp;

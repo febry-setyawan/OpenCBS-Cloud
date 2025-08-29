@@ -1,2 +1,1 @@
-alter table task_events_participants
-    add column is_deleted boolean not null default false ;
+ALTER TABLE task_events_participants ADD COLUMN IF NOT EXISTS is_deleted boolean not null default false ;

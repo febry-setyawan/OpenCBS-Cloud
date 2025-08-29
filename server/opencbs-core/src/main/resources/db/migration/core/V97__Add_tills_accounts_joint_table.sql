@@ -1,5 +1,5 @@
 -- noinspection SqlNoDataSourceInspectionForFile
-create table tills_accounts (
+CREATE TABLE IF NOT EXISTS tills_accounts (
   till_id    int not null,
   account_id int not null
 );

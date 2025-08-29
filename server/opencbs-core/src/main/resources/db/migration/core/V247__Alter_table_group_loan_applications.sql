@@ -1,2 +1,1 @@
-alter table group_loan_applications
-    add column deleted boolean default false;
+ALTER TABLE group_loan_applications ADD COLUMN IF NOT EXISTS deleted boolean default false;

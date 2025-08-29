@@ -3,8 +3,7 @@ alter table loans_installments_history
   rename to loan_installment_logs;
 drop table if exists loans_installments;
 
-alter table events
-  add column deleted boolean not null default false;
+ALTER TABLE events ADD COLUMN IF NOT EXISTS deleted boolean not null default false;
 alter table loan_installment_logs
   alter column paid_principal drop not null,
   alter column paid_interest drop not null;

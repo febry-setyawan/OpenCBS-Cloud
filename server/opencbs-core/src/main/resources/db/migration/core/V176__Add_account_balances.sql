@@ -1,4 +1,4 @@
-create table account_balances (
+CREATE TABLE IF NOT EXISTS account_balances (
   id         bigserial primary key,
   account_id int                         not null,
   balance    decimal(14, 2)              not null,

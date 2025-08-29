@@ -40,5 +40,4 @@ values ((select id
     from permissions
     where name = 'CHECKER_FOR_LOAN_ROLLBACK'), 'LOAN_ROLLBACK');
 
-alter table request
-  add column entity_id bigint not null default 0;
+ALTER TABLE request ADD COLUMN IF NOT EXISTS entity_id bigint not null default 0;

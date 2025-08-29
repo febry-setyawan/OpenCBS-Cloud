@@ -1,4 +1,4 @@
-create table accounts (
+CREATE TABLE IF NOT EXISTS accounts (
   id         bigserial primary key,
   number     varchar(32)  not null,
   name       varchar(255) not null,
@@ -12,7 +12,7 @@ create table accounts (
 );
 
 
-create table accounting_entries (
+CREATE TABLE IF NOT EXISTS accounting_entries (
   id                bigserial primary key,
   debit_account_id  bigint         not null,
   credit_account_id bigint         not null,
