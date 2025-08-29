@@ -3,7 +3,13 @@ ALTER TABLE loan_applications
     ADD COLUMN IF NOT EXISTS schedule_manual_edited_at TIMESTAMP WITHOUT TIME ZONE,
     ADD COLUMN IF NOT EXISTS schedule_manual_edited_by_id BIGINT;
 
-
-ALTER TABLE loan_applications
-ADD CONSTRAINT IF NOT EXISTS schedule_manual_edited_by_id_fkey
-FOREIGN KEY (schedule_manual_edited_by_id) REFERENCES users(id);
+-- Add constraint with DO block for PostgreSQL compatibility
+DO $$
+BEGIN
+    IF NOT EXISTS (SELECT 1 FROM information_schema.table_constraints 
+                   WHERE constraint_name = 'schedule_manual_edited_by_id_fkey' 
+                   AND table_name = 'loan_applications') THEN
+        ALTER TABLE loan_applications ADD CONSTRAINT schedule_manual_edited_by_id_fkey
+        FOREIGN KEY (schedule_manual_edited_by_id) REFERENCES users(id);
+    END IF;
+END $$;

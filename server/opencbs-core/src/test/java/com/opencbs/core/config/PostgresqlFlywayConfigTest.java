@@ -37,7 +37,7 @@ public class PostgresqlFlywayConfigTest {
             System.out.println("✓ Successfully connected to PostgreSQL: " + productName);
             System.out.println("✓ Database URL: " + metaData.getURL());
             
-            // Test 2: Verify database tables exist (created by our test schema)
+            // Test 2: Verify database tables exist (created by comprehensive test schema)
             ResultSet tables = metaData.getTables(null, null, "users", null);
             assertTrue(tables.next(), "Users table should exist");
             System.out.println("✓ Test schema loaded - users table exists");
@@ -52,7 +52,7 @@ public class PostgresqlFlywayConfigTest {
             
             System.out.println("\n🎉 PostgreSQL configuration test PASSED!");
             System.out.println("✓ PostgreSQL database is being used (not H2)");
-            System.out.println("✓ Flyway is configured (though disabled for legacy migration compatibility)");
+            System.out.println("✓ Comprehensive test schema loaded successfully");
             System.out.println("✓ Hibernate DDL auto is disabled (set to 'none')");
             System.out.println("✓ Test demonstrates mvn clean test can run with PostgreSQL");
         }
