@@ -1,1 +1,3 @@
-INSERT INTO global_settings(name, type, value) VALUES ('DAY_CLOSURE_INIT_DATE', 'DATE' , '2018-01-01')
+INSERT INTO global_settings(name, type, value) 
+SELECT 'DAY_CLOSURE_INIT_DATE', 'DATE', '2018-01-01'
+WHERE NOT EXISTS (SELECT 1 FROM global_settings WHERE name = 'DAY_CLOSURE_INIT_DATE')
