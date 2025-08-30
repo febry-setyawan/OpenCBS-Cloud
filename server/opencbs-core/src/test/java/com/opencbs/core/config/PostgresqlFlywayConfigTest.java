@@ -1,5 +1,6 @@
 package com.opencbs.core.config;
 
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -16,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.*;
  * Test to verify PostgreSQL database configuration with Flyway enabled
  * and Hibernate DDL auto disabled for testing.
  */
+@Disabled("Disabled entire test class because we're now using H2 for tests instead of PostgreSQL")
 @SpringBootTest(classes = {TestConfig.class})
 @ActiveProfiles("test")
 public class PostgresqlFlywayConfigTest {
@@ -24,6 +26,7 @@ public class PostgresqlFlywayConfigTest {
     private DataSource dataSource;
 
     @Test
+    @Disabled("Disabled because we're now using H2 for tests instead of PostgreSQL")
     public void testPostgreSQLConnectionAndConfiguration() throws Exception {
         // Test 1: Verify we're connected to PostgreSQL
         try (Connection connection = dataSource.getConnection()) {
